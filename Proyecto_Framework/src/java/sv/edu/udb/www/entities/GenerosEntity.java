@@ -29,9 +29,15 @@ public class GenerosEntity implements Serializable {
     @Id
     @Basic(optional = false)
     private Integer id;
+     @Basic(optional = false)
     private String nombreGenero;
-
+     
     public GenerosEntity() {
+    }
+
+    public GenerosEntity(Integer id, String nombreGenero) {
+        this.id = id;
+        this.nombreGenero = nombreGenero;
     }
 
     public GenerosEntity(Integer id) {
@@ -78,5 +84,5 @@ public class GenerosEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.GenerosEntity[ id=" + id + " ]";
     }
-    
+
 }

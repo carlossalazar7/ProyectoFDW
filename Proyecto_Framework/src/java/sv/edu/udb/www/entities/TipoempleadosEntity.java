@@ -87,5 +87,5 @@ public class TipoempleadosEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.TipoempleadosEntity[ codigoTipoEmpleado=" + codigoTipoEmpleado + " ]";
     }
-    
+
 }

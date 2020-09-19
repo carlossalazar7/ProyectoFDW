@@ -35,12 +35,25 @@ public class VentasEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer idVenta;
+    @Basic(optional = false)
     private Integer idMusic;
+    @Basic(optional = false)
     private Integer idUser;
+    @Basic(optional = false)
     private Integer idPaquete;
+    @Basic(optional = false)
     private String fechaVenta;
 
     public VentasEntity() {
+    }
+
+    public VentasEntity(Integer idVenta, Integer idMusic, Integer idUser, Integer idPaquete, String fechaVenta) {
+        this.idVenta = idVenta;
+        this.idMusic = idMusic;
+        this.idUser = idUser;
+        this.idPaquete = idPaquete;
+        this.fechaVenta = fechaVenta;
+
     }
 
     public VentasEntity(Integer idVenta) {
@@ -111,5 +124,5 @@ public class VentasEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.VentasEntity[ idVenta=" + idVenta + " ]";
     }
-    
+
 }

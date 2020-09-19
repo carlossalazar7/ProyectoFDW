@@ -43,6 +43,14 @@ public class PlaylistEntity implements Serializable {
     public PlaylistEntity() {
     }
 
+    public PlaylistEntity(Integer idPlayList, Integer idMusic, Integer idUser, Integer idNombrePlayList, String estado) {
+        this.idPlayList = idPlayList;
+        this.idMusic = idMusic;
+        this.idUser = idUser;
+        this.idNombrePlayList = idNombrePlayList;
+        this.estado = estado;
+    }
+
     public PlaylistEntity(Integer idPlayList) {
         this.idPlayList = idPlayList;
     }
@@ -111,5 +119,5 @@ public class PlaylistEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.PlaylistEntity[ idPlayList=" + idPlayList + " ]";
     }
-    
+
 }

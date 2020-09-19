@@ -36,14 +36,27 @@ public class PaquetesEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer idPaquete;
+    @Basic(optional = false)
     private String nombrePaquete;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     private Float precio;
+    @Basic(optional = false)
     private Integer id;
+    @Basic(optional = false)
     private String descripcion;
+    @Basic(optional = false)
     private String fechaPublicacion;
 
     public PaquetesEntity() {
+    }
+
+    public PaquetesEntity(Integer idPaquete, String nombrePaquete, Float precio, Integer id, String descripcion, String fechaPublicacion) {
+        this.idPaquete = idPaquete;
+        this.nombrePaquete = nombrePaquete;
+        this.precio = precio;
+        this.id = id;
+        this.descripcion = descripcion;
+        this.fechaPublicacion = fechaPublicacion;
     }
 
     public PaquetesEntity(Integer idPaquete) {
@@ -122,5 +135,5 @@ public class PaquetesEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.PaquetesEntity[ idPaquete=" + idPaquete + " ]";
     }
-    
+
 }

@@ -34,8 +34,11 @@ public class ArtistaEntity implements Serializable {
     @Id
     @Basic(optional = false)
     private Integer idArtista;
+    @Basic(optional = false)
     private String nombreArtista;
+    @Basic(optional = false)
     private String nacimiento;
+    @Basic(optional = false)
     private String descripcion;
     @Basic(optional = false)
     private int id;
@@ -45,7 +48,15 @@ public class ArtistaEntity implements Serializable {
 
     public ArtistaEntity() {
     }
-
+    public ArtistaEntity(Integer idArtista, String nombreArtista, String nacimiento, String descripcion, int id, byte[] image, String nombreArtistaPublic) {
+        this.idArtista = idArtista;
+        this.nombreArtista = nombreArtista;
+        this.nacimiento = nacimiento;
+        this.descripcion =  descripcion;
+        this.id = id;
+        this.image = image;
+        this.nombreArtistaPublic = nombreArtistaPublic;
+    }
     public ArtistaEntity(Integer idArtista) {
         this.idArtista = idArtista;
     }
@@ -135,5 +146,5 @@ public class ArtistaEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.ArtistaEntity[ idArtista=" + idArtista + " ]";
     }
-    
+
 }

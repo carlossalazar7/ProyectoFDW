@@ -37,7 +37,9 @@ public class MusicEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer idMusic;
+    @Basic(optional = false)
     private String nombreCancion;
+    @Basic(optional = false)
     private Integer id;
     @Lob
     private byte[] audio;
@@ -49,6 +51,18 @@ public class MusicEntity implements Serializable {
     private String lyrics;
 
     public MusicEntity() {
+    }
+
+    public MusicEntity(Integer idMusic, String nombreCancion,Integer id,byte[] audio,byte[] imagen,Float precio,Integer likes,
+    String lyrics) {
+        this.idMusic = idMusic;
+        this.nombreCancion = nombreCancion;
+        this.id = id;
+        this.audio = audio;
+        this.imagen = imagen;
+        this.precio = precio;
+        this.likes = likes;
+        this.lyrics = lyrics;       
     }
 
     public MusicEntity(Integer idMusic) {
@@ -143,5 +157,5 @@ public class MusicEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.MusicEntity[ idMusic=" + idMusic + " ]";
     }
-    
+
 }

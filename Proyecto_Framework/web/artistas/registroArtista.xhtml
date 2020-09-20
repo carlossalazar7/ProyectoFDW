@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:h="http://xmlns.jcp.org/jsf/html"
+ xmlns:f="http://xmlns.jcp.org/jsf/core"
+ xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            /* Pen by ArcSinDesign.com- Follow https://codepen.io/BoiseDigital/ */
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+svg {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+}
+
+.about__section {
+  width: 960px;
+  margin: auto;
+}
+
+.about__section .about__slot {
+  width: 33%;
+  box-sizing: border-box;
+  background-color: #f5f5f5;
+  /*border:1px solid #ccc;*/
+  border-right: none;
+  border-top: none;
+  height: 15vw;
+  min-height: 300px;
+  min-width: 220px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  background-size: 0% auto;
+  -webkit-transition: all 0.3s linear;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.about__slot .bioText {
+  opacity: 0;
+  color: rgba(242, 242, 242, 0);
+  pointer-events: none;
+  position: absolute;
+  top: 350px;
+  left: 0;
+  right: 0;
+  padding: 10%;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  width: 80%;
+  height: 0;
+  -webkit-transition: all 0.3s linear;
+  margin: auto;
+}
+
+.about__slot.bio .about__info {
+  top: 0px;
+  bottom: 200px;
+  background-color: rgba(0, 0, 0, 0.42);
+  box-shadow: inset 0px -5px 10px 0 rgba(0, 0, 0, 1);
+}
+
+.about__slot.bio .bioText {
+  opacity: 1;
+  border-radius: 0;
+  position: absolute;
+  top: 50px;
+  padding-top: 200px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  height: 250px;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(42, 42, 42, 0.7);
+  z-index: 8;
+  margin: auto;
+  font-family: sans-serif;
+  overflow: auto;
+}
+
+.about__slot .about__info {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 210px;
+  right: 0;
+  pointer-events: none;
+  z-index: 9;
+  -webkit-transition: all 0.3s linear;
+}
+/*BOOM */
+.about__slot .headshot {
+  margin: auto;
+  margin-top: 19px;
+  width: 172px;
+  height: 172px;
+  /*border:10px double #424242;*/
+  background-size: 200px 200px;
+  background-position: center 15%;
+  border-radius: 100%;
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.42);
+  -webkit-transition: all 0.1s ease-in-out;
+}
+
+.about__slot.bio .headshot {
+  -webkit-filter: blur(3px);
+  opacity: 1;
+  width: 100%;
+  height: 300px;
+  border-radius: 0;
+  margin-top: 0;
+  background-size: 375px 375px !important;
+  border: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.about__slot .name {
+  font-family: "Typo Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #424242;
+  margin-bottom: 0px;
+  -webkit-transition: all 0.3s linear;
+}
+
+.about__slot .title {
+  font-family: "Typo Grotesk", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: 5px;
+  color: #ccc;
+  -webkit-transition: all 0.3s linear;
+}
+
+.about__slot.bio .name {
+  color: #f5f5f5;
+}
+
+.about__section .about__slot:hover .headshot {
+  opacity: 1;
+  width: 100%;
+  height: 300px;
+  border-radius: 0;
+  margin-top: 0;
+  background-size: 325px 325px;
+  border: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.about__section .about__slot:hover .name {
+  color: #f5f5f5 !important;
+}
+
+.about__section .about__slot:hover .about__info {
+  background-color: rgba(0, 0, 0, 0.42);
+}
+
+        </style>
+    </h:head>
+    <h:body>
+        <div class="row">
+                <h:dataTable styleClass="table" value="#{artistaBean.listaArtista}"
+                             var="est" rendered="#{artistaBean.listaArtista.size()>0}">
+                <h:column>
+                    <f:facet name="header">
+                    </f:facet>
+                    <div class="about__section">
+  <!-- Specificity container -->
+  <a href="javascript:void(0);" title="Staff Writer">
+    <div class="about__slot">
+      <div class="headshot" onclick="biograph(this.parentNode);" style="background-image:url('http://placekitten.com/284/284');"></div>
+      <img src="#{est.image}" width="300px" height="300px"/>
+      <div class="about__info">
+          
+          <h4><h:outputText  styleClass="name" value="#{est.nombreArtista}"/></h4>
+          <h5 class="title">Nombre artístico:<h:outputText  value="#{est.nombreArtistaPublic}"/> </h5>
+      </div>
+      
+      <div class="bioText"><h:outputText value="#{est.descripcion}"/><br/><br/>f g+ tw li</div>
+    </div>
+  </a>
+</div>
+                </h:column>
+            </h:dataTable>
+        </div>
+    </h:body>
+    <script>
+        function biograph(e) {
+  if (e.className == "about__slot") {
+    e.className = "about__slot bio";
+  } else {
+    e.className = "about__slot";
+  }
+}
+    </script>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>
+

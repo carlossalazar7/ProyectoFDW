@@ -9,7 +9,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import sv.edu.udb.www.entities.ArtistaEntity;
 import sv.edu.udb.www.entities.GenerosEntity;
 import sv.edu.udb.www.utils.JpaUtil;
 
@@ -18,6 +17,7 @@ import sv.edu.udb.www.utils.JpaUtil;
  * @author carlo
  */
 public class GenerosModel {
+    
 
     public List<GenerosEntity> listarGategorias() {
         //Obtengo una instancia de EntityManager
@@ -39,23 +39,21 @@ public class GenerosModel {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
-            GenerosEntity genero = em.find(GenerosEntity.class,
+            GenerosEntity generos = em.find(GenerosEntity.class,
                     idGenero);
             em.close();
-            return genero;
+            return generos;
         } catch (Exception e) {
             em.close();
             return null;
         }
     }
-
-    public int insertarGeneros(GenerosEntity genero) {
+    public int obtenerGenero1(String idGenero) {
         EntityManager em = JpaUtil.getEntityManager();
-        EntityTransaction tran = em.getTransaction();
         try {
-            tran.begin();//Iniciando transacción
-            em.persist(genero); //Guardando el objeto en la BD
-            tran.commit();//Confirmando la transacción
+            //Recupero el objeto desde la BD a través del método find
+            GenerosEntity generos = em.find(GenerosEntity.class,
+                    idGenero);
             em.close();
             return 1;
         } catch (Exception e) {
@@ -64,12 +62,28 @@ public class GenerosModel {
         }
     }
 
-    public int modificarGeneros(GenerosEntity genero) {
+    public int insertarGeneros(GenerosEntity generos) {
         EntityManager em = JpaUtil.getEntityManager();
         EntityTransaction tran = em.getTransaction();
         try {
             tran.begin();//Iniciando transacción
-            em.merge(genero); //Actualizando el objeto en la BD
+            em.persist(generos); //Guardando el objeto en la BD
+            tran.commit();//Confirmando la transacción
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            em.close();
+            return 0;
+        }
+    }
+    
+
+    public int modificarGeneros(GenerosEntity generos) {
+        EntityManager em = JpaUtil.getEntityManager();
+        EntityTransaction tran = em.getTransaction();
+        try {
+            tran.begin();//Iniciando transacción
+            em.merge(generos); //Actualizando el objeto en la BD
             tran.commit();//Confirmando la transacción
             em.close();
             return 1;

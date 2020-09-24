@@ -31,7 +31,7 @@ public class PaquetesModel {
         }
     }//Final de listar
 
-    public PaquetesEntity obtenerEmpleados(String idPaquete) {
+    public PaquetesEntity obtenerPaquetes(String idPaquete) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
@@ -41,6 +41,19 @@ public class PaquetesModel {
         } catch (Exception e) {
             em.close();
             return null;
+        }
+    }
+    public int obtenerPaquetes1(String idPaquete) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            //Recupero el objeto desde la BD a través del método find
+            PaquetesEntity paquete = em.find(PaquetesEntity.class,
+                    idPaquete);
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            em.close();
+            return 0;
         }
     }
 

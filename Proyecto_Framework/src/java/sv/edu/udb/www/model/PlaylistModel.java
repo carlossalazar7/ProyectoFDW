@@ -45,6 +45,20 @@ public class PlaylistModel {
             return null;
         }
     }
+    
+    public int obtenerPlayList1(String idPlayList) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            //Recupero el objeto desde la BD a través del método find
+            PlaylistEntity PlayLista = em.find(PlaylistEntity.class,
+                    idPlayList);
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            em.close();
+            return 0;
+        }
+    }
 
     public int insertarPlayList(PlaylistEntity PlayLista) {
         EntityManager em = JpaUtil.getEntityManager();

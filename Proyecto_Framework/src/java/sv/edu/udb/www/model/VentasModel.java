@@ -45,6 +45,18 @@ public class VentasModel {
             return null;
         }
     }
+    public int obtenerVentas1(String idVenta) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            //Recupero el objeto desde la BD a través del método find
+            VentasEntity Ventas = em.find(VentasEntity.class,idVenta);
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            em.close();
+            return 0;
+        }
+    }
 
     public int insertarVentas(VentasEntity Ventas) {
         EntityManager em = JpaUtil.getEntityManager();

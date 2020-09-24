@@ -44,6 +44,19 @@ public class EmpleadosModel {
             return null;
         }
     }
+    public int obtenerEmpleados1(String codigoEmpleado) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            //Recupero el objeto desde la BD a través del método find
+            EmpleadosEntity empleado = em.find(EmpleadosEntity.class,
+                    codigoEmpleado);
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            em.close();
+            return 0;
+        }
+    }
 
     public int insertarEmpleados(EmpleadosEntity empleado) {
         EntityManager em = JpaUtil.getEntityManager();

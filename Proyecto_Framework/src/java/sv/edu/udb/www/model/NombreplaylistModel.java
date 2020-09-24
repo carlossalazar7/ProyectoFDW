@@ -45,6 +45,19 @@ public class NombreplaylistModel {
             return null;
         }
     }
+    public int obtenerPlayList1(String idNombrePlayList) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            //Recupero el objeto desde la BD a través del método find
+            NombreplaylistEntity estudiante = em.find(NombreplaylistEntity.class,
+                    idNombrePlayList);
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            em.close();
+            return 0;
+        }
+    }
 
     public int insertarPlayList(NombreplaylistEntity PlayList) {
         EntityManager em = JpaUtil.getEntityManager();
@@ -76,7 +89,7 @@ public class NombreplaylistModel {
         }
     }
 
-    public int modificarPlayList(String idNombrePlayList) {
+    public int eliminarPlayList(String idNombrePlayList) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
         try {

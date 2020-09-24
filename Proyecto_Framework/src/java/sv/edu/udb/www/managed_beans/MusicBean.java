@@ -20,29 +20,21 @@ import sv.edu.udb.www.utils.JsfUtil;
 @ManagedBean
 @RequestScoped
 public class MusicBean {
-    /**
-     * @return the genero
-     */
-    public MusicEntity getMusic() {
-        return cancion;
-    }
-
-    /**
-     * @param genero the genero to set
-     */
-    public void setMusic(MusicEntity cancion) {
-        this.cancion = cancion;
-    }
-
-
-    private MusicModel modelo = new MusicModel();
-    private MusicEntity cancion;
+      private MusicModel modelo = new MusicModel();
+    private MusicEntity song;
     private List<MusicEntity> music;
     
+    public MusicEntity getMusic() {
+        return song;
+    }
+
     
+    public void setMusic(MusicEntity cancion) {
+        this.song = cancion;
+    }
+
     public MusicBean() {
-        cancion = new MusicEntity();
-        System.out.println(cancion.getNombreCancion());
+        song = new MusicEntity();
     }
 
     /**
@@ -55,14 +47,49 @@ public class MusicBean {
         return modelo.listarCanciones();
     }
 
-    public String guardarMusica() {
-        if (modelo.insertarCancion(getMusic()) != 1){
-            JsfUtil.setErrorMessage(null, "Ya se registró una canción con este id ");
-            return null;//Regreso a la misma página
+    public String guardarMusica(String cancion) {
+        if (modelo.obtenerCancion1(cancion)== 1) {
+
+            if (modelo.modificarCanciones(song) != 1) {
+                // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                return null;//Regreso a la misma página
+            } else {
+                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                //Forzando la redirección en el cliente
+                return "registroEstudiantes?faces-redirect=true";
+            }
         } else {
-            JsfUtil.setFlashMessage("exito", "cancion registrado exitosamente ");
-            //Forzando la redirección en el cliente
-            return "index?faces-redirect=true";
+
+            if (modelo.insertarCancion(song) != 1) {
+                // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                return null;//Regreso a la misma página
+            } else {
+                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                //Forzando la redirección en el cliente
+                return "registroEstudiantes?faces-redirect=true";
+            }
         }
+    }
+    
+    public String eliminarMusica() {
+        // Leyendo el parametro enviado desde la vista
+        //Cambiar carnet por ID
+        String carnet = JsfUtil.getRequest().getParameter("carnet");
+
+        if (modelo.eliminarCanciones(carnet) > 0) {
+            JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        } else {
+            JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
+        }
+        return "registroEstudiantes?faces-redirect=true";
+    }
+    
+    public void obtenerMusica() {
+        String carnet = JsfUtil.getRequest().getParameter("carnet");
+        song = modelo.obtenerCancion(carnet);
+        
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        
+      
     }
 }

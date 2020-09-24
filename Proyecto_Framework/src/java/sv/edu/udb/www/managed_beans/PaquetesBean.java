@@ -20,48 +20,71 @@ import sv.edu.udb.www.utils.JsfUtil;
 @ManagedBean
 @RequestScoped
 public class PaquetesBean {
-    /**
-     * @return the genero
-     */
+    
+    private PaquetesModel modelo = new PaquetesModel();
+    private PaquetesEntity paquete;
+    private List<PaquetesEntity> paquetes;
+    
+     public PaquetesBean() {
+        paquete = new PaquetesEntity();
+    }
+    
     public PaquetesEntity getPaquete() {
         return paquete;
     }
 
-    /**
-     * @param genero the genero to set
-     */
     public void setPaquete(PaquetesEntity paquete) {
         this.paquete = paquete;
     }
 
-
-    private PaquetesModel modelo = new PaquetesModel();
-    private PaquetesEntity paquete;
-    private List<PaquetesEntity> paquetes;
-
-    public PaquetesBean() {
-        paquete = new PaquetesEntity();
-        System.out.println(paquete.getNombrePaquete());
-    }
-    
-    /**
-     *
-     * @return
-     */
     public List<PaquetesEntity> getListaPaquetes() {
         /* Notese que se llama al método listarEstudiantes
  para obtener la lista de objetos a partir de la bd */
         return modelo.listarPaquetes();
     }
+    
+    public String guardarPaquete(String idPaquete) {
+        if (modelo.obtenerPaquetes1(idPaquete) == 1) {
 
-    public String guardarPaquete() {
-        if (modelo.insertarPaquete(getPaquete()) != 1) {
-            JsfUtil.setErrorMessage(null, "Ya se registró un paquete con este id ");
-            return null;//Regreso a la misma página
+            if (modelo.modificarEmpleados(paquete) != 1) {
+                // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                return null;//Regreso a la misma página
+            } else {
+                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                //Forzando la redirección en el cliente
+                return "registroEstudiantes?faces-redirect=true";
+            }
         } else {
-            JsfUtil.setFlashMessage("exito", "paquete registrado exitosamente ");
-            //Forzando la redirección en el cliente
-            return "index?faces-redirect=true";
+
+            if (modelo.insertarPaquete(paquete) != 1) {
+                // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                return null;//Regreso a la misma página
+            } else {
+                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                //Forzando la redirección en el cliente
+                return "registroEstudiantes?faces-redirect=true";
+            }
         }
     }
+    
+    public String eliminarPaquete() {
+        // Leyendo el parametro enviado desde la vista
+        //Cambiar carnet
+        String carnet = JsfUtil.getRequest().getParameter("carnet");
+
+        if (modelo.eliminarEmpleados(carnet) > 0) {
+            JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        } else {
+            JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
+        }
+        return "registroEstudiantes?faces-redirect=true";
+    }
+    
+    public void obtenerPaquete() {
+        String carnet = JsfUtil.getRequest().getParameter("carnet");
+        paquete = modelo.obtenerPaquetes(carnet);
+        
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+    }
+
 }

@@ -45,6 +45,21 @@ public class TipoempleadosModel {
             return null;
         }
     }
+    
+    public int obtenerTipoEmpleado1(String codigoTipoEmpleado) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            //Recupero el objeto desde la BD a través del método find
+            TipoempleadosEntity tipoEmpleado = em.find(TipoempleadosEntity.class,
+                    codigoTipoEmpleado);
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            em.close();
+            return 0;
+        }
+    }
+
 
     public int insertarTipoEmpleado(TipoempleadosEntity tipoEmpleado) {
         EntityManager em = JpaUtil.getEntityManager();

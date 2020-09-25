@@ -25,11 +25,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "EmpleadosEntity.findAll", query = "SELECT e FROM EmpleadosEntity e")
     , @NamedQuery(name = "EmpleadosEntity.findByCodigoEmpleado", query = "SELECT e FROM EmpleadosEntity e WHERE e.codigoEmpleado = :codigoEmpleado")
     , @NamedQuery(name = "EmpleadosEntity.findByNombreEmpleado", query = "SELECT e FROM EmpleadosEntity e WHERE e.nombreEmpleado = :nombreEmpleado")
-    , @NamedQuery(name = "EmpleadosEntity.findByApellidoEmpleado", query = "SELECT e FROM EmpleadosEntity e WHERE e.apellidoEmpleado = :apellidoEmpleado")
-    , @NamedQuery(name = "EmpleadosEntity.findByTelefonoEmpleado", query = "SELECT e FROM EmpleadosEntity e WHERE e.telefonoEmpleado = :telefonoEmpleado")
     , @NamedQuery(name = "EmpleadosEntity.findByUsuarioEmpleado", query = "SELECT e FROM EmpleadosEntity e WHERE e.usuarioEmpleado = :usuarioEmpleado")
     , @NamedQuery(name = "EmpleadosEntity.findByContrasena", query = "SELECT e FROM EmpleadosEntity e WHERE e.contrasena = :contrasena")
-    , @NamedQuery(name = "EmpleadosEntity.findByCodigoTipoEmpleado", query = "SELECT e FROM EmpleadosEntity e WHERE e.codigoTipoEmpleado = :codigoTipoEmpleado")
+    , @NamedQuery(name = "EmpleadosEntity.findByCodigoTipoEmpleado", query = "SELECT e FROM EmpleadosEntity e WHERE e.codigoTipoEmpleado = 3")
     , @NamedQuery(name = "EmpleadosEntity.findByCorreo", query = "SELECT e FROM EmpleadosEntity e WHERE e.correo = :correo")})
 public class EmpleadosEntity implements Serializable {
 
@@ -41,15 +39,11 @@ public class EmpleadosEntity implements Serializable {
     @Basic(optional = false)
     private String nombreEmpleado;
     @Basic(optional = false)
-    private String apellidoEmpleado;
-    @Basic(optional = false)
-    private String telefonoEmpleado;
-    @Basic(optional = false)
     private String usuarioEmpleado;
     @Basic(optional = false)
     private String contrasena;
     @Basic(optional = false)
-    private int codigoTipoEmpleado;
+    private int codigoTipoEmpleado = 3;
     private String correo;
 
     public EmpleadosEntity() {
@@ -59,11 +53,9 @@ public class EmpleadosEntity implements Serializable {
         this.codigoEmpleado = codigoEmpleado;
     }
 
-    public EmpleadosEntity(Integer codigoEmpleado, String nombreEmpleado, String apellidoEmpleado, String telefonoEmpleado, String usuarioEmpleado, String contrasena, int codigoTipoEmpleado) {
+    public EmpleadosEntity(Integer codigoEmpleado, String nombreEmpleado,String usuarioEmpleado, String contrasena, int codigoTipoEmpleado) {
         this.codigoEmpleado = codigoEmpleado;
         this.nombreEmpleado = nombreEmpleado;
-        this.apellidoEmpleado = apellidoEmpleado;
-        this.telefonoEmpleado = telefonoEmpleado;
         this.usuarioEmpleado = usuarioEmpleado;
         this.contrasena = contrasena;
         this.codigoTipoEmpleado = codigoTipoEmpleado;
@@ -83,22 +75,6 @@ public class EmpleadosEntity implements Serializable {
 
     public void setNombreEmpleado(String nombreEmpleado) {
         this.nombreEmpleado = nombreEmpleado;
-    }
-
-    public String getApellidoEmpleado() {
-        return apellidoEmpleado;
-    }
-
-    public void setApellidoEmpleado(String apellidoEmpleado) {
-        this.apellidoEmpleado = apellidoEmpleado;
-    }
-
-    public String getTelefonoEmpleado() {
-        return telefonoEmpleado;
-    }
-
-    public void setTelefonoEmpleado(String telefonoEmpleado) {
-        this.telefonoEmpleado = telefonoEmpleado;
     }
 
     public String getUsuarioEmpleado() {

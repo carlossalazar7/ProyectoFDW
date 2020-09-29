@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"><h:head>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
         <title>Universal Music</title>
         <link rel="stylesheet" href="css/main.css"/>
     </h:head>
@@ -14,9 +15,9 @@
             <ui:insert name="menu">
                 <b:navBar brand="Universal Music" brandHref="#" inverse="true">
                     <b:navbarLinks>
-                        <b:navLink value="Login" outcome="Login"></b:navLink>
-                        <b:navLink value="Categorias" outcome="Login"></b:navLink>
-                        <b:navLink value="Música" outcome="Login"></b:navLink>
+                        <b:navLink value="Login" outcome="NewUser"></b:navLink>
+                        <b:navLink value="SignUp" outcome="NewUser"></b:navLink>
+                        <b:navLink value="Música" outcome="NewUser"></b:navLink>
                     </b:navbarLinks>
                 </b:navBar>
             </ui:insert>

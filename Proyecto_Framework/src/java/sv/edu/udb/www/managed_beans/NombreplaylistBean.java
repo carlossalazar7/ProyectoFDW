@@ -51,7 +51,7 @@ public class NombreplaylistBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return "agregarNombrePlaylist?faces-redirect=true";
             }
         } else {
 
@@ -61,7 +61,7 @@ public class NombreplaylistBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return "agregarNombrePlaylist?faces-redirect=true";
             }
         }
     }

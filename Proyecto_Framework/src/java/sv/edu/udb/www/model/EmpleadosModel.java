@@ -88,7 +88,7 @@ public class EmpleadosModel {
         }
     }
 
-    public int eliminarEmpleados(String codigoEmpleado) {
+    public int eliminarEmpleado(String codigoEmpleado) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
         try {

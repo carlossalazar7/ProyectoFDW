@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="./WEB-INF/plantillaboot.xhtml">
+    <ui:define name="contenido">
+        <b:dataTable styleClass="table" value="#{generosBean.listaGeneros}"
+                     var="gen" rendered="#{generosBean.listaGeneros.size()>0}">
+           <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID Genero" />
+                </f:facet>
+                <h:outputText value="#{gen.id}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Nombre Genero" />
+                </f:facet>
+                <h:outputText value="#{gen.nombreGenero}" />
+            </h:column>
+        </b:dataTable>
+    </ui:define>
+</ui:composition>

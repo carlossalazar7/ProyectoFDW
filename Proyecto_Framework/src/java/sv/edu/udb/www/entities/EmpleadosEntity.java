@@ -44,6 +44,7 @@ public class EmpleadosEntity implements Serializable {
     private String contrasena;
     @Basic(optional = false)
     private int codigoTipoEmpleado = 3;
+    @Basic(optional = false)
     private String correo;
 
     public EmpleadosEntity() {
@@ -100,6 +101,7 @@ public class EmpleadosEntity implements Serializable {
     public void setCodigoTipoEmpleado(int codigoTipoEmpleado) {
         this.codigoTipoEmpleado = codigoTipoEmpleado;
     }
+    
 
     public String getCorreo() {
         return correo;

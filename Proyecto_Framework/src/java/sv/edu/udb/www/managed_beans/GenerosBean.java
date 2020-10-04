@@ -51,7 +51,7 @@ public String guardarGenero(String generos) {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return "agregarGenero?faces-redirect=true";
             }
         } else {
 
@@ -61,20 +61,11 @@ public String guardarGenero(String generos) {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return "agregarGenero?faces-redirect=true";
             }
         }
     }
-    public String guardarGenero() {
-        if (modelo.insertarGeneros(getGenero()) != 1) {
-            JsfUtil.setErrorMessage(null, "Ya se registró un genero con este id ");
-            return null;//Regreso a la misma página
-        } else {
-            JsfUtil.setFlashMessage("exito", "artista registrado exitosamente ");
-            //Forzando la redirección en el cliente
-            return "index?faces-redirect=true";
-        }
-    }
+   
     public String eliminarEstudiante() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet a ID

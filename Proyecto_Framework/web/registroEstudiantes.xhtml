@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui"
+          template="./WEB-INF/plantillaboot.xhtml">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        
+            <br></br>
+            <br></br>
+            <br></br>
+            <div class="row">
+                <h:form >
+                    <b:dataTable styleClass="table" value="#{estudianteBean.listaEstudiantes}"
+                                 var="est" rendered="#{estudianteBean.listaEstudiantes.size()>0}">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Carnet"/>
+                            </f:facet>
+                            <h:outputText    value="#{est.carnet}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{est.nombres}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Apellido"/>
+                            </f:facet>
+                            <h:outputText value="#{est.apellidos}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Carrera"/>
+                            </f:facet>
+                            <h:outputText value="#{est.carrera}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Edad"/>
+                            </f:facet>
+                            <h:outputText value="#{est.edad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="CUM"/>
+                            </f:facet>
+                            <h:outputText value="#{est.cum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Genero"/>
+                            </f:facet>
+                            <h:outputText value="#{(est.genero== 'm'.charAt(0))? 'Masculino' :
+                                                   'Femenino'}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Operaciones"/>
+                            </f:facet>
+                                <h:commandButton value="Modificar" styleClass="btn btn-info "
+                                                action="#{estudianteBean.obtenerEstudiantes()}">
+                                    <f:param name="carnet" value="#{est.carnet}"/>
+                                </h:commandButton>
+                                <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                                action="#{estudianteBean.eliminarEstudiante}"
+                                                onclick="return confirmarEliminacion();" style="margin-left: 20px">
+                                    <f:param name="carnet" value="#{est.carnet}"/>
+                                </h:commandButton>
+                        </h:column>
+                    </b:dataTable>
+                </h:form>
+            </div>
+        
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
+    </h:body>
+</html>

@@ -21,7 +21,8 @@
                         <b:inputText value="#{empleadosBean.empleado.contrasena}" required="true" required-message="Agrega una contraseña" />
                         <h:outputText value="Correo" />
                         <b:inputText value="#{empleadosBean.empleado.correo}" required="true" required-message="Agrega un correo" />
-                        <h:inputHidden value="#{empleadosBean.empleado.codigoTipoEmpleado}" required="true" />
+                        <h:outputText value="Correo" />
+                        <b:inputText value="#{empleadosBean.empleado.codigoTipoEmpleado}" required="true" required-message="Agrega un correo" />
                     </h:panelGrid>
                     <h:panelGrid styleClass="col-md-10 col-sm-12 col-xs-12" style="text-align: center">
                         <b:commandButton value="Agregar" action="#{empleadosBean.guardarEmpleado(empleadosBean.empleado.codigoEmpleado)}" look="success"/>

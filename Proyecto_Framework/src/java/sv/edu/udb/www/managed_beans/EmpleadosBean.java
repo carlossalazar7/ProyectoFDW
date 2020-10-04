@@ -63,16 +63,16 @@ public class EmpleadosBean {
         }
     }
     
-    public String eliminarEmpleados() {
+     public String eliminarEmpleado() {
         // Leyendo el parametro enviado desde la vista
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
-//Cambiar carnet a id
-        if (modelo.eliminarEmpleados(carnet) > 0) {
+        String codigoEmpleado = JsfUtil.getRequest().getParameter("codigoEmpleado");
+
+        if (modelo.eliminarEmpleado(codigoEmpleado) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
         }
-        return "NewUser?faces-redirect=true";
+        return "listado?faces-redirect=true";
     }
     
     public void obtenerEmpleados() {

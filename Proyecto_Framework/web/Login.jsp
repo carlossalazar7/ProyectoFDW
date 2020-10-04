@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Login</title>
-        <link rel="stylesheet" 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <title>Facelet Title</title>
         <style>
             @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
@@ -15,7 +16,7 @@
             }
 
             body {
-                background: #f6f5f7;
+               background: linear-gradient(90deg, #20e6b3, #8e11f3, #4c20d4);
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -262,13 +263,12 @@
             }
 
         </style>
-    </head>
-    <body>
-            <br>
-            <br>
-            <br>
-            <br>
-            <h2>Music </h2>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/plantillaboot.xhtml">
+            <ui:define name="contenido">
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                  <h2>Universal Music </h2>
             <div class="container" id="container">
                 <div class="form-container sign-in-container">
                     <form action="<%=request.getContextPath()%>/LoginServlet"
@@ -292,42 +292,14 @@
                         <div class="overlay-panel overlay-right">
                             <h1>Welcome Back!</h1>
                             <p>To keep connected with us please login with your personal info</p>
+                            <button class="text-decoration-none bg-warning"><a href="NewUser.xhtml" >Crear Cuenta</a></button>
                         </div>
                     </div>
                 </div>
             </div>
-                          <a href="NewUser.xhtml"><button>Crear cuenta</button></a>
-
-            <footer>
-                <p>
-                   Web Music Proyect
-                </p>
-            </footer>
-
-    </body>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-    <script
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-    <script>
-        const signUpButton = document.getElementById("signUp");
-        const signInButton = document.getElementById("signIn");
-        const container = document.getElementById("container");
-
-        signUpButton.addEventListener("click", () => {
-            container.classList.add("right-panel-active");
-        });
-
-        signInButton.addEventListener("click", () => {
-            container.classList.remove("right-panel-active");
-        });
-
-    </script>
+                
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <title>Facelet Title</title>
+        <style>
+            
+@media only screen and (max-width: 600px) {
+
+  .biografiaAutor{
+      width: 500px;
+  }
+}
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/plantillaboot.xhtml">
+            <ui:define name="contenido">
+                <div class="row mx-auto biografiaAutor table-responsive" style=" margin-left: 15%; ">
+                    <h:dataTable styleClass="" value="#{artistaBean.listaArtista}"
+                                 var="est" rendered="#{artistaBean.listaArtista.size()>0}">
+                        <h:column class="col-sm d-inline" >
+                            <div class="about__section" style="display: inline-block;padding: 5px; width: 750%; ">
+                                <!-- Specificity container -->
+                                <a href="javascript:void(0);" title="Staff Writer">
+                                    <div class="about__slot">
+                                        <div class="headshot img-fluid" onclick="biograph(this.parentNode);" style="background-image:url('#{est.nombreArtista}');  background-repeat: no-repeat; "></div>
+                                        <div class="about__info">
+                                            <h4><h:outputText  styleClass="name" value="#{est.nombreArtistaPublic}"/></h4>
+                                        </div>     
+                                        <div class="bioText"><h:outputText value="#{est.descripcion}"/><br/><br/>f g+ tw li</div>
+                                    </div>
+                                </a>
+                            </div><br/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

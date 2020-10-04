@@ -44,7 +44,7 @@ public class MusicEntity implements Serializable {
     @Lob
     private byte[] audio;
     @Lob
-    private byte[] imagen;
+    private String imagen;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     private Float precio;
     private Integer likes;
@@ -53,7 +53,7 @@ public class MusicEntity implements Serializable {
     public MusicEntity() {
     }
 
-    public MusicEntity(Integer idMusic, String nombreCancion,Integer id,byte[] audio,byte[] imagen,Float precio,Integer likes,
+    public MusicEntity(Integer idMusic, String nombreCancion,Integer id,byte[] audio,String imagen,Float precio,Integer likes,
     String lyrics) {
         this.idMusic = idMusic;
         this.nombreCancion = nombreCancion;
@@ -101,11 +101,11 @@ public class MusicEntity implements Serializable {
         this.audio = audio;
     }
 
-    public byte[] getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 

@@ -10,9 +10,6 @@
         <title>Universal Music</title>
         <link rel="stylesheet" href="css/main.css"/>
         <link rel="stylesheet" href="css/style.css"/>
-        <link rel="stylesheet" href="css/emotes.css"/>
-        <link rel="stylesheet" href="css/newuser.css"/>
-        <link rel="stylesheet" href="css/artista.css"/>
         <link rel="stylesheet" href="css/musica.css"/>
         <script src="js/main.js"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -24,8 +21,7 @@
                 <b:navBar brand="Universal Music" brandHref="#" inverse="true">
                     <b:navbarLinks>
                         <b:navLink value="Home" outcome="index"></b:navLink>
-                        <b:navLink value="SignUp" outcome="NewUser"></b:navLink>
-                        <b:navLink value="Login" href="Login.jsp"></b:navLink>
+                        <b:navLink value="Salir" href="index"></b:navLink>
                     </b:navbarLinks>
                 </b:navBar>
             </ui:insert>
@@ -40,6 +36,8 @@
                                         <b:navLink href="index.xhtml" value="Ver Categorias"
                                                    icon="globe" iconAlign="right"/>
                                         <b:navLink></b:navLink>
+                                        <b:navLink header="Music!!!"/>
+                                        <b:navLink value="Ver PlayList"  outcome="music" icon="link"></b:navLink>
                                         <b:navLink header="Music!!!"/>
                                         <b:navLink value="Ver Lista de música"  outcome="music" icon="link"></b:navLink>
                                         <b:navLink></b:navLink>

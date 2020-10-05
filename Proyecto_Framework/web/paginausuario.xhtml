@@ -1,12 +1,61 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello usuario!!!!
-    </h:body>
-</html>
+        <ui:composition template="./WEB-INF/userPlantilla.xhtml">
+            <ui:define name="contenido">
+          <div id="carousel-example" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example" data-slide-to="1"></li>
+    <li data-target="#carousel-example" data-slide-to="2"></li>
+  </ol>
 
+  <div class="carousel-inner">
+    <div class="item active">
+      <a href="#"><img src="http://placekitten.com/1600/600" /></a>
+      <div class="carousel-caption">
+        <h3>Top Music</h3>
+        <p>Ver top music </p>
+      </div>
+    </div>
+    <div class="item">
+      <a href="#"><img src="http://placekitten.com/1600/600" /></a>
+      <div class="carousel-caption">
+        <h3>Meow</h3>
+        <p>Just Kitten Around</p>
+      </div>
+    </div>
+    <div class="item">
+      <a href="#"><img src="https://cdn.pixabay.com/photo/2014/05/21/15/18/musician-349790_960_720.jpg" /></a>
+      <div class="carousel-caption">
+        <h3>Meow</h3>
+        <p>Just Kitten Around</p>
+      </div>
+    </div>
+  </div>
+
+  <a class="left carousel-control" href="#carousel-example" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+                <br/><br/><br/><br/><br/><br/><br/>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>

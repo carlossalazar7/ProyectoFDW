@@ -10,8 +10,15 @@
         <title>Universal Music</title>
         <link rel="stylesheet" href="css/main.css"/>
         <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/emotes.css"/>
+        <link rel="stylesheet" href="css/newuser.css"/>
+        <link rel="stylesheet" href="css/artista.css"/>
         <link rel="stylesheet" href="css/musica.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
         <script src="js/main.js"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     </h:head>
 
@@ -20,8 +27,10 @@
             <ui:insert name="menu">
                 <b:navBar brand="Universal Music" brandHref="#" inverse="true">
                     <b:navbarLinks>
-                        <b:navLink value="Home" outcome="index"></b:navLink>
-                        <b:navLink value="Salir" href="index"></b:navLink>
+                        <b:navLink value="Play List" outcome="index"></b:navLink>
+                        <b:navLink value="Mi Music" outcome="index"></b:navLink>
+                        <b:navLink value="Comprar Music" outcome="index"></b:navLink>
+                        <b:navLink value="Salir" href="Login.jsp"></b:navLink>
                     </b:navbarLinks>
                 </b:navBar>
             </ui:insert>
@@ -36,8 +45,6 @@
                                         <b:navLink href="index.xhtml" value="Ver Categorias"
                                                    icon="globe" iconAlign="right"/>
                                         <b:navLink></b:navLink>
-                                        <b:navLink header="Music!!!"/>
-                                        <b:navLink value="Ver PlayList"  outcome="music" icon="link"></b:navLink>
                                         <b:navLink header="Music!!!"/>
                                         <b:navLink value="Ver Lista de música"  outcome="music" icon="link"></b:navLink>
                                         <b:navLink></b:navLink>
@@ -150,5 +157,5 @@
             }
         }
     </script>
-     <script src="js/main.js"/>
+    <script src="js/main.js"/>
 </html>

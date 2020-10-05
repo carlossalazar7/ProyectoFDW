@@ -8,20 +8,57 @@
     xmlns:f="http://java.sun.com/jsf/core"
     template="./WEB-INF/plantillaboot.xhtml">
     <ui:define name="contenido">
-        <b:dataTable styleClass="table" value="#{generosBean.listaGeneros}"
-                     var="gen" rendered="#{generosBean.listaGeneros.size()>0}">
-           <h:column>
-                <f:facet name="header">
-                    <h:outputText value="ID Genero" />
-                </f:facet>
-                <h:outputText value="#{gen.id}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Nombre Genero" />
-                </f:facet>
-                <h:outputText value="#{gen.nombreGenero}" />
-            </h:column>
-        </b:dataTable>
+        <h:form id="miFormulario">
+            <h:panelGroup layout="block" styleClass="alert alert-danger"
+                          rendered="#{not empty facesContext.messageList}">
+                <h:messages />
+            </h:panelGroup>
+            <h:panelGrid columns="4" styleClass="table">
+                <h:outputLabel for="nombre" value="Nombre"/>
+                <b:inputText id="nombre" styleClass="form-control"
+                             value="#{generosBean.genero.nombreGenero}"
+                             required="true"
+                             requiredMessage="Debes ingresar el carnet"/>  
+                <h:outputLabel for="id" value="id"/>
+                <b:inputText id="id" styleClass="form-control"
+                             value="#{generosBean.genero.id}"
+                             required="true"
+                             requiredMessage="Debes ingresar el carnet"/>  
+            </h:panelGrid>
+            <h:commandButton value="Guardar" styleClass="btn btn-primary btn-block"
+                             action="#{generosBean.guardarGenero(generosBean.genero.nombreGenero)}"
+                             style="margin-right:10px"/>
+            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success btn-block"/>
+        </h:form>
+        <h:form >
+            <b:dataTable styleClass="table" value="#{generosBean.listaGeneros}"
+                         var="gen" rendered="#{generosBean.listaGeneros.size()>0}">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID Genero" />
+                    </f:facet>
+                    <h:outputText value="#{gen.id}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nombre Genero" />
+                    </f:facet>
+                    <h:outputText value="#{gen.nombreGenero}" />
+                </h:column>
+                <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Operaciones"/>
+                            </f:facet>
+                                <h:commandButton value="Modificar" styleClass="btn btn-info "
+                                                 action="#{empleadosBean.obtenerEmpleados()}">
+                                    <f:param name="codigo" value="#{est.codigoEmpleado}"/>
+                                </h:commandButton>
+                                <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                                 action="#{empleadosBean.eliminarEmpleado}">
+                                    <f:param name="codigo" value="#{est.codigoEmpleado}"/>
+                                </h:commandButton>
+                        </h:column>
+            </b:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>

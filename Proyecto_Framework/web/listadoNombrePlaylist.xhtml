@@ -8,7 +8,28 @@
     xmlns:f="http://java.sun.com/jsf/core"
     template="./WEB-INF/plantillaboot.xhtml">
     <ui:define name="contenido">
-        <b:dataTable styleClass="table" value="#{nombreplaylistBean.listaPlaylist}"
+        <h:form id="miFormulario">
+                        <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                      rendered="#{not empty facesContext.messageList}">
+                            <h:messages />
+                        </h:panelGroup>
+                        <h:panelGrid columns="4" styleClass="table">
+                            <h:outputLabel for="nombre" value="Nombre Completo"/>
+                            <b:inputText id="carnet" styleClass="form-control"
+                                         value="#{nombreplaylistBean.playlista.nombrePlayList}"
+                                         required="true"
+                                         requiredMessage="Debes ingresar el carnet"/>                            
+                        </h:panelGrid>
+                        <h:commandButton value="Guardar" styleClass="btn btn-primary btn-block"
+                                         action="#{nombreplaylistBean.guardarListaPlaylist(nombreplaylistBean.playlista.idNombrePlayList)}"
+                                         style="margin-right:10px"/>
+                        <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success btn-block"/>
+                    </h:form>
+        
+        
+        
+                        <h:form >
+           <b:dataTable styleClass="table" value="#{nombreplaylistBean.listaPlaylist}"
                      var="nom" rendered="#{nombreplaylistBean.listaPlaylist.size()>0}">
            <h:column>
                 <f:facet name="header">
@@ -22,6 +43,20 @@
                 </f:facet>
                 <h:outputText value="#{nom.nombrePlayList}" />
             </h:column>
+               <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Operaciones"/>
+                            </f:facet>
+                                <h:commandButton value="Modificar" styleClass="btn btn-info "
+                                                 action="#{empleadosBean.obtenerEmpleados()}">
+                                    <f:param name="codigo" value="#{est.codigoEmpleado}"/>
+                                </h:commandButton>
+                                <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                                 action="#{empleadosBean.eliminarEmpleado}">
+                                    <f:param name="codigo" value="#{est.codigoEmpleado}"/>
+                                </h:commandButton>
+                        </h:column>
         </b:dataTable>
+                                            </h:form>
     </ui:define>
 </ui:composition>

@@ -51,7 +51,7 @@ public class NombreplaylistBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "agregarNombrePlaylist?faces-redirect=true";
+                return "listadoNombrePlaylist?faces-redirect=true";
             }
         } else {
 
@@ -61,27 +61,27 @@ public class NombreplaylistBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "agregarNombrePlaylist?faces-redirect=true";
+                return "listadoNombrePlaylist?faces-redirect=true";
             }
         }
     }
     
-    public String eliminarEstudiante() {
+    public String eliminarNombrePlaylist() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
+        String id = JsfUtil.getRequest().getParameter("id");
 
-        if (modelo.eliminarPlayList(carnet)> 0) {
+        if (modelo.eliminarPlayList(Integer.parseInt(id))> 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
         }
-        return "registroEstudiantes?faces-redirect=true";
+        return "listadoNombrePlaylist?faces-redirect=true";
     }
     
-    public void obtenerEstudiantes() {
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
-        nombreplaylist = modelo.obtenerPlayList(carnet);
+    public void obtenerNombrePlaylist() {
+        String id = JsfUtil.getRequest().getParameter("id");
+        nombreplaylist = modelo.obtenerPlayList(Integer.parseInt(id));
         
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         

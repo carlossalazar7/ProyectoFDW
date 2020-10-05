@@ -51,7 +51,7 @@ public String guardarGenero(String generos) {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "agregarGenero?faces-redirect=true";
+                return null;
             }
         } else {
 
@@ -61,7 +61,7 @@ public String guardarGenero(String generos) {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "agregarGenero?faces-redirect=true";
+                return null;
             }
         }
     }
@@ -69,18 +69,18 @@ public String guardarGenero(String generos) {
     public String eliminarEstudiante() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet a ID
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
-
-        if (modelo.eliminarGenero(carnet) > 0) {
+        String id = JsfUtil.getRequest().getParameter("id");
+        if (modelo.eliminarEstudiante(Integer.parseInt(id))> 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
         }
-        return "registroEstudiantes?faces-redirect=true";
+        return "listadoGeneros?faces-redirect=true";
+
     }
     public void obtenerEstudiantes() {
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
-        genero = modelo.obtenerGenero(carnet);
+        String id = JsfUtil.getRequest().getParameter("id");
+        genero = modelo.obtenerGenero(Integer.parseInt(id));
         
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         

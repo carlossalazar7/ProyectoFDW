@@ -65,9 +65,9 @@ public class EmpleadosBean {
     
      public String eliminarEmpleado() {
         // Leyendo el parametro enviado desde la vista
-        String codigoEmpleado = JsfUtil.getRequest().getParameter("codigoEmpleado");
+        String codigo = JsfUtil.getRequest().getParameter("codigo");
 
-        if (modelo.eliminarEmpleado(codigoEmpleado) > 0) {
+        if (modelo.eliminarEmpleado(Integer.parseInt(codigo))> 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
@@ -77,8 +77,8 @@ public class EmpleadosBean {
     
     public void obtenerEmpleados() {
         //Cambiar carnet a ID
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
-        empleado = modelo.obtenerEmpleados(carnet);
+        String codigo = JsfUtil.getRequest().getParameter("codigo");
+        empleado = modelo.obtenerEmpleados(Integer.parseInt(codigo));
         
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         

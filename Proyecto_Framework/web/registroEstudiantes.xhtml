@@ -5,82 +5,68 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:b="http://bootsfaces.net/ui"
-          template="./WEB-INF/plantillaboot.xhtml">
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-        
+        <title>Registro de estudiantes</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/alertify.core.css"/>
+        <link rel="stylesheet" href="css/alertify.default.css"/>
+        <script src="js/alertify.js"/>
     </h:head>
     <h:body>
-        
-            <br></br>
-            <br></br>
-            <br></br>
-            <div class="row">
-                <h:form >
-                    <b:dataTable styleClass="table" value="#{estudianteBean.listaEstudiantes}"
-                                 var="est" rendered="#{estudianteBean.listaEstudiantes.size()>0}">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="Carnet"/>
-                            </f:facet>
-                            <h:outputText    value="#{est.carnet}" />
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="Nombre"/>
-                            </f:facet>
-                            <h:outputText value="#{est.nombres}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="Apellido"/>
-                            </f:facet>
-                            <h:outputText value="#{est.apellidos}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="Carrera"/>
-                            </f:facet>
-                            <h:outputText value="#{est.carrera}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="Edad"/>
-                            </f:facet>
-                            <h:outputText value="#{est.edad}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="CUM"/>
-                            </f:facet>
-                            <h:outputText value="#{est.cum}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="Genero"/>
-                            </f:facet>
-                            <h:outputText value="#{(est.genero== 'm'.charAt(0))? 'Masculino' :
-                                                   'Femenino'}"/>
-                        </h:column>
-                        <h:column>
+        <h:form id="miFormulario">
+            <h:panelGroup layout="block" styleClass="alert alert-danger"
+                          rendered="#{not empty facesContext.messageList}">
+                <h:messages />
+            </h:panelGroup>
+            <h:panelGrid columns="4" styleClass="table">
+                <h:outputLabel for="nombre" value="Nombre"/>
+                <b:inputText id="nombre" styleClass="form-control"
+                             value="#{generosBean.genero.nombreGenero}"
+                             required="true"
+                             requiredMessage="Debes ingresar el carnet"/>  
+                <h:outputLabel for="id" value="id"/>
+                <b:inputText id="id" styleClass="form-control"
+                             value="#{generosBean.genero.id}"
+                             required="true"
+                             requiredMessage="Debes ingresar el carnet"/>  
+            </h:panelGrid>
+            <h:commandButton value="Guardar" styleClass="btn btn-primary btn-block"
+                             action="#{generosBean.guardarGenero(generosBean.genero.nombreGenero)}"
+                             style="margin-right:10px"/>
+            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success btn-block"/>
+        </h:form>
+        <h:form >
+            <b:dataTable styleClass="table" value="#{generosBean.listaGeneros}"
+                         var="gen" rendered="#{generosBean.listaGeneros.size()>0}">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID Genero" />
+                    </f:facet>
+                    <h:outputText value="#{gen.id}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nombre Genero" />
+                    </f:facet>
+                    <h:outputText value="#{gen.nombreGenero}" />
+                </h:column>
+                <h:column>
                             <f:facet name="header">
                                 <h:outputLabel value="Operaciones"/>
                             </f:facet>
                                 <h:commandButton value="Modificar" styleClass="btn btn-info "
-                                                action="#{estudianteBean.obtenerEstudiantes()}">
-                                    <f:param name="carnet" value="#{est.carnet}"/>
+                                                 action="#{generosBean.obtenerEstudiantes()}">
+                                    <f:param name="id" value="#{gen.id}"/>
                                 </h:commandButton>
                                 <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                                action="#{estudianteBean.eliminarEstudiante}"
-                                                onclick="return confirmarEliminacion();" style="margin-left: 20px">
-                                    <f:param name="carnet" value="#{est.carnet}"/>
+                                                 action="#{generosBean.eliminarEstudiante}">
+                                    <f:param name="id" value="#{gen.id}"/>
                                 </h:commandButton>
                         </h:column>
-                    </b:dataTable>
-                </h:form>
-            </div>
-        
-        <h:outputScript>
+            </b:dataTable>
+        </h:form>
+         <h:outputScript>
             <c:if test = "#{not empty flash.exito}" >
                 alertify.success('#{flash.exito}');
             </c:if>

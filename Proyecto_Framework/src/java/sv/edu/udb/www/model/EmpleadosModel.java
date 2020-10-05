@@ -32,11 +32,11 @@ public class EmpleadosModel {
         }
     }//Final de listar
 
-    public EmpleadosEntity obtenerEmpleados(String codigoEmpleado) {
+    public EmpleadosEntity obtenerEmpleados(int codigo) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
-            EmpleadosEntity empleado = em.find(EmpleadosEntity.class, codigoEmpleado);
+            EmpleadosEntity empleado = em.find(EmpleadosEntity.class, codigo);
             em.close();
             return empleado;
         } catch (Exception e) {
@@ -88,12 +88,12 @@ public class EmpleadosModel {
         }
     }
 
-    public int eliminarEmpleado(String codigoEmpleado) {
+    public int eliminarEmpleado(int codigo) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
         try {
             //Recuperando el objeto a eliminar
-            EmpleadosEntity est = em.find(EmpleadosEntity.class, codigoEmpleado);
+            EmpleadosEntity est = em.find(EmpleadosEntity.class, codigo);
             if (est != null) {
                 EntityTransaction tran = em.getTransaction();
                 tran.begin();//Iniciando transacción

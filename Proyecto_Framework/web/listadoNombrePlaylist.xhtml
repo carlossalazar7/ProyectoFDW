@@ -48,12 +48,12 @@
                                 <h:outputLabel value="Operaciones"/>
                             </f:facet>
                                 <h:commandButton value="Modificar" styleClass="btn btn-info "
-                                                 action="#{empleadosBean.obtenerEmpleados()}">
-                                    <f:param name="codigo" value="#{est.codigoEmpleado}"/>
+                                                 action="#{nombreplaylistBean.obtenerNombrePlaylist()}">
+                                    <f:param name="id" value="#{nom.idNombrePlayList}"/>
                                 </h:commandButton>
                                 <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                                 action="#{empleadosBean.eliminarEmpleado}">
-                                    <f:param name="codigo" value="#{est.codigoEmpleado}"/>
+                                                 action="#{nombreplaylistBean.eliminarNombrePlaylist}">
+                                    <f:param name="id" value="#{nom.idNombrePlayList}"/>
                                 </h:commandButton>
                         </h:column>
         </b:dataTable>

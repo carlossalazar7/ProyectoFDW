@@ -6,7 +6,8 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:f="http://java.sun.com/jsf/core"
-    template="./WEB-INF/plantillaboot.xhtml">
+    template="./WEB-INF/plantillaboot.xhtml"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="contenido">
         <h:form id="miFormulario">
             <h:panelGroup layout="block" styleClass="alert alert-danger"
@@ -50,15 +51,24 @@
                                 <h:outputLabel value="Operaciones"/>
                             </f:facet>
                                 <h:commandButton value="Modificar" styleClass="btn btn-info "
-                                                 action="#{empleadosBean.obtenerEmpleados()}">
-                                    <f:param name="codigo" value="#{est.codigoEmpleado}"/>
+                                                 action="#{generosBean.obtenerEstudiantes()}">
+                                    <f:param name="id" value="#{gen.id}"/>
                                 </h:commandButton>
                                 <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                                 action="#{empleadosBean.eliminarEmpleado}">
-                                    <f:param name="codigo" value="#{est.codigoEmpleado}"/>
+                                                 action="#{generosBean.eliminarEstudiante}"
+                                                 onclick="return confirmarEliminacion();">
+                                    <f:param name="id" value="#{gen.id}"/>
                                 </h:commandButton>
                         </h:column>
             </b:dataTable>
         </h:form>
+         <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
     </ui:define>
 </ui:composition>

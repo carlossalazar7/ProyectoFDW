@@ -35,12 +35,12 @@ public class GenerosModel {
         }
     }
 
-    public GenerosEntity obtenerGenero(String idGenero) {
+    public GenerosEntity obtenerGenero(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
             GenerosEntity generos = em.find(GenerosEntity.class,
-                    idGenero);
+                    id);
             em.close();
             return generos;
         } catch (Exception e) {
@@ -48,12 +48,12 @@ public class GenerosModel {
             return null;
         }
     }
-    public int obtenerGenero1(String idGenero) {
+    public int obtenerGenero1(String id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
             GenerosEntity generos = em.find(GenerosEntity.class,
-                    idGenero);
+                    id);
             em.close();
             return 1;
         } catch (Exception e) {
@@ -92,13 +92,13 @@ public class GenerosModel {
             return 0;
         }
     }
-
-    public int eliminarGenero(String idGenero) {
+    
+    public int eliminarEstudiante(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
         try {
             //Recuperando el objeto a eliminar
-            GenerosEntity est = em.find(GenerosEntity.class, idGenero);
+            GenerosEntity est = em.find(GenerosEntity.class, id);
             if (est != null) {
                 EntityTransaction tran = em.getTransaction();
                 tran.begin();//Iniciando transacción
@@ -113,5 +113,7 @@ public class GenerosModel {
             return 0;
         }
     }
+
+   
 
 }

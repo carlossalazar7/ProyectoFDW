@@ -8,7 +8,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import sv.edu.udb.www.entities.ArtistaEntity;
 import sv.edu.udb.www.entities.EmpleadosEntity;
 import sv.edu.udb.www.utils.*;
 /**
@@ -44,12 +43,12 @@ public class EmpleadosModel {
             return null;
         }
     }
-    public int obtenerEmpleados1(String codigoEmpleado) {
+    public int obtenerEmpleados1(int codigo) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
             EmpleadosEntity empleado = em.find(EmpleadosEntity.class,
-                    codigoEmpleado);
+                    codigo);
             em.close();
             return 1;
         } catch (Exception e) {

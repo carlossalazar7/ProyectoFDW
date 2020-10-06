@@ -42,8 +42,8 @@ public class GenerosBean {
  para obtener la lista de objetos a partir de la bd */
         return modelo.listarGategorias();
     }
-public String guardarGenero(String generos) {
-        if (modelo.obtenerGenero1(generos) == 1) {
+public String guardarGenero(int id) {
+        if (modelo.obtenerGenero1(id) == 1) {
 
             if (modelo.modificarGeneros(genero) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");

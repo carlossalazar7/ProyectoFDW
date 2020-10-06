@@ -42,8 +42,8 @@ public class NombreplaylistBean {
         return modelo.listarPlayList();
     }
 
-    public String guardarListaPlaylist(String idNombrePlayList) {
-        if (modelo.obtenerPlayList1(idNombrePlayList) == 1) {
+    public String guardarListaPlaylist(int id) {
+        if (modelo.obtenerPlayList1(id) == 1) {
 
             if (modelo.modificarPlayList(nombreplaylist)!= 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");

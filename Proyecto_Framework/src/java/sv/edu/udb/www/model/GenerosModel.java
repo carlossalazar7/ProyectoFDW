@@ -48,7 +48,7 @@ public class GenerosModel {
             return null;
         }
     }
-    public int obtenerGenero1(String id) {
+    public int obtenerGenero1(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find

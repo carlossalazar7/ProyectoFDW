@@ -83,10 +83,6 @@
                     <f:facet name="header">
                         <h:outputLabel value="Operaciones"/>
                     </f:facet>
-                    <h:commandButton value="Modificar" styleClass="btn btn-info "
-                                     action="#{empleadosBean.obtenerEmpleados()}">
-                        <f:param name="codigo" value="#{est.codigoEmpleado}"/>
-                    </h:commandButton>
                     <h:commandButton value="Eliminar" styleClass="btn btn-danger"
                                      action="#{empleadosBean.eliminarEmpleado}"
                                      onclick="return confirmarEliminacion();">

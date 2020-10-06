@@ -39,16 +39,16 @@ public class EmpleadosBean {
         return modelo.listarEmpleados();
     }
 
-    public String guardarEmpleado(String codigoEmpleado) {
-        if (modelo.obtenerEmpleados1(codigoEmpleado) == 1) {
+    public String guardarEmpleado(int codigo) {
+        if (modelo.obtenerEmpleados1(codigo) == 1) {
 
-            if (modelo.insertarEmpleados(empleado) != 1) {
+            if (modelo.modificarEmpleados(empleado) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
                 return null;//Regreso a la misma página
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "NewUser?faces-redirect=true";
+                return null;
             }
         } else {
 
@@ -58,7 +58,7 @@ public class EmpleadosBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "NewUser?faces-redirect=true";
+                return null;
             }
         }
     }

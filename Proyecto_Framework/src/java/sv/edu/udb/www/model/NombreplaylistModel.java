@@ -45,7 +45,7 @@ public class NombreplaylistModel {
             return null;
         }
     }
-    public int obtenerPlayList1(String idNombrePlayList) {
+    public int obtenerPlayList1(int idNombrePlayList) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find

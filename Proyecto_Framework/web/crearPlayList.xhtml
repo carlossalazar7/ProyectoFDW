@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="css/playlist.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/userPlantilla.xhtml">
+            <ui:define name="contenido">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Crear Play List</button>
+                <div class="wrapper">
+                    <h2 class="text-center" style="color:#ffffff">My Play List</h2>
+                    <div class="cards">
+                        <div class="card">
+                            <div class="overlayer">
+                                <i class="fa fa-play-circle"></i>
+                            </div>
+                            <img src="https://i.pinimg.com/736x/02/b8/94/02b894f7ea6ad9f724648ee511ad018f--edm-music-house-music.jpg" alt=""/>
+                            <div class="title">
+                                <a href="#">Hover over</a>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="overlayer">
+                                <i class="fa fa-play-circle"></i>
+                            </div>
+                            <img src="https://altwall.net/img/albums/adb1c0cbab29b842b28e6aa1e8e57f47_2013.jpg" alt=""/>
+                            <div class="title">
+                                <a href="#">Hover over</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="overlayer">
+                                <i class="fa fa-play-circle"></i>
+                            </div>
+                            <img src="https://media1.popsugar-assets.com/files/thumbor/L-VT9k0GKckWWnpo3n2YBq4f9tE/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2017/08/03/846/n/37139775/2d0d134e5983773fe90560.65157921_edit_img_image_17921777_1501786115/i/Camila-Cabello-Havana-Song.jpg" alt=""/>
+                            <div class="title">
+                                <a href="#">Hover over</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/><br/><br/><br/>
+                <!-- Modal -->
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h:form id="miFormulario">
+                                    <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                                  rendered="#{not empty facesContext.messageList}">
+                                        <h:messages />
+                                    </h:panelGroup>
+                                    <h:panelGrid columns="4" styleClass="table">
+                                        <h:outputLabel for="nombre" value="Nombre Completo"/>
+                                        <b:inputText id="carnet" styleClass="form-control"
+                                                     value="#{nombreplaylistBean.playlista.nombrePlayList}"
+                                                     required="true"
+                                                     requiredMessage="Debes ingresar el nombre"/>     
+                                         <h:commandButton value="Guardar" styleClass="btn btn-primary "
+                                                     action="#{nombreplaylistBean.guardarListaPlaylist(nombreplaylistBean.playlista.idNombrePlayList)}"
+                                                     />
+                                    </h:panelGrid>
+                                </h:form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>

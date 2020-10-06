@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="css/newuser.css"/>
         <link rel="stylesheet" href="css/artista.css"/>
         <link rel="stylesheet" href="css/musica.css"/>
+        <link rel="stylesheet" href="css/playlist.css"/>
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
         <script src="js/main.js"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
@@ -27,7 +28,7 @@
             <ui:insert name="menu">
                 <b:navBar brand="Universal Music" brandHref="#" inverse="true">
                     <b:navbarLinks>
-                        <b:navLink value="Play List" outcome="index"></b:navLink>
+                        <b:navLink value="Play List" outcome="crearPlayList"></b:navLink>
                         <b:navLink value="Mi Music" outcome="index"></b:navLink>
                         <b:navLink value="Comprar Music" outcome="index"></b:navLink>
                         <b:navLink value="Salir" href="Login.jsp"></b:navLink>
@@ -158,4 +159,9 @@
         }
     </script>
     <script src="js/main.js"/>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+    </script>
 </html>

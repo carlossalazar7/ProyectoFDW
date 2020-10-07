@@ -42,7 +42,7 @@ public class VentasBean {
         return modelo.listarVentas();
     }
 
-    public String guardarVenta(String idVenta) {
+    public String guardarVenta(int idVenta) {
         if (modelo.obtenerVentas1(idVenta) == 1) {
 
             if (modelo.modificarVentas(venta) != 1) {
@@ -51,7 +51,7 @@ public class VentasBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return null;
             }
         } else {
 
@@ -61,7 +61,7 @@ public class VentasBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return null;
             }
         }
     }
@@ -69,19 +69,19 @@ public class VentasBean {
     public String eliminarVenta() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet por ID
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
+        String idVenta = JsfUtil.getRequest().getParameter("idVenta");
 
-        if (modelo.eliminarVentas(carnet) > 0) {
+        if (modelo.eliminarVentas(Integer.parseInt(idVenta)) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
         }
-        return "registroEstudiantes?faces-redirect=true";
+        return null;
     }
     
      public void obtenerVenta() {
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
-        venta = modelo.obtenerVentas(carnet);
+        String idVenta = JsfUtil.getRequest().getParameter("idVenta");
+        venta = modelo.obtenerVentas(Integer.parseInt(idVenta));
         
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }

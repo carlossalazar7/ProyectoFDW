@@ -33,7 +33,7 @@ public class PlaylistModel {
         }
     }//Final de listar
 
-    public PlaylistEntity obtenerPlayList(String idPlayList) {
+    public PlaylistEntity obtenerPlayList(int idPlayList) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
@@ -46,7 +46,7 @@ public class PlaylistModel {
         }
     }
     
-    public int obtenerPlayList1(String idPlayList) {
+    public int obtenerPlayList1(int idPlayList) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
@@ -90,7 +90,7 @@ public class PlaylistModel {
         }
     }
 
-    public int eliminarEmpleados(String idPlayList) {
+    public int eliminarEmpleados(int idPlayList) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
         try {

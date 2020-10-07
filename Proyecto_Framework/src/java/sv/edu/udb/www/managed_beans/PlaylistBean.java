@@ -42,7 +42,7 @@ public class PlaylistBean {
         return modelo.listarPlayList();
     }
 
-    public String guardarPlayLista(String idPlayList) {
+    public String guardarPlayLista(int idPlayList) {
         if (modelo.obtenerPlayList1(idPlayList) == 1) {
 
             if (modelo.modificarPlayList(playlist) != 1) {
@@ -51,7 +51,7 @@ public class PlaylistBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return null;
             }
         } else {
 
@@ -61,7 +61,7 @@ public class PlaylistBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return null;
             }
         }
     }
@@ -69,9 +69,9 @@ public class PlaylistBean {
     public String eliminarPlayLista() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet por ID
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
+        String idPlayList = JsfUtil.getRequest().getParameter("idPlayList");
 
-        if (modelo.eliminarEmpleados(carnet) > 0) {
+        if (modelo.eliminarEmpleados(Integer.parseInt(idPlayList)) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
@@ -80,8 +80,8 @@ public class PlaylistBean {
     }
     
     public void obtenerPlayLista() {
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
-        playlist = modelo.obtenerPlayList(carnet);
+        String idPlayList = JsfUtil.getRequest().getParameter("idPlayList");
+        playlist = modelo.obtenerPlayList(Integer.parseInt(idPlayList));
         
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }

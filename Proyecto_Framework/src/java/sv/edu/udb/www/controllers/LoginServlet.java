@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("Admin", userName); // setting session attribute
 				request.setAttribute("usuarioEmpleado", userName);
 				request.setAttribute("codigoEmpleado", numero);
-				request.getRequestDispatcher("index.xhtml").forward(request, response);
+				request.getRequestDispatcher("listado.xhtml").forward(request, response);
 			} else if (userValidate.equals("2")) {
 				System.out.println("Admin2's Home");
 

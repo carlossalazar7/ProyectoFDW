@@ -33,11 +33,11 @@ public class MusicModel {
         }
     }//Final de listar
 
-    public MusicEntity obtenerCancion(String idMusic) {
+    public MusicEntity obtenerCancion(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
-            MusicEntity cancion = em.find(MusicEntity.class, idMusic);
+            MusicEntity cancion = em.find(MusicEntity.class, id);
             em.close();
             return cancion;
         } catch (Exception e) {
@@ -45,12 +45,12 @@ public class MusicModel {
             return null;
         }
     }
-    public int obtenerCancion1(String idMusic) {
+    public int obtenerCancion1(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
             MusicEntity cancion = em.find(MusicEntity.class,
-                    idMusic);
+                    id);
             em.close();
             return 1;
         } catch (Exception e) {
@@ -89,12 +89,12 @@ public class MusicModel {
         }
     }
 
-    public int eliminarCanciones(String idMusic) {
+    public int eliminarCanciones(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
         try {
             //Recuperando el objeto a eliminar
-            MusicEntity est = em.find(MusicEntity.class, idMusic);
+            MusicEntity est = em.find(MusicEntity.class, id);
             if (est != null) {
                 EntityTransaction tran = em.getTransaction();
                 tran.begin();//Iniciando transacción

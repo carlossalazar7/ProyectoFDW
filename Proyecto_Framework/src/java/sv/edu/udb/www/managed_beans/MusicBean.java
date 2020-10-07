@@ -47,8 +47,8 @@ public class MusicBean {
         return modelo.listarCanciones();
     }
 
-    public String guardarMusica(String cancion) {
-        if (modelo.obtenerCancion1(cancion)== 1) {
+    public String guardarMusica(int id) {
+        if (modelo.obtenerCancion1(id)== 1) {
 
             if (modelo.modificarCanciones(song) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
@@ -56,7 +56,7 @@ public class MusicBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return null;
             }
         } else {
 
@@ -66,7 +66,7 @@ public class MusicBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return null;
             }
         }
     }
@@ -74,9 +74,9 @@ public class MusicBean {
     public String eliminarMusica() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet por ID
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
+        String id = JsfUtil.getRequest().getParameter("id");
 
-        if (modelo.eliminarCanciones(carnet) > 0) {
+        if (modelo.eliminarCanciones(Integer.parseInt(id)) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
@@ -85,8 +85,8 @@ public class MusicBean {
     }
     
     public void obtenerMusica() {
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
-        song = modelo.obtenerCancion(carnet);
+        String id = JsfUtil.getRequest().getParameter("id");
+        song = modelo.obtenerCancion(Integer.parseInt(id));
         
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         

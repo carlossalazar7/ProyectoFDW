@@ -8,7 +8,6 @@ package sv.edu.udb.www.managed_beans;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import sv.edu.udb.www.entities.GenerosEntity;
 import sv.edu.udb.www.entities.PaquetesEntity;
 import sv.edu.udb.www.model.PaquetesModel;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -43,8 +42,8 @@ public class PaquetesBean {
         return modelo.listarPaquetes();
     }
     
-    public String guardarPaquete(String idPaquete) {
-        if (modelo.obtenerPaquetes1(idPaquete) == 1) {
+    public String guardarPaquete(int id) {
+        if (modelo.obtenerPaquetes1(id) == 1) {
 
             if (modelo.modificarEmpleados(paquete) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
@@ -52,7 +51,7 @@ public class PaquetesBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return null;
             }
         } else {
 
@@ -62,7 +61,7 @@ public class PaquetesBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
-                return "registroEstudiantes?faces-redirect=true";
+                return null;
             }
         }
     }
@@ -70,19 +69,19 @@ public class PaquetesBean {
     public String eliminarPaquete() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
+        String id = JsfUtil.getRequest().getParameter("id");
 
-        if (modelo.eliminarEmpleados(carnet) > 0) {
+        if (modelo.eliminarEmpleados(Integer.parseInt(id)) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
         }
-        return "registroEstudiantes?faces-redirect=true";
+        return null;
     }
     
     public void obtenerPaquete() {
-        String carnet = JsfUtil.getRequest().getParameter("carnet");
-        paquete = modelo.obtenerPaquetes(carnet);
+        String id = JsfUtil.getRequest().getParameter("id");
+        paquete = modelo.obtenerPaquetes(Integer.parseInt(id));
         
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }

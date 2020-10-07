@@ -33,7 +33,7 @@ public class VentasModel {
         }
     }//Final de listar
 
-    public VentasEntity obtenerVentas(String idVenta) {
+    public VentasEntity obtenerVentas(int idVenta) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
@@ -45,7 +45,7 @@ public class VentasModel {
             return null;
         }
     }
-    public int obtenerVentas1(String idVenta) {
+    public int obtenerVentas1(int idVenta) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
@@ -88,7 +88,7 @@ public class VentasModel {
         }
     }
 
-    public int eliminarVentas(String idVenta) {
+    public int eliminarVentas(int idVenta) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
         try {

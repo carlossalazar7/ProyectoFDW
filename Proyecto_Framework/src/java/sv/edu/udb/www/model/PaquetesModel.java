@@ -31,11 +31,11 @@ public class PaquetesModel {
         }
     }//Final de listar
 
-    public PaquetesEntity obtenerPaquetes(String idPaquete) {
+    public PaquetesEntity obtenerPaquetes(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
-            PaquetesEntity paquete = em.find(PaquetesEntity.class, idPaquete);
+            PaquetesEntity paquete = em.find(PaquetesEntity.class, id);
             em.close();
             return paquete;
         } catch (Exception e) {
@@ -43,12 +43,12 @@ public class PaquetesModel {
             return null;
         }
     }
-    public int obtenerPaquetes1(String idPaquete) {
+    public int obtenerPaquetes1(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
             PaquetesEntity paquete = em.find(PaquetesEntity.class,
-                    idPaquete);
+                    id);
             em.close();
             return 1;
         } catch (Exception e) {
@@ -87,12 +87,12 @@ public class PaquetesModel {
         }
     }
 
-    public int eliminarEmpleados(String idPaquete) {
+    public int eliminarEmpleados(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
         try {
             //Recuperando el objeto a eliminar
-            PaquetesEntity est = em.find(PaquetesEntity.class, idPaquete);
+            PaquetesEntity est = em.find(PaquetesEntity.class, id);
             if (est != null) {
                 EntityTransaction tran = em.getTransaction();
                 tran.begin();//Iniciando transacción

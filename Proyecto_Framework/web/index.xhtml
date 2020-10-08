@@ -6,64 +6,49 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
     <h:head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
         <title>Facelet Title</title>
+        <link rel="stylesheet" href="css/playlist.css"/>
+        <link rel="stylesheet" href="css/paquetes.css"/>
     </h:head>
     <h:body>
-        <ui:composition template="./WEB-INF/plantillaboot.xhtml">
+        <ui:composition template="./WEB-INF/userPlantilla.xhtml">
             <ui:define name="contenido">
-                <h:dataTable styleClass="mx-auto" value="#{generosBean.listaGeneros}"
-                             var="est" rendered="#{generosBean.listaGeneros.size()>0}">
-                    <h:column>
-                        <div class="cards" style="inline-block">
-                            <div class="card " style="inline-block" >
-                                <div class="card_img card1">
-                                    <div class="plus">
-                                        <p>+</p>
-                                    </div>
+                <style>
+                    audio::-webkit-media-controls-play-button{
+                        background-color:yellowgreen;}
+                    audio { width: 180px; }
+                    .card{
+                        display: inline-block;
+                        margin-top:85px;
+                    }
+                </style>
+                <div class="wrapper">
+                    <h2 class="text-center" style="color:#ffffff">Universal Music</h2>
+                    <div class="cards">
+                        <c:forEach items="${musicBean.listaMusica}" var="item">
+                            <div class="card w-100" >
+                                <div class="overlayer">
+                                    <i class="fa fa-play-circle"></i>
                                 </div>
-                                <h3><h:outputText value="Genero: #{est.nombreGenero}"/></h3>
-                                <div class="line">
-                                </div> <p style=" visibility: hidden;">olaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHolaHola</p>                                 
-                                <h:form styleClass="w-100 table-responsive">
-                                    <b:dataTable  value="#{musicBean.listaMusica}" styleClass="table table-hover table-responsive w-100"
-                                                  var="musica">
-                                        <b:dataTableColumn value="#{musica.idMusic}" width="30" />
-                                        <b:dataTableColumn value="#{musica.nombreCancion}"/>
-                                        <b:dataTableColumn width="150"><image src="#{musica.imagen}" width="150" height="100"/>
-                                        </b:dataTableColumn> 
-                                        <b:dataTableColumn value="$#{musica.precio}" width="35" />
-                                        <c:if test="#{musica.id == est.id }">
-                                            <b:dataTableColumn value="#{est.nombreGenero}" width="35" />
-                                            <b:dataTableColumn value="#{musica.likes}" width="70" >
-                                                <!--<div class="box">
-                                                  <input type="checkbox" id="like" class="field-reactions"/>
-                                                  <h3 class="text-desc">Press space and after tab key to navigation</h3>
-                                                  <label for="like" class="label-reactions">Like</label>
-                                                  <div class="toolbox"></div>
-                                                  <label class="overlay" for="like"></label>
-                                                  <button class="reaction-like"><span class="legend-reaction">Like</span></button>
-                                                  <button class="reaction-love"><span class="legend-reaction">Love</span></button>
-                                                  <button class="reaction-haha"><span class="legend-reaction">Haha</span></button>
-                                                  <button class="reaction-wow"><span class="legend-reaction">Wow</span></button>
-                                                  <button class="reaction-sad"><span class="legend-reaction">Sad</span></button>
-                                                  <button class="reaction-angry"><span class="legend-reaction">Angry</span></button>
-                                                </div>--></b:dataTableColumn>
-                                            <b:dataTableColumn width="150">
-                                                <audio src="#{musica.lyrics}" controls=""/>
-                                            </b:dataTableColumn> 
-                                        </c:if>
-                                    </b:dataTable>
-                                </h:form>        
+                                <img src="${item.imagen}" alt=""/>
+                                <div class="title w-100">
+                                    <audio src="${item.lyrics}" controls=""  />   <br/>                                 
+                                    <a href="#">${item.nombreCancion}<br/>Género: ${item.id.nombreGenero}</a>
+                                </div>
                             </div>
-                        </div>
-                    </h:column>
-                </h:dataTable>
+                            
+                        </c:forEach>                    
+                    </div>
+                </div>
+                <br/><br/><br/><br/>
+
             </ui:define>
         </ui:composition>
     </h:body>
-
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </html>
-

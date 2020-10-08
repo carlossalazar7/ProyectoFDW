@@ -15,23 +15,23 @@ import sv.edu.udb.www.utils.JsfUtil;
 /**
  *
  * @author Lenovo
- */@ManagedBean
+ */
+@ManagedBean
 @RequestScoped
 public class NombreplaylistBean {
-    
-      private NombreplaylistModel modelo = new NombreplaylistModel();
+
+    private NombreplaylistModel modelo = new NombreplaylistModel();
     private NombreplaylistEntity nombreplaylist;
     private List<NombreplaylistEntity> playlist;
-    
+
     public NombreplaylistBean() {
         nombreplaylist = new NombreplaylistEntity();
     }
-    
+
     public NombreplaylistEntity getPlaylista() {
         return nombreplaylist;
     }
 
-    
     public void setPlaylista(NombreplaylistEntity nombreplaylist) {
         this.nombreplaylist = nombreplaylist;
     }
@@ -45,7 +45,7 @@ public class NombreplaylistBean {
     public String guardarListaPlaylist(int id) {
         if (modelo.obtenerPlayList1(id) == 1) {
 
-            if (modelo.modificarPlayList(nombreplaylist)!= 1) {
+            if (modelo.modificarPlayList(nombreplaylist) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
                 return null;//Regreso a la misma página
             } else {
@@ -65,26 +65,48 @@ public class NombreplaylistBean {
             }
         }
     }
+
+    public String guardarListaPlaylist2(int id) {
+        if (modelo.obtenerPlayList1(id) == 1) {
+
+            if (modelo.modificarPlayList(nombreplaylist) != 1) {
+                // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                return null;//Regreso a la misma página
+            } else {
+                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                //Forzando la redirección en el cliente
+                return "crearPlayList?faces-redirect=true";
+            }
+        } else {
+
+            if (modelo.insertarPlayList(nombreplaylist) != 1) {
+                // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                return null;//Regreso a la misma página
+            } else {
+                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                //Forzando la redirección en el cliente
+                return "crearPlayList?faces-redirect=true";
+            }
+        }
+    }
     
     public String eliminarNombrePlaylist() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet
         String id = JsfUtil.getRequest().getParameter("id");
 
-        if (modelo.eliminarPlayList(Integer.parseInt(id))> 0) {
+        if (modelo.eliminarPlayList(Integer.parseInt(id)) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
         }
         return "listadoNombrePlaylist?faces-redirect=true";
     }
-    
+
     public void obtenerNombrePlaylist() {
         String id = JsfUtil.getRequest().getParameter("id");
         nombreplaylist = modelo.obtenerPlayList(Integer.parseInt(id));
-        
+
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
-        
-      
     }
 }

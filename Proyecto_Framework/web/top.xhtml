@@ -21,11 +21,11 @@
                     audio { width: 180px; }
                     .card{
                         display: inline-block;
-                        margin-top:65px;
+                        margin-top: 85px;
                     }
                 </style>
                 <div class="wrapper">
-                    <h2 class="text-center" style="color:#ffffff">Music</h2>
+                    <h2 class="text-center" style="color:#ffffff">Top Music El Salvador</h2>
                     <div class="cards">
                         <c:forEach items="${musicBean.topMusica}" var="item">
                             <div class="card w-100" >
@@ -33,11 +33,9 @@
                                     <i class="fa fa-play-circle"></i>
                                 </div>
                                 <img src="${item.imagen}" alt=""/>
-                                <div class="title w-50">
+                                <div class="title w-100">
                                     <audio src="${item.lyrics}" controls=""  />                                    
-                                    <a href="#">${item.nombreCancion}</a>
-                                    <p>${item.likes}</p>
-                                    
+                                    <a href="#">${item.nombreCancion}<br/>Likes:${item.likes}</a>
                                 </div>
                             </div>
                             

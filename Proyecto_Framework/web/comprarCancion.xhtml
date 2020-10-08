@@ -15,7 +15,8 @@
 
         <ui:composition template="./WEB-INF/userPlantilla.xhtml">
             <ui:define name="contenido">
-
+                <div class="table table-hover table-striped table-dark">
+                    <table class="table-dark">                        
                 <h:form id="i18n">
                     <b:selectOneMenu value="#{generosBean.listaGeneros}" onchange="i18nBcarPool2Widget.DataTable().destroy();ajax:carPool.onLanguageChange()" update="bcarPool2">
                         <c:forEach items="${generosBean.listaGeneros}" var="item">
@@ -23,7 +24,7 @@
                         </c:forEach>
                     </b:selectOneMenu>
                     <br />
-                    <b:dataTable value="#{musicBean.listaMusica}"
+                    <b:dataTable value="#{musicBean.listaMusica}" styleClass="table-dark"
                                  var="car"
                                  id="bcarPool2"
                                  fixedHeader="true"
@@ -36,9 +37,12 @@
                                  selectionMode="multiple" >
                         <b:dataTableColumn value="#{car.nombreCancion}" />
                         <b:dataTableColumn value="$#{car.precio}" />
+                        <b:dataTableColumn value="#{car.id.nombreGenero}" />
                         <b:dataTableColumn value="" ><button class="btn btn-warning">Comprar</button></b:dataTableColumn>
                     </b:dataTable>
-                </h:form>
+                </h:form>                         
+                    </table>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>

@@ -11,22 +11,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
- * @author carlo
+ * @author Lenovo
  */
 @Entity
 @Table(name = "playlist")
 @NamedQueries({
     @NamedQuery(name = "PlaylistEntity.findAll", query = "SELECT p FROM PlaylistEntity p")
     , @NamedQuery(name = "PlaylistEntity.findByIdPlayList", query = "SELECT p FROM PlaylistEntity p WHERE p.idPlayList = :idPlayList")
-    , @NamedQuery(name = "PlaylistEntity.findByIdMusic", query = "SELECT p FROM PlaylistEntity p WHERE p.idMusic = :idMusic")
-    , @NamedQuery(name = "PlaylistEntity.findByIdUser", query = "SELECT p FROM PlaylistEntity p WHERE p.idUser = :idUser")
-    , @NamedQuery(name = "PlaylistEntity.findByIdNombrePlayList", query = "SELECT p FROM PlaylistEntity p WHERE p.idNombrePlayList = :idNombrePlayList")
     , @NamedQuery(name = "PlaylistEntity.findByEstado", query = "SELECT p FROM PlaylistEntity p WHERE p.estado = :estado")})
 public class PlaylistEntity implements Serializable {
 
@@ -35,20 +34,18 @@ public class PlaylistEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer idPlayList;
-    private Integer idMusic;
-    private Integer idUser;
-    private Integer idNombrePlayList;
     private String estado;
+    @JoinColumn(name = "idMusic", referencedColumnName = "idMusic")
+    @ManyToOne
+    private MusicEntity idMusic;
+    @JoinColumn(name = "idNombrePlayList", referencedColumnName = "idNombrePlayList")
+    @ManyToOne
+    private NombreplaylistEntity idNombrePlayList;
+    @JoinColumn(name = "idUser", referencedColumnName = "codigoEmpleado")
+    @ManyToOne
+    private EmpleadosEntity idUser;
 
     public PlaylistEntity() {
-    }
-
-    public PlaylistEntity(Integer idPlayList, Integer idMusic, Integer idUser, Integer idNombrePlayList, String estado) {
-        this.idPlayList = idPlayList;
-        this.idMusic = idMusic;
-        this.idUser = idUser;
-        this.idNombrePlayList = idNombrePlayList;
-        this.estado = estado;
     }
 
     public PlaylistEntity(Integer idPlayList) {
@@ -63,36 +60,36 @@ public class PlaylistEntity implements Serializable {
         this.idPlayList = idPlayList;
     }
 
-    public Integer getIdMusic() {
-        return idMusic;
-    }
-
-    public void setIdMusic(Integer idMusic) {
-        this.idMusic = idMusic;
-    }
-
-    public Integer getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
-    }
-
-    public Integer getIdNombrePlayList() {
-        return idNombrePlayList;
-    }
-
-    public void setIdNombrePlayList(Integer idNombrePlayList) {
-        this.idNombrePlayList = idNombrePlayList;
-    }
-
     public String getEstado() {
         return estado;
     }
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public MusicEntity getIdMusic() {
+        return idMusic;
+    }
+
+    public void setIdMusic(MusicEntity idMusic) {
+        this.idMusic = idMusic;
+    }
+
+    public NombreplaylistEntity getIdNombrePlayList() {
+        return idNombrePlayList;
+    }
+
+    public void setIdNombrePlayList(NombreplaylistEntity idNombrePlayList) {
+        this.idNombrePlayList = idNombrePlayList;
+    }
+
+    public EmpleadosEntity getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(EmpleadosEntity idUser) {
+        this.idUser = idUser;
     }
 
     @Override
@@ -119,5 +116,5 @@ public class PlaylistEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.PlaylistEntity[ idPlayList=" + idPlayList + " ]";
     }
-
+    
 }

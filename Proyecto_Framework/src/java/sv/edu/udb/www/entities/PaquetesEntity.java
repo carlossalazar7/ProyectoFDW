@@ -6,18 +6,22 @@
 package sv.edu.udb.www.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author carlo
+ * @author Lenovo
  */
 @Entity
 @Table(name = "paquetes")
@@ -26,7 +30,6 @@ import javax.persistence.Table;
     , @NamedQuery(name = "PaquetesEntity.findByIdPaquete", query = "SELECT p FROM PaquetesEntity p WHERE p.idPaquete = :idPaquete")
     , @NamedQuery(name = "PaquetesEntity.findByNombrePaquete", query = "SELECT p FROM PaquetesEntity p WHERE p.nombrePaquete = :nombrePaquete")
     , @NamedQuery(name = "PaquetesEntity.findByPrecio", query = "SELECT p FROM PaquetesEntity p WHERE p.precio = :precio")
-    , @NamedQuery(name = "PaquetesEntity.findById", query = "SELECT p FROM PaquetesEntity p WHERE p.id = :id")
     , @NamedQuery(name = "PaquetesEntity.findByDescripcion", query = "SELECT p FROM PaquetesEntity p WHERE p.descripcion = :descripcion")
     , @NamedQuery(name = "PaquetesEntity.findByFechaPublicacion", query = "SELECT p FROM PaquetesEntity p WHERE p.fechaPublicacion = :fechaPublicacion")})
 public class PaquetesEntity implements Serializable {
@@ -36,27 +39,18 @@ public class PaquetesEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer idPaquete;
-    @Basic(optional = false)
     private String nombrePaquete;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     private Float precio;
-    @Basic(optional = false)
-    private Integer id;
-    @Basic(optional = false)
     private String descripcion;
-    @Basic(optional = false)
     private String fechaPublicacion;
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    @ManyToOne
+    private GenerosEntity id;
+    @OneToMany(mappedBy = "idPaquete")
+    private List<VentasEntity> ventasEntityList;
 
     public PaquetesEntity() {
-    }
-
-    public PaquetesEntity(Integer idPaquete, String nombrePaquete, Float precio, Integer id, String descripcion, String fechaPublicacion) {
-        this.idPaquete = idPaquete;
-        this.nombrePaquete = nombrePaquete;
-        this.precio = precio;
-        this.id = id;
-        this.descripcion = descripcion;
-        this.fechaPublicacion = fechaPublicacion;
     }
 
     public PaquetesEntity(Integer idPaquete) {
@@ -87,14 +81,6 @@ public class PaquetesEntity implements Serializable {
         this.precio = precio;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -109,6 +95,22 @@ public class PaquetesEntity implements Serializable {
 
     public void setFechaPublicacion(String fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
+    }
+
+    public GenerosEntity getId() {
+        return id;
+    }
+
+    public void setId(GenerosEntity id) {
+        this.id = id;
+    }
+
+    public List<VentasEntity> getVentasEntityList() {
+        return ventasEntityList;
+    }
+
+    public void setVentasEntityList(List<VentasEntity> ventasEntityList) {
+        this.ventasEntityList = ventasEntityList;
     }
 
     @Override
@@ -135,5 +137,5 @@ public class PaquetesEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.PaquetesEntity[ idPaquete=" + idPaquete + " ]";
     }
-
+    
 }

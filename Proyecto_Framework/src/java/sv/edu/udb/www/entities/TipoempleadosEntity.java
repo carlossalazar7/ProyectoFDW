@@ -6,18 +6,21 @@
 package sv.edu.udb.www.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author carlo
+ * @author Lenovo
  */
 @Entity
 @Table(name = "tipoempleados")
@@ -34,6 +37,8 @@ public class TipoempleadosEntity implements Serializable {
     private Integer codigoTipoEmpleado;
     @Basic(optional = false)
     private String nombreTipoEmpleado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTipoEmpleado")
+    private List<EmpleadosEntity> empleadosEntityList;
 
     public TipoempleadosEntity() {
     }
@@ -63,6 +68,14 @@ public class TipoempleadosEntity implements Serializable {
         this.nombreTipoEmpleado = nombreTipoEmpleado;
     }
 
+    public List<EmpleadosEntity> getEmpleadosEntityList() {
+        return empleadosEntityList;
+    }
+
+    public void setEmpleadosEntityList(List<EmpleadosEntity> empleadosEntityList) {
+        this.empleadosEntityList = empleadosEntityList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -87,5 +100,5 @@ public class TipoempleadosEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.TipoempleadosEntity[ codigoTipoEmpleado=" + codigoTipoEmpleado + " ]";
     }
-
+    
 }

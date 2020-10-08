@@ -8,15 +8,19 @@ package sv.edu.udb.www.entities;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
- * @author carlo
+ * @author Lenovo
  */
 @Entity
 @Table(name = "artista")
@@ -26,44 +30,29 @@ import javax.persistence.Table;
     , @NamedQuery(name = "ArtistaEntity.findByNombreArtista", query = "SELECT a FROM ArtistaEntity a WHERE a.nombreArtista = :nombreArtista")
     , @NamedQuery(name = "ArtistaEntity.findByNacimiento", query = "SELECT a FROM ArtistaEntity a WHERE a.nacimiento = :nacimiento")
     , @NamedQuery(name = "ArtistaEntity.findByDescripcion", query = "SELECT a FROM ArtistaEntity a WHERE a.descripcion = :descripcion")
-    , @NamedQuery(name = "ArtistaEntity.findById", query = "SELECT a FROM ArtistaEntity a WHERE a.id = :id")
     , @NamedQuery(name = "ArtistaEntity.findByNombreArtistaPublic", query = "SELECT a FROM ArtistaEntity a WHERE a.nombreArtistaPublic = :nombreArtistaPublic")})
 public class ArtistaEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer idArtista;
-    @Basic(optional = false)
     private String nombreArtista;
-    @Basic(optional = false)
     private String nacimiento;
-    @Basic(optional = false)
     private String descripcion;
-    @Basic(optional = false)
-    private int id;
     @Lob
     private byte[] image;
     private String nombreArtistaPublic;
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private GenerosEntity id;
 
     public ArtistaEntity() {
     }
-    public ArtistaEntity(Integer idArtista, String nombreArtista, String nacimiento, String descripcion, int id, byte[] image, String nombreArtistaPublic) {
-        this.idArtista = idArtista;
-        this.nombreArtista = nombreArtista;
-        this.nacimiento = nacimiento;
-        this.descripcion =  descripcion;
-        this.id = id;
-        this.image = image;
-        this.nombreArtistaPublic = nombreArtistaPublic;
-    }
+
     public ArtistaEntity(Integer idArtista) {
         this.idArtista = idArtista;
-    }
-
-    public ArtistaEntity(Integer idArtista, int id) {
-        this.idArtista = idArtista;
-        this.id = id;
     }
 
     public Integer getIdArtista() {
@@ -98,14 +87,6 @@ public class ArtistaEntity implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public byte[] getImage() {
         return image;
     }
@@ -120,6 +101,14 @@ public class ArtistaEntity implements Serializable {
 
     public void setNombreArtistaPublic(String nombreArtistaPublic) {
         this.nombreArtistaPublic = nombreArtistaPublic;
+    }
+
+    public GenerosEntity getId() {
+        return id;
+    }
+
+    public void setId(GenerosEntity id) {
+        this.id = id;
     }
 
     @Override
@@ -146,5 +135,5 @@ public class ArtistaEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.ArtistaEntity[ idArtista=" + idArtista + " ]";
     }
-
+    
 }

@@ -6,6 +6,7 @@
 package sv.edu.udb.www.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,11 +14,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author carlo
+ * @author Lenovo
  */
 @Entity
 @Table(name = "nombreplaylist")
@@ -33,13 +35,10 @@ public class NombreplaylistEntity implements Serializable {
     @Basic(optional = false)
     private Integer idNombrePlayList;
     private String nombrePlayList;
+    @OneToMany(mappedBy = "idNombrePlayList")
+    private List<PlaylistEntity> playlistEntityList;
 
     public NombreplaylistEntity() {
-    }
-
-    public NombreplaylistEntity(Integer idNombrePlayList,String nombrePlayList) {
-        this.idNombrePlayList = idNombrePlayList;
-        this.nombrePlayList = nombrePlayList;
     }
 
     public NombreplaylistEntity(Integer idNombrePlayList) {
@@ -60,6 +59,14 @@ public class NombreplaylistEntity implements Serializable {
 
     public void setNombrePlayList(String nombrePlayList) {
         this.nombrePlayList = nombrePlayList;
+    }
+
+    public List<PlaylistEntity> getPlaylistEntityList() {
+        return playlistEntityList;
+    }
+
+    public void setPlaylistEntityList(List<PlaylistEntity> playlistEntityList) {
+        this.playlistEntityList = playlistEntityList;
     }
 
     @Override
@@ -86,5 +93,5 @@ public class NombreplaylistEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.NombreplaylistEntity[ idNombrePlayList=" + idNombrePlayList + " ]";
     }
-
+    
 }

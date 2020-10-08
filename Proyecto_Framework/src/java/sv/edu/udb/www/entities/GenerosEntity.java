@@ -6,16 +6,21 @@
 package sv.edu.udb.www.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author carlo
+ * @author Lenovo
  */
 @Entity
 @Table(name = "generos")
@@ -27,17 +32,18 @@ public class GenerosEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
-     @Basic(optional = false)
     private String nombreGenero;
-     
-    public GenerosEntity() {
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+    private List<ArtistaEntity> artistaEntityList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+    private List<MusicEntity> musicEntityList;
+    @OneToMany(mappedBy = "id")
+    private List<PaquetesEntity> paquetesEntityList;
 
-    public GenerosEntity(Integer id, String nombreGenero) {
-        this.id = id;
-        this.nombreGenero = nombreGenero;
+    public GenerosEntity() {
     }
 
     public GenerosEntity(Integer id) {
@@ -58,6 +64,30 @@ public class GenerosEntity implements Serializable {
 
     public void setNombreGenero(String nombreGenero) {
         this.nombreGenero = nombreGenero;
+    }
+
+    public List<ArtistaEntity> getArtistaEntityList() {
+        return artistaEntityList;
+    }
+
+    public void setArtistaEntityList(List<ArtistaEntity> artistaEntityList) {
+        this.artistaEntityList = artistaEntityList;
+    }
+
+    public List<MusicEntity> getMusicEntityList() {
+        return musicEntityList;
+    }
+
+    public void setMusicEntityList(List<MusicEntity> musicEntityList) {
+        this.musicEntityList = musicEntityList;
+    }
+
+    public List<PaquetesEntity> getPaquetesEntityList() {
+        return paquetesEntityList;
+    }
+
+    public void setPaquetesEntityList(List<PaquetesEntity> paquetesEntityList) {
+        this.paquetesEntityList = paquetesEntityList;
     }
 
     @Override
@@ -84,5 +114,5 @@ public class GenerosEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.GenerosEntity[ id=" + id + " ]";
     }
-
+    
 }

@@ -6,6 +6,7 @@
 package sv.edu.udb.www.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,20 +22,19 @@ import javax.persistence.Table;
 
 /**
  *
- * @author carlo
+ * @author Lenovo
  */
 @Entity
 @Table(name = "music")
 @NamedQueries({
-    //NamedQuery(name = "MusicEntity.findAll", query = "SELECT m FROM MusicEntity m")
     @NamedQuery(name = "MusicEntity.findAll", query = "SELECT m FROM MusicEntity m")
+    , @NamedQuery(name = "MusicEntity.findTop", query = "SELECT m FROM MusicEntity m ORDER BY m.likes DESC")
     , @NamedQuery(name = "MusicEntity.findByIdMusic", query = "SELECT m FROM MusicEntity m WHERE m.idMusic = :idMusic")
     , @NamedQuery(name = "MusicEntity.findByNombreCancion", query = "SELECT m FROM MusicEntity m WHERE m.nombreCancion = :nombreCancion")
-    , @NamedQuery(name = "MusicEntity.findById", query = "SELECT m FROM MusicEntity m WHERE m.id = :id")
+    , @NamedQuery(name = "MusicEntity.findByImagen", query = "SELECT m FROM MusicEntity m WHERE m.imagen = :imagen")
     , @NamedQuery(name = "MusicEntity.findByPrecio", query = "SELECT m FROM MusicEntity m WHERE m.precio = :precio")
     , @NamedQuery(name = "MusicEntity.findByLikes", query = "SELECT m FROM MusicEntity m WHERE m.likes = :likes")
-    , @NamedQuery(name = "MusicEntity.findByLyrics", query = "SELECT m FROM MusicEntity m WHERE m.lyrics = :lyrics")
-    ,@NamedQuery(name = "MusicEntity.findTop", query = "SELECT m FROM MusicEntity m ORDER BY m.likes DESC")})
+    , @NamedQuery(name = "MusicEntity.findByLyrics", query = "SELECT m FROM MusicEntity m WHERE m.lyrics = :lyrics")})
 public class MusicEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,35 +42,23 @@ public class MusicEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer idMusic;
-    @Basic(optional = false)
-
     private String nombreCancion;
-    @Basic(optional = false)
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private int id;
     @Lob
     private byte[] audio;
-    @Lob
     private String imagen;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     private Float precio;
     private Integer likes;
     private String lyrics;
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private GenerosEntity id;
+    @OneToMany(mappedBy = "idMusic")
+    private List<PlaylistEntity> playlistEntityList;
+    @OneToMany(mappedBy = "idMusic")
+    private List<VentasEntity> ventasEntityList;
 
     public MusicEntity() {
-    }
-
-    public MusicEntity(Integer idMusic, String nombreCancion, Integer id, byte[] audio, String imagen, Float precio, Integer likes,
-            String lyrics) {
-        this.idMusic = idMusic;
-        this.nombreCancion = nombreCancion;
-        this.id = id;
-        this.audio = audio;
-        this.imagen = imagen;
-        this.precio = precio;
-        this.likes = likes;
-        this.lyrics = lyrics;
     }
 
     public MusicEntity(Integer idMusic) {
@@ -91,14 +79,6 @@ public class MusicEntity implements Serializable {
 
     public void setNombreCancion(String nombreCancion) {
         this.nombreCancion = nombreCancion;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public byte[] getAudio() {
@@ -141,6 +121,30 @@ public class MusicEntity implements Serializable {
         this.lyrics = lyrics;
     }
 
+    public GenerosEntity getId() {
+        return id;
+    }
+
+    public void setId(GenerosEntity id) {
+        this.id = id;
+    }
+
+    public List<PlaylistEntity> getPlaylistEntityList() {
+        return playlistEntityList;
+    }
+
+    public void setPlaylistEntityList(List<PlaylistEntity> playlistEntityList) {
+        this.playlistEntityList = playlistEntityList;
+    }
+
+    public List<VentasEntity> getVentasEntityList() {
+        return ventasEntityList;
+    }
+
+    public void setVentasEntityList(List<VentasEntity> ventasEntityList) {
+        this.ventasEntityList = ventasEntityList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -165,5 +169,5 @@ public class MusicEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.MusicEntity[ idMusic=" + idMusic + " ]";
     }
-
+    
 }

@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("Admin", userName); // setting session attribute
 				request.setAttribute("usuarioEmpleado", userName);
 				request.setAttribute("codigoEmpleado", numero);
-				request.getRequestDispatcher("listado.xhtml").forward(request, response);
+				request.getRequestDispatcher("indexAdmin1.jsp").forward(request, response);
 			} else if (userValidate.equals("2")) {
 				System.out.println("Admin2's Home");
 
@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 				request.setAttribute("usuarioEmpleado", userName);
 				request.setAttribute("codigoEmpleado", numero);
 
-				request.getRequestDispatcher("paginaadmin1.xhtml").forward(request, response);
+				request.getRequestDispatcher("indexAdmin2.jsp").forward(request, response);
 			} else if (userValidate.equals("3")) {
 				System.out.println("User's Home");
 
@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("User", userName);
 				request.setAttribute("usuarioEmpleado", userName);
 				request.setAttribute("codigoEmpleado", numero);
-				request.getRequestDispatcher("paginausuario.xhtml").forward(request, response);
+				request.getRequestDispatcher("indexUsuario.jsp").forward(request, response);
 			} else {
 				System.out.println("Error message = " + userValidate);
 				request.setAttribute("errMessage", userValidate);

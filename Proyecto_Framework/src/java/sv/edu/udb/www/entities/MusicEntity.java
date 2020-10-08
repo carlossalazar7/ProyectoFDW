@@ -33,7 +33,8 @@ import javax.persistence.Table;
     , @NamedQuery(name = "MusicEntity.findById", query = "SELECT m FROM MusicEntity m WHERE m.id = :id")
     , @NamedQuery(name = "MusicEntity.findByPrecio", query = "SELECT m FROM MusicEntity m WHERE m.precio = :precio")
     , @NamedQuery(name = "MusicEntity.findByLikes", query = "SELECT m FROM MusicEntity m WHERE m.likes = :likes")
-    , @NamedQuery(name = "MusicEntity.findByLyrics", query = "SELECT m FROM MusicEntity m WHERE m.lyrics = :lyrics")})
+    , @NamedQuery(name = "MusicEntity.findByLyrics", query = "SELECT m FROM MusicEntity m WHERE m.lyrics = :lyrics")
+    ,@NamedQuery(name = "MusicEntity.findTop", query = "SELECT m FROM MusicEntity m ORDER BY m.likes DESC")})
 public class MusicEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

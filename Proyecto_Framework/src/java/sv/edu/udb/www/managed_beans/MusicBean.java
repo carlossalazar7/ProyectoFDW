@@ -41,6 +41,11 @@ public class MusicBean {
      *
      * @return
      */
+    public List<MusicEntity> getTopMusica(){
+    
+    return modelo.topCanciones();
+    }
+    
     public List<MusicEntity> getListaMusica() {
         /* Notese que se llama al método listarEstudiantes
  para obtener la lista de objetos a partir de la bd */
@@ -54,7 +59,7 @@ public class MusicBean {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
                 return null;//Regreso a la misma página
             } else {
-                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                JsfUtil.setFlashMessage("exito", "Canción registrada exitosamente");
                 //Forzando la redirección en el cliente
                 return null;
             }
@@ -64,7 +69,7 @@ public class MusicBean {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
                 return null;//Regreso a la misma página
             } else {
-                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                JsfUtil.setFlashMessage("exito", "Canción registrado exitosamente");
                 //Forzando la redirección en el cliente
                 return null;
             }

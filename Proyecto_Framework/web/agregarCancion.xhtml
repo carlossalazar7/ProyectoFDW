@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Agregar nuevo usuario</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/plantillaboot.xhtml">
+            <ui:define name="contenido">
+                <h:form id="formulario">
+                    <h:panelGrid columns="2" styleClass="col-md-10 col-sm-10 col-xs-12 input-group" style="color:white;">
+                        <h:outputText value="Nombre de la canción" />
+                        <b:inputText value="#{musicBean.music.nombreCancion}" required="true" required-message="Nombre de la canción" />
+                        
+                        <h:outputLabel  value="Genero:"/>
+                        <h:selectOneMenu id="carrera" styleClass="form-control" value="#{musicBean.music.id}">
+                            <f:selectItem itemValue="1" itemLabel="POP" />
+                            <f:selectItem  itemValue="2" itemLabel="BACHATA" />
+                            <f:selectItem itemValue="3" itemLabel="CLASICA"  />
+                        
+ </h:selectOneMenu>
+                        <h:outputText value="Precio de la canción" />
+                        <b:inputText type="number" value="#{musicBean.music.precio}" required="true" required-message="Precio de la canción" />
+                        <h:outputText value="Lyrics" />
+                        <b:inputTextarea value="#{musicBean.music.lyrics}" required="true" required-message="Letra de la canción" />
+                        <h:outputText value="Imagen de la canción" />
+                        <b:inputText value="#{musicBean.music.imagen}" required="true" required-message="Portada de la canción" />
+                        
+                    </h:panelGrid>
+                    <br></br>
+                    <h:panelGrid styleClass="col-md-10 col-sm-12 col-xs-12" style="text-align: center">
+                        <b:commandButton style=" width:100%;" value="Agregar" action="#{musicBean.guardarMusica(musicBean.music.idMusic)}" look="success"/>
+                        <b:messages />
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

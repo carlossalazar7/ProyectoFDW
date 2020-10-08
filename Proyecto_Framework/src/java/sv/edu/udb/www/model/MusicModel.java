@@ -32,6 +32,25 @@ public class MusicModel {
             return null;
         }
     }//Final de listar
+    
+    public List<MusicEntity> topCanciones(){
+         EntityManager em = JpaUtil.getEntityManager();
+         try{
+        Query consulta = em.createNamedQuery("MusicEntity.findTop");
+           consulta.setFirstResult(0);
+           consulta.setMaxResults(5);
+           
+            List<MusicEntity> lista = consulta.getResultList();
+            em.close();// Cerrando el EntityManager
+            return lista;
+    
+    
+    
+    }catch(Exception e){
+        em.close();
+        return null;
+        
+    }}
 
     public MusicEntity obtenerCancion(int id) {
         EntityManager em = JpaUtil.getEntityManager();

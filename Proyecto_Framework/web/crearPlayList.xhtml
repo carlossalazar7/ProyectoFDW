@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
         <title>Facelet Title</title>
         <link rel="stylesheet" href="css/playlist.css"/>
+        <link rel="stylesheet" href="css/paquetes.css"/>
     </h:head>
     <h:body>
         <ui:composition template="./WEB-INF/userPlantilla.xhtml">
@@ -53,13 +54,12 @@
                                         <h:messages />
                                     </h:panelGroup>
                                     <h:panelGrid columns="4" styleClass="table">
-                                        <h:outputLabel for="nombre" value="Nombre Completo"/>
+                                        <h:outputLabel for="nombre" value="Nombre de Play List"/>
                                         <b:inputText id="carnet" styleClass="form-control"
                                                      value="#{nombreplaylistBean.playlista.nombrePlayList}"
                                                      required="true"
                                                      requiredMessage="Debes ingresar el nombre"/>     
-                                        <h:commandButton value="Guardar" styleClass="btn btn-primary "
-                                                         action="#{nombreplaylistBean.guardarListaPlaylist(nombreplaylistBean.playlista.idNombrePlayList)}"
+                                        <h:commandButton value="Guardar" styleClass="btn btn-primary " action="#{nombreplaylistBean.guardarListaPlaylist2(nombreplaylistBean.playlista.idNombrePlayList)}"
                                                          />
                                     </h:panelGrid>
                                 </h:form>

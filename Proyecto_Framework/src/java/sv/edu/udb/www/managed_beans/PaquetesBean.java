@@ -79,11 +79,12 @@ public class PaquetesBean {
         return null;
     }
     
-    public void obtenerPaquete() {
+    public String obtenerPaquete() {
         String id = JsfUtil.getRequest().getParameter("id");
-        paquete = modelo.obtenerPaquetes(Integer.parseInt(id));
-        
+        paquete = modelo.obtenerPaquetes(Integer.parseInt(id));       
+        System.out.println(id);
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        return "comprar?faces-redirect=true";
     }
 
 }

@@ -35,6 +35,7 @@ public class PaquetesModel {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
+            System.out.println(id);
             PaquetesEntity paquete = em.find(PaquetesEntity.class, id);
             em.close();
             return paquete;

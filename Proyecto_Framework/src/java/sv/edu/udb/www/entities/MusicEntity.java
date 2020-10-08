@@ -11,9 +11,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +26,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "music")
 @NamedQueries({
+    //NamedQuery(name = "MusicEntity.findAll", query = "SELECT m FROM MusicEntity m")
     @NamedQuery(name = "MusicEntity.findAll", query = "SELECT m FROM MusicEntity m")
     , @NamedQuery(name = "MusicEntity.findByIdMusic", query = "SELECT m FROM MusicEntity m WHERE m.idMusic = :idMusic")
     , @NamedQuery(name = "MusicEntity.findByNombreCancion", query = "SELECT m FROM MusicEntity m WHERE m.nombreCancion = :nombreCancion")
@@ -38,9 +42,12 @@ public class MusicEntity implements Serializable {
     @Basic(optional = false)
     private Integer idMusic;
     @Basic(optional = false)
+
     private String nombreCancion;
     @Basic(optional = false)
-    private Integer id;
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private int id;
     @Lob
     private byte[] audio;
     @Lob
@@ -53,8 +60,8 @@ public class MusicEntity implements Serializable {
     public MusicEntity() {
     }
 
-    public MusicEntity(Integer idMusic, String nombreCancion,Integer id,byte[] audio,String imagen,Float precio,Integer likes,
-    String lyrics) {
+    public MusicEntity(Integer idMusic, String nombreCancion, Integer id, byte[] audio, String imagen, Float precio, Integer likes,
+            String lyrics) {
         this.idMusic = idMusic;
         this.nombreCancion = nombreCancion;
         this.id = id;
@@ -62,7 +69,7 @@ public class MusicEntity implements Serializable {
         this.imagen = imagen;
         this.precio = precio;
         this.likes = likes;
-        this.lyrics = lyrics;       
+        this.lyrics = lyrics;
     }
 
     public MusicEntity(Integer idMusic) {

@@ -10,40 +10,35 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
         <title>Facelet Title</title>
         <link rel="stylesheet" href="css/playlist.css"/>
-        <link rel="stylesheet" href="css/paquetes.css"/>
     </h:head>
     <h:body>
+
         <ui:composition template="./WEB-INF/userPlantilla.xhtml">
             <ui:define name="contenido">
-                <style>
-                    audio::-webkit-media-controls-play-button{
-                        background-color:yellowgreen;}
-                    audio { width: 180px; }
-                    .card{
-                        display: inline-block;
-                        margin-top:65px;
-                    }
-                </style>
-                <div class="wrapper">
-                    <h2 class="text-center" style="color:#ffffff">Music</h2>
-                    <div class="cards">
-                        <c:forEach items="${musicBean.listaMusica}" var="item">
-                            <div class="card w-100" >
-                                <div class="overlayer">
-                                    <i class="fa fa-play-circle"></i>
-                                </div>
-                                <img src="${item.imagen}" alt=""/>
-                                <div class="title w-50">
-                                    <audio src="${item.lyrics}" controls=""  />                                    
-                                    <a href="#">${item.nombreCancion}</a>
-                                </div>
-                            </div>
-                            
-                        </c:forEach>                    
-                    </div>
-                </div>
-                <br/><br/><br/><br/>
 
+                <h:form id="i18n">
+                    <b:selectOneMenu value="#{generosBean.listaGeneros}" onchange="i18nBcarPool2Widget.DataTable().destroy();ajax:carPool.onLanguageChange()" update="bcarPool2">
+                        <c:forEach items="${generosBean.listaGeneros}" var="item">
+                            <f:selectItem itemLabel="${item.nombreGenero}" itemValue="${item.id}"/>
+                        </c:forEach>
+                    </b:selectOneMenu>
+                    <br />
+                    <b:dataTable value="#{musicBean.listaMusica}"
+                                 var="car"
+                                 id="bcarPool2"
+                                 fixedHeader="true"
+                                 scroll-size="400px"
+                                 scroll-x="true"
+                                 responsive="true"
+                                 lang="#{generosBean.listaGeneros}"
+                                 custom-lang-url="#{generosBean.listaGeneros}"
+                                 searching="true" 
+                                 selectionMode="multiple" >
+                        <b:dataTableColumn value="#{car.nombreCancion}" />
+                        <b:dataTableColumn value="$#{car.precio}" />
+                        <b:dataTableColumn value="" ><button class="btn btn-warning">Comprar</button></b:dataTableColumn>
+                    </b:dataTable>
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>

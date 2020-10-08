@@ -12,25 +12,26 @@
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/emotes.css"/>
         <link rel="stylesheet" href="css/newuser.css"/>
-        <link rel="stylesheet" href="css/artista.css"/>
         <link rel="stylesheet" href="css/musica.css"/>
         <link rel="stylesheet" href="css/playlist.css"/>
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
         <script src="js/main.js"/>
+        <script src="js/user.js"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     </h:head>
 
     <h:body>
         <div class="viewport">
             <ui:insert name="menu">
-                <b:navBar brand="Universal Music" brandHref="#" inverse="true">
-                    <b:navbarLinks>
+                <b:navBar brand="Universal Music" brandHref="#" inverse="true" styleClass="opacity-1">
+                    <b:navbarLinks style="opacity: 0.5; ">
                         <b:navLink value="Play List" outcome="crearPlayList"></b:navLink>
                         <b:navLink value="Mi Music" outcome="index"></b:navLink>
-                        <b:navLink value="Comprar Music" outcome="index"></b:navLink>
+                        <b:navLink value="Comprar Music" outcome="comprarCancion"></b:navLink>
+                        <b:navLink value="Paquetes" outcome="paquetes"></b:navLink>
                         <b:navLink value="Salir" href="Login.jsp"></b:navLink>
                     </b:navbarLinks>
                 </b:navBar>
@@ -43,7 +44,7 @@
                                 <b:panel look="primary" title="Static sidebar">
                                     <b:listLinks>
                                         <b:navLink header="Bienvenido a Universal Music" />
-                                        <b:navLink href="index.xhtml" value="Ver Categorias"
+                                        <b:navLink href="categorias.xhtml" value="Ver Categorias"
                                                    icon="globe" iconAlign="right"/>
                                         <b:navLink></b:navLink>
                                         <b:navLink header="Music!!!"/>
@@ -161,7 +162,8 @@
     <script src="js/main.js"/>
     <script>
         $('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})
+            $('#myInput').trigger('focus')
+        })
     </script>
+
 </html>

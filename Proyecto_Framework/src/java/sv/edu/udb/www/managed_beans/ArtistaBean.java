@@ -56,7 +56,7 @@ public class ArtistaBean {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
                 return null;//Regreso a la misma página
             } else {
-                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                JsfUtil.setFlashMessage("exito", "Artista registrado exitosamente");
                 //Forzando la redirección en el cliente
                 return null;
             }
@@ -68,6 +68,7 @@ public class ArtistaBean {
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
+                System.out.println(modelo.insertarArtista(artista));
                 return null;
             }
         }

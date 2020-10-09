@@ -86,7 +86,7 @@ public class MusicBean {
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
         }
-        return "registroEstudiantes?faces-redirect=true";
+        return null;
     }
     
     public void obtenerMusica() {

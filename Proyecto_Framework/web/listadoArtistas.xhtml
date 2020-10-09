@@ -31,16 +31,18 @@
                              required="true"
                              requiredMessage="Debes ingresar url de una imagen"/>  
                 <h:outputLabel for="genero" value="Genero"/>
-                <b:inputText id="genero" styleClass="form-control"
-                             value="#{artistaBean.artista.id.nombreGenero}"
-                             required="true"
-                             requiredMessage="Debes ingresar codigo de Empleado"/> 
+                <b:selectOneMenu value="1"  >
+                        <c:forEach items="${generosBean.listaGeneros}" var="item">
+                            <f:selectItem itemLabel="${item.nombreGenero}" itemValue="${item.id}"/>
+                        </c:forEach>
+                    </b:selectOneMenu>
                 <h:outputLabel for="descripcion" value="Descripcion"/>
                 <b:inputTextarea id="contrasena" styleClass="form-control"
                                  value="#{artistaBean.artista.descripcion}"
                              required="true"
                              requiredMessage="Debes ingresar una descripcion"/>  
-                <h:inputHidden value="#{artistaBean.artista.idArtista}"/>
+                <h:inputHidden id="id" 
+                               value="#{artistaBean.artista.idArtista}"/> 
             </h:panelGrid>
             <h:commandButton value="Guardar" styleClass="btn btn-primary "
                              action="#{artistaBean.guardarArtista(artistaBean.artista.idArtista)}"

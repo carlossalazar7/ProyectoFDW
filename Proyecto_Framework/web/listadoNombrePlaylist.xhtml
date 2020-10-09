@@ -20,9 +20,7 @@
                                          required="true"
                                          requiredMessage="Debes ingresar el carnet"/>    
                             <h:inputHidden id="id" 
-                                         value="#{nombreplaylistBean.playlista.idNombrePlayList}"
-                                         required="true"
-                                         requiredMessage="Debes ingresar el carnet"/>   
+                                         value="#{nombreplaylistBean.playlista.idNombrePlayList}"/>   
                         </h:panelGrid>
                         <h:commandButton value="Guardar" styleClass="btn btn-primary btn-block"
                                          action="#{nombreplaylistBean.guardarListaPlaylist(nombreplaylistBean.playlista.idNombrePlayList)}"

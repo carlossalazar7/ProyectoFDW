@@ -16,31 +16,19 @@
         <ui:composition template="./WEB-INF/userPlantilla.xhtml">
             <ui:define name="contenido">
                 <div class="table table-hover table-striped table-dark">
-                    <table class="table-dark">                        
-                <h:form id="i18n">
-                    <b:selectOneMenu value="#{generosBean.listaGeneros}" onchange="i18nBcarPool2Widget.DataTable().destroy();ajax:carPool.onLanguageChange()" update="bcarPool2">
-                        <c:forEach items="${generosBean.listaGeneros}" var="item">
-                            <f:selectItem itemLabel="${item.nombreGenero}" itemValue="${item.id}"/>
-                        </c:forEach>
-                    </b:selectOneMenu>
-                    <br />
-                    <b:dataTable value="#{musicBean.listaMusica}" styleClass="table-dark"
-                                 var="car"
-                                 id="bcarPool2"
-                                 fixedHeader="true"
-                                 scroll-size="400px"
-                                 scroll-x="true"
-                                 responsive="true"
-                                 lang="#{generosBean.listaGeneros}"
-                                 custom-lang-url="#{generosBean.listaGeneros}"
-                                 searching="true" 
-                                 selectionMode="multiple" >
-                        <b:dataTableColumn value="#{car.nombreCancion}" />
-                        <b:dataTableColumn value="$#{car.precio}" />
-                        <b:dataTableColumn value="#{car.id.nombreGenero}" />
-                        <b:dataTableColumn value="" ><button class="btn btn-warning">Comprar</button></b:dataTableColumn>
-                    </b:dataTable>
-                </h:form>                         
+                    <table class="table-dark">   
+                        <h3 style="color: #ffffff">Lista de canciones Disponibles para comprar</h3>
+                        <h:form >
+                            <b:dataTable  value="#{musicBean.listaMusica}"
+                                          var="est" rendered="#{musicBean.listaMusica.size()>0}" class="editableCarTable">
+                                <b:dataTableColumn value="" ><img src="${est.imagen}" width="100" height="100" alt=""/></b:dataTableColumn>
+                                <b:dataTableColumn value="#{est.nombreCancion}"/>
+                                <b:dataTableColumn value="#{est.precio}" />
+                                <b:dataTableColumn value="#{est.id.nombreGenero}" />
+                                <b:dataTableColumn  order="asc" > <a  class="btn btn-success " href="comprar.xhtml">Comprar</a></b:dataTableColumn>
+                            </b:dataTable>
+
+                        </h:form>                         
                     </table>
                 </div>
             </ui:define>

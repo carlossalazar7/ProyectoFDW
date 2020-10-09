@@ -53,7 +53,6 @@ public class EmpleadosEntity implements Serializable {
     @JoinColumn(name = "codigoTipoEmpleado", referencedColumnName = "codigoTipoEmpleado")
     @ManyToOne(optional = false)
     private TipoempleadosEntity codigoTipoEmpleado;
-
     public EmpleadosEntity() {
     }
 

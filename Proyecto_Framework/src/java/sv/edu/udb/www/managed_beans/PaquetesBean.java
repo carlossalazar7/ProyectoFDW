@@ -8,6 +8,7 @@ package sv.edu.udb.www.managed_beans;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import sv.edu.udb.www.entities.GenerosEntity;
 import sv.edu.udb.www.entities.PaquetesEntity;
 import sv.edu.udb.www.model.PaquetesModel;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -43,6 +44,7 @@ public class PaquetesBean {
     }
     
     public String guardarPaquete(int id) {
+        
         if (modelo.obtenerPaquetes1(id) == 1) {
 
             if (modelo.modificarEmpleados(paquete) != 1) {
@@ -85,6 +87,14 @@ public class PaquetesBean {
         System.out.println(id);
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         return "comprar?faces-redirect=true";
+    }
+     public String obtenerPaquete2() {
+        String id = JsfUtil.getRequest().getParameter("id");
+        paquete = modelo.obtenerPaquetes(Integer.parseInt(id));       
+        System.out.println(id);
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        return null;
+        
     }
 
 }

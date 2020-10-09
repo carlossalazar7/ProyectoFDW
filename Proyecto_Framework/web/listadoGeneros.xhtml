@@ -20,11 +20,9 @@
                              value="#{generosBean.genero.nombreGenero}"
                              required="true"
                              requiredMessage="Debes ingresar el carnet"/>  
-                <h:outputLabel for="id" value="id"/>
-                <b:inputText id="id" styleClass="form-control"
-                             value="#{generosBean.genero.id}"
-                             required="true"
-                             requiredMessage="Debes ingresar el carnet"/>  
+                <h:inputHidden id="id"
+                               value="#{generosBean.genero.id}" /> 
+                
             </h:panelGrid>
             <h:commandButton value="Guardar" styleClass="btn btn-primary btn-block"
                              action="#{generosBean.guardarGenero(generosBean.genero.id)}"

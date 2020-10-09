@@ -45,7 +45,7 @@
                              action="#{empleadosBean.guardarEmpleado(empleadosBean.empleado.codigoEmpleado)}"
                              style="margin-right:10px"/>
             <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success "/>
-            <br/><br/><br/>
+            
         </b:form>
         <h:form >
             <b:dataTable  value="#{empleadosBean.listaEmpleados}"
@@ -73,6 +73,6 @@
             return confirm("¿Está seguro que desea eliminar este estudiante");
             }
         </h:outputScript>
-        <br/><br/><br/><br/><br/>
+       
     </ui:define>
 </ui:composition>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="./WEB-INF/plantillaAdmin1.xhtml"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="contenido">
+        <b:form id="miFormulario" inline="true">
+            <h:panelGroup layout="block" styleClass="alert alert-danger"
+                          rendered="#{not empty facesContext.messageList}">
+                <h:messages />
+            </h:panelGroup>
+            <h:panelGrid columns="4" styleClass="table">
+                <h:outputLabel for="nombre" value="Nombre"/>
+                <b:inputText id="nombre" styleClass="form-control"
+                             value="#{artistaBean.artista.nombreArtistaPublic}"
+                             required="true"
+                             requiredMessage="Debes ingresar su Nombre completo"/>  
+                <h:outputLabel for="Nacimiento" value="Fecha de nacimiento"/>
+                <b:inputText id="nacimiento" styleClass="form-control"
+                             value="#{artistaBean.artista.nacimiento}"
+                             required="true" placeholder="00/00/0000"
+                             requiredMessage="Debes ingresar fecha de Nacimiento"></b:inputText>
+                <h:outputLabel for="imagen" value="Imagen"/>
+                <b:inputText id="imagen" styleClass="form-control"
+                             value="#{artistaBean.artista.nombreArtista}"
+                             required="true"
+                             requiredMessage="Debes ingresar url de una imagen"/>  
+                <h:outputLabel for="genero" value="Genero"/>
+                <b:inputText id="genero" styleClass="form-control"
+                             value="#{artistaBean.artista.id.nombreGenero}"
+                             required="true"
+                             requiredMessage="Debes ingresar codigo de Empleado"/> 
+                <h:outputLabel for="descripcion" value="Descripcion"/>
+                <b:inputTextarea id="contrasena" styleClass="form-control"
+                                 value="#{artistaBean.artista.descripcion}"
+                             required="true"
+                             requiredMessage="Debes ingresar una descripcion"/>  
+                <h:inputHidden value="#{artistaBean.artista.idArtista}"/>
+            </h:panelGrid>
+            <h:commandButton value="Guardar" styleClass="btn btn-primary "
+                             action="#{artistaBean.guardarArtista(artistaBean.artista.idArtista)}"
+                             style="margin-right:10px"/>
+            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success "/>
+            
+        </b:form>
+        <h:form >
+            <b:dataTable  value="#{artistaBean.listaArtista}"
+                          var="est" rendered="#{artistaBean.listaArtista.size()>0}" class="editableCarTable">
+                <b:dataTableColumn value="#{est.idArtista}"/>
+                <b:dataTableColumn value="#{est.nombreArtistaPublic}" />
+                <b:dataTableColumn value="#{est.id.nombreGenero}" />
+                <b:dataTableColumn value="#{est.descripcion}"/>
+                <b:dataTableColumn>
+                    <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                     action="#{artistaBean.eliminarArtista}"
+                                     onclick="return confirmarEliminacion();">
+                        <f:param name="id" value="#{est.idArtista}"/>
+                    </h:commandButton>
+                    <h:commandButton value="Modificar" styleClass="btn btn-info "
+                                     action="#{artistaBean.obtenerArtista()}">
+                                    <f:param name="id" value="#{est.idArtista}"/>
+                    </h:commandButton>
+                </b:dataTableColumn>
+            </b:dataTable>
+
+        </h:form>
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
+       
+    </ui:define>
+</ui:composition>

@@ -49,15 +49,50 @@ public class ArtistaBean {
         return modelo.listarArtista();
     }
 
-    public String guardarArtista() {
-        if (modelo.insertarArtista(getArtista()) != 1) {
-            JsfUtil.setErrorMessage(null, "Ya se registró un artista con este carnet ");
-            return null;//Regreso a la misma página
+     public String guardarArtista(int idArtista) {
+        if (modelo.obtenerArtista1(idArtista) == 1) {
+
+            if (modelo.modificarArtista(artista) != 1) {
+                // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                return null;//Regreso a la misma página
+            } else {
+                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                //Forzando la redirección en el cliente
+                return null;
+            }
         } else {
-            JsfUtil.setFlashMessage("exito", "artista registrado exitosamente ");
-            //Forzando la redirección en el cliente
-            return "artistas/registroArtista?faces-redirect=true";
+
+            if (modelo.insertarArtista(artista) != 1) {
+                // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                return null;//Regreso a la misma página
+            } else {
+                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                //Forzando la redirección en el cliente
+                return null;
+            }
         }
+    }
+     
+     public String eliminarArtista() {
+        // Leyendo el parametro enviado desde la vista
+        String id = JsfUtil.getRequest().getParameter("id");
+
+        if (modelo.eliminarArtista(Integer.parseInt(id))> 0) {
+            JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        } else {
+            JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
+        }
+        return null;
+    }
+     
+     public void obtenerArtista() {
+        //Cambiar carnet a ID
+        String id = JsfUtil.getRequest().getParameter("id");
+        artista = modelo.obtenerArtista(Integer.parseInt(id));
+        
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        
+      
     }
 
 }

@@ -42,7 +42,6 @@ public class ArtistaEntity implements Serializable {
     private String nacimiento;
     private String descripcion;
     @Lob
-    private byte[] image;
     private String nombreArtistaPublic;
     @JoinColumn(name = "id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -85,14 +84,6 @@ public class ArtistaEntity implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
     }
 
     public String getNombreArtistaPublic() {

@@ -34,7 +34,7 @@ public class ArtistaModel {
         }
     }
 
-    public ArtistaEntity obtenerArtista(String idArtista) {
+    public ArtistaEntity obtenerArtista(int idArtista) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
             //Recupero el objeto desde la BD a través del método find
@@ -47,6 +47,21 @@ public class ArtistaModel {
             return null;
         }
     }
+    
+     public int obtenerArtista1(int idArtista) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            //Recupero el objeto desde la BD a través del método find
+            ArtistaEntity artista = em.find(ArtistaEntity.class,
+                    idArtista);
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            em.close();
+            return 0;
+        }
+    }
+
 
     public int insertarArtista(ArtistaEntity artista) {
         EntityManager em = JpaUtil.getEntityManager();
@@ -78,7 +93,7 @@ public class ArtistaModel {
         }
     }
 
-    public int eliminarEstudiante(String idArtista) {
+    public int eliminarArtista(int idArtista) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
         try {

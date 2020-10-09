@@ -43,7 +43,9 @@ public class ArtistaEntity implements Serializable {
     private String descripcion;
     @Lob
     private String nombreArtistaPublic;
-    
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private GenerosEntity id;
 
     public ArtistaEntity() {
     }
@@ -90,6 +92,14 @@ public class ArtistaEntity implements Serializable {
 
     public void setNombreArtistaPublic(String nombreArtistaPublic) {
         this.nombreArtistaPublic = nombreArtistaPublic;
+    }
+
+    public GenerosEntity getId() {
+        return id;
+    }
+
+    public void setId(GenerosEntity id) {
+        this.id = id;
     }
 
     @Override

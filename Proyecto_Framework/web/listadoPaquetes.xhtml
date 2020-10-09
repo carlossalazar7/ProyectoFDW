@@ -23,27 +23,23 @@
                 <h:outputLabel for="precio" value="Precio"/>
                 <b:inputText id="precio" styleClass="form-control"
                              value="#{paquetesBean.paquete.precio}"
-                             required="true" 
+                             required="true" placeholder="00/00/0000"
                              requiredMessage="Debes ingresar Precio"></b:inputText>
                 <h:outputLabel for="genero" value="Genero"/>
-                <b:selectOneMenu value="4"  >
-                        <c:forEach items="${generosBean.listaGeneros}" var="item">
-                            <f:selectItem itemLabel="${item.nombreGenero}" itemValue="${item.id}"/>
-                        </c:forEach>
-                    </b:selectOneMenu>
-                <h:outputLabel for="fecha" value="Fecha publicación"/>
+                <b:inputText id="imagen" styleClass="form-control"
+                             value="#{paquetesBean.paquete.id}"
+                             required="true"
+                             requiredMessage="Debes ingresar url de una imagen"/>  
+                <h:outputLabel for="fecha" value="fecha"/>
                 <b:inputText id="genero" styleClass="form-control"
                              value="#{paquetesBean.paquete.fechaPublicacion}"
-                             required="true" placeholder="00/00/0000"
+                             required="true"
                              requiredMessage="Debes ingresar codigo de Empleado"/> 
                 <h:outputLabel for="descripcion" value="Descripcion"/>
                 <b:inputTextarea id="descripcion" styleClass="form-control"
                                  value="#{paquetesBean.paquete.descripcion}"
                              required="true"
                              requiredMessage="Debes ingresar una descripcion"/>  
-                <h:inputHidden id="id" 
-                               value="#{paquetesBean.paquete.idPaquete}"
-                             /> 
             </h:panelGrid>
             <h:commandButton value="Guardar" styleClass="btn btn-primary "
                              action="#{paquetesBean.guardarPaquete(paquetesBean.paquete.idPaquete)}"
@@ -67,7 +63,7 @@
                         <f:param name="id" value="#{est.idPaquete}"/>
                     </h:commandButton>
                     <h:commandButton value="Modificar" styleClass="btn btn-info "
-                                     action="#{paquetesBean.obtenerPaquete2()}">
+                                     action="#{paquetesBean.obtenerPaquete()}">
                                     <f:param name="id" value="#{est.idPaquete}"/>
                     </h:commandButton>
                 </b:dataTableColumn>

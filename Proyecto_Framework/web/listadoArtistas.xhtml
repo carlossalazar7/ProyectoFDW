@@ -30,14 +30,17 @@
                              value="#{artistaBean.artista.nombreArtista}"
                              required="true"
                              requiredMessage="Debes ingresar url de una imagen"/>  
+                <h:outputLabel for="genero" value="Genero"/>
+                <b:inputText id="genero" styleClass="form-control"
+                             value="#{artistaBean.artista.id.nombreGenero}"
+                             required="true"
+                             requiredMessage="Debes ingresar codigo de Empleado"/> 
                 <h:outputLabel for="descripcion" value="Descripcion"/>
                 <b:inputTextarea id="contrasena" styleClass="form-control"
                                  value="#{artistaBean.artista.descripcion}"
                              required="true"
                              requiredMessage="Debes ingresar una descripcion"/>  
-                <h:inputHidden id="id" 
-                               value="#{artistaBean.artista.idArtista}"
-                                         required="true"/>
+                <h:inputHidden value="#{artistaBean.artista.idArtista}"/>
             </h:panelGrid>
             <h:commandButton value="Guardar" styleClass="btn btn-primary "
                              action="#{artistaBean.guardarArtista(artistaBean.artista.idArtista)}"
@@ -50,6 +53,7 @@
                           var="est" rendered="#{artistaBean.listaArtista.size()>0}" class="editableCarTable">
                 <b:dataTableColumn value="#{est.idArtista}"/>
                 <b:dataTableColumn value="#{est.nombreArtistaPublic}" />
+                <b:dataTableColumn value="#{est.id.nombreGenero}" />
                 <b:dataTableColumn value="#{est.descripcion}"/>
                 <b:dataTableColumn>
                     <h:commandButton value="Eliminar" styleClass="btn btn-danger"

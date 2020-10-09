@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Agregar nuevo usuario</title>
     </h:head>
@@ -38,7 +39,39 @@
                         <b:messages />
                     </h:panelGrid>
                 </h:form>
+  
+                <h:form >
+                    <b:dataTable  value="#{musicBean.listaMusica}"
+                          var="music" rendered="#{musicBean.listaMusica.size()>0}" class="editableCarTable">
+                <b:dataTableColumn label="ID" value="#{music.idMusic}"/>
+                <b:dataTableColumn label="Portada" >
+                    <img src="#{music.imagen}" style="width:100px;" />
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Nombre" value="#{music.nombreCancion}" />
+                <b:dataTableColumn label="Genero" value="#{music.id.nombreGenero}"  />
+                <b:dataTableColumn label="Precio" value="#{music.precio}" />
+                <b:dataTableColumn label="Likes" value="#{music.likes}" />
+
+                <b:dataTableColumn>
+                    <h:commandButton value="Eliminar" styleClass="btn btn-danger"
+                                     action="#{musicBean.eliminarMusica}"
+                                     onclick="return confirmarEliminacion();">
+                        <f:param name="id" value="#{music.idMusic}"/>
+                    </h:commandButton>
+                </b:dataTableColumn>
+            </b:dataTable>
+
+        </h:form>
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
             </ui:define>
         </ui:composition>
     </h:body>
 </html>
+            

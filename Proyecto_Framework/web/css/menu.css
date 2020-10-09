@@ -61,6 +61,16 @@ and open the template in the editor.
             article li:nth-child(3) a {
                 border-left: 10px solid #f0776c;
             }
+            article li:nth-child(4) a {
+                border-left: 10px solid #FC9E4F;
+            }
+            article li:nth-child(5) a {
+                border-left: 10px solid #885A89;
+            }
+            article li:nth-child(6) a {
+                border-left: 10px solid #EA1744;
+            }
+            
             article li:last-child a {
                 border-left: 10px solid #1abc9c;
             }
@@ -89,9 +99,19 @@ and open the template in the editor.
             article li:nth-child(3) a:after {
                 background: #f0776c;
             }
+            article li:nth-child(4) a:after {
+                background: #FC9E4F;
+            }
+            article li:nth-child(5) a:after {
+                background: #885A89;
+            }
+            article li:nth-child(6) a:after {
+                background: #EA1744;
+            }
             article li:last-child a:after {
                 background: #1abc9c;
             }
+            
 
             @font-face {
                 font-family: "Lato";

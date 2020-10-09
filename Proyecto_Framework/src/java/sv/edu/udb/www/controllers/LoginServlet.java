@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 				request.setAttribute("usuarioEmpleado", userName);
 				request.setAttribute("codigoEmpleado", numero);
 
-				request.getRequestDispatcher("faces/paginaadmin.xhtml").forward(request, response);
+				request.getRequestDispatcher("faces/paginaadmin2.xhtml").forward(request, response);
 			} else if (userValidate.equals("3")) {
 				System.out.println("User's Home");
 

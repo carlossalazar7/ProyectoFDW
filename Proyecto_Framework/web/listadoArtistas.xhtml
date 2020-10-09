@@ -41,8 +41,7 @@
                                  value="#{artistaBean.artista.descripcion}"
                              required="true"
                              requiredMessage="Debes ingresar una descripcion"/>  
-                <h:inputHidden id="id" 
-                               value="#{artistaBean.artista.idArtista}"/> 
+                <h:inputHidden id="id" value="#{artistaBean.artista.idArtista}"/> 
             </h:panelGrid>
             <h:commandButton value="Guardar" styleClass="btn btn-primary "
                              action="#{artistaBean.guardarArtista(artistaBean.artista.idArtista)}"
@@ -50,9 +49,9 @@
             <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success "/>
             
         </b:form>
-        <h:form >
-            <b:dataTable  value="#{artistaBean.listaArtista}"
-                          var="est" rendered="#{artistaBean.listaArtista.size()>0}" class="editableCarTable">
+        <h:form styleClass="table table-responsive" >
+            <b:dataTable  value="#{artistaBean.listaArtista}" styleClass="table table-responsive"
+                          var="est" rendered="#{artistaBean.listaArtista.size()>0}" class="editableCarTable table table-bordered table-hover table-responsive table-striped">
                 <b:dataTableColumn value="#{est.idArtista}"/>
                 <b:dataTableColumn value="#{est.nombreArtistaPublic}" />
                 <b:dataTableColumn value="#{est.id.nombreGenero}" />

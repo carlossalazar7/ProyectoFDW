@@ -7,13 +7,19 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:f="http://java.sun.com/jsf/core"
     template="./WEB-INF/plantilla2.xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
     <ui:define name="contenido">
         <h:form id="miFormulario">
-            <h:panelGroup layout="block" styleClass="alert alert-danger"
-                          rendered="#{not empty facesContext.messageList}">
-                <h:messages />
-            </h:panelGroup>
+
+            <p:breadCrumb>
+                <p:menuitem value="Home" url="index.xhtml" />
+                <p:menuitem value="Generos" url="listadoGeneros.xhtml" />
+                <p:menuitem value="Lista de generos" url="grafica.xhtml" />
+            </p:breadCrumb>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate />
+            </p:messages>
             <h:panelGrid columns="4" styleClass="table">
                 <h:outputLabel for="nombre" value="Nombre"/>
                 <b:inputText id="nombre" styleClass="form-control"
@@ -22,45 +28,44 @@
                              requiredMessage="Debes ingresar el carnet"/>  
                 <h:inputHidden id="id"
                                value="#{generosBean.genero.id}" /> 
-                
+
             </h:panelGrid>
             <h:commandButton value="Guardar" styleClass="btn btn-primary btn-block"
                              action="#{generosBean.guardarGenero(generosBean.genero.id)}"
                              style="margin-right:10px"/>
             <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success btn-block"/>
         </h:form>
-        <h:form >
-            <b:dataTable styleClass="table" value="#{generosBean.listaGeneros}"
-                         var="gen" rendered="#{generosBean.listaGeneros.size()>0}">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="ID Genero" />
-                    </f:facet>
-                    <h:outputText value="#{gen.id}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Nombre Genero" />
-                    </f:facet>
-                    <h:outputText value="#{gen.nombreGenero}" />
-                </h:column>
-                <h:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="Operaciones"/>
-                            </f:facet>
-                                <h:commandButton value="Modificar" styleClass="btn btn-info "
-                                                 action="#{generosBean.obtenerEstudiantes()}">
-                                    <f:param name="id" value="#{gen.id}"/>
-                                </h:commandButton>
-                                <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                                 action="#{generosBean.eliminarEstudiante}"
-                                                 onclick="return confirmarEliminacion();">
-                                    <f:param name="id" value="#{gen.id}"/>
-                                </h:commandButton>
-                        </h:column>
-            </b:dataTable>
+        <h:form style="padding-top: 5%; margin: auto; padding-bottom: 5%;" class="mx-auto" >
+            <p:dataTable var="car" rows="10"  paginator="true" sortOrder="ascending" widgetVar="carsTable" filteredValue="#{generosBean.listaGeneros}" value="#{generosBean.listaGeneros}" class="table table-dark" id="carsTable" style="width: 85%;" rowsPerPageTemplate="5,10,15" >
+                <p:growl id="growl" life="2000" />
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Buscar:" />
+                        <h:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" />
+                    </p:outputPanel>
+                </f:facet>
+
+                <p:column headerText="ID">
+                    <h:outputText value="#{car.id}" />
+                </p:column>
+                <p:column headerText="Nombre" class="table-dark">
+                    <h:outputText value="#{car.nombreGenero}" />
+                </p:column>
+                <p:column headerText="Operaciones">
+                    <p:commandButton value="Modificar" id="nonAjax" styleClass="ui-priority-primary "
+                                     action="#{generosBean.obtenerEstudiantes()}" ajax="false" >
+                        <f:param name="id" value="#{car.id}"/>
+                    </p:commandButton>
+                    <p:commandButton value="Eliminar" id="nonAjax2" 
+                                     styleClass="ui-priority-danger"
+                                     action="#{generosBean.eliminarEstudiante}"  
+                                     onclick="return confirmarEliminacion();" ajax="false" >
+                        <f:param name="id" value="#{car.id}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
         </h:form>
-         <h:outputScript>
+        <h:outputScript>
             <c:if test = "#{not empty flash.exito}" >
                 alertify.success('#{flash.exito}');
             </c:if>
@@ -68,5 +73,6 @@
             return confirm("¿Está seguro que desea eliminar este estudiante");
             }
         </h:outputScript>
+
     </ui:define>
 </ui:composition>

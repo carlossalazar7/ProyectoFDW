@@ -10,6 +10,12 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:p="http://primefaces.org/ui">
     <ui:define name="contenido">  
+        <p:breadCrumb>
+            <p:menuitem value="Home" url="index.xhtml" />
+            <p:menuitem value="Music" url="music.xhtml" />
+            <p:menuitem value="Top Music" url="grafica.xhtml" />
+            <p:menuitem value="Lista de top music" url="grafica.xhtml" />
+        </p:breadCrumb>
         <div style="display: inline-block; width: 50%">
             <h2 class="text-center" style="color: #FFF; display: inline-block;" >Likes por canción</h2>
             <p:panel class="w-50" style=" align-content: center" >

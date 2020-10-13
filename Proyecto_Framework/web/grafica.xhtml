@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="./WEB-INF/plantillaAdmin1.xhtml"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+    <ui:define name="contenido">  
+        <div style="display: inline-block; width: 50%">
+            <h2 class="text-center" style="color: #FFF; display: inline-block;" >Likes por canción</h2>
+            <p:panel class="w-50" style=" align-content: center" >
+                <p:donutChart model="#{bean.donutModel}" style="width: 100%" />
+            </p:panel>
+
+            <p:panel class="w-50">
+                <p:barChart model="#{grafica.barModel}" />
+            </p:panel>
+            <br/><br/><br/><br/>
+        </div>
+        <div class="float-left w-50" style=" width:50%; float: left; padding-left: 5%; ">
+            <h2 class="" style="color: #FFF">Top Music</h2>
+            <p:dataTable var="car" rows="7"  paginator="true" sortOrder="ascending" value="#{musicBean.topMusica}" class="" style="width: 85%;" rowsPerPageTemplate="5,10,15" >
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{car.nombreCancion}" />
+                </p:column>
+
+                <p:column headerText="Genero">
+                    <h:outputText value="#{car.id.nombreGenero}" />
+                </p:column>
+
+                <p:column headerText="Likes">
+                    <h:outputText value="#{car.likes}" />
+                </p:column>
+            </p:dataTable>
+        </div>
+    </ui:define>
+</ui:composition>

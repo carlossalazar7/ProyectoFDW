@@ -38,7 +38,7 @@ public class MusicModel {
          try{
         Query consulta = em.createNamedQuery("MusicEntity.findTop");
            consulta.setFirstResult(0);
-           consulta.setMaxResults(5);
+           consulta.setMaxResults(10);
            
             List<MusicEntity> lista = consulta.getResultList();
             em.close();// Cerrando el EntityManager

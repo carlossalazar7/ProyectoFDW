@@ -47,9 +47,9 @@
             <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success "/>
             
         </b:form>
-        <h:form >
+        <h:form class="table table-responsive ">
             <b:dataTable  value="#{empleadosBean.listaEmpleados}"
-                          var="est" rendered="#{empleadosBean.listaEmpleados.size()>0}" class="editableCarTable">
+                          var="est" rendered="#{empleadosBean.listaEmpleados.size()>0}"  class="w-100 table table-responsive editableCarTable">
                 <b:dataTableColumn value="#{est.codigoEmpleado}"/>
                 <b:dataTableColumn value="#{est.nombreEmpleado}" />
                 <b:dataTableColumn value="#{est.usuarioEmpleado}" />

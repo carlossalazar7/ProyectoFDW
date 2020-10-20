@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate />
+            </p:messages>
+            <h:panelGrid columns="2">
+                <p:outputLabel for="txtUsuario" value="Usuario" />
+                <p:inputText id="txtUsuario"  value="${empleadosBean.empleado.usuarioEmpleado}" required="true"/>
+                
+                <p:outputLabel for="txtClave" value="Clave" />
+                <p:inputText id="txtClave" value="${empleadosBean.empleado.contrasena}"  required="true"/>
+                
+                <h:column/>
+                <p:commandButton icon="ui-icon-key" value="Iniciar Sessión" action="#{empleadosBean.login()}" />
+                <p:separator />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

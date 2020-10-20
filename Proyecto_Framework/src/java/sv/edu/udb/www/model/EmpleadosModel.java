@@ -4,18 +4,21 @@
  * and open the template in the editor.
  */
 package sv.edu.udb.www.model;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.edu.udb.www.entities.EmpleadosEntity;
 import sv.edu.udb.www.utils.*;
+
 /**
  *
  * @author Lenovo
  */
 public class EmpleadosModel {
-     public List<EmpleadosEntity> listarEmpleados() {
+
+    public List<EmpleadosEntity> listarEmpleados() {
         //Obtengo una instancia de EntityManager
         EntityManager em = JpaUtil.getEntityManager();
         try {
@@ -43,6 +46,7 @@ public class EmpleadosModel {
             return null;
         }
     }
+
     public int obtenerEmpleados1(int codigo) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
@@ -106,5 +110,35 @@ public class EmpleadosModel {
             em.close();
             return 0;
         }
+    }
+
+    public EmpleadosEntity iniciarSesion(EmpleadosEntity us) {
+        EmpleadosEntity usuario = null;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            String nombre = us.getUsuarioEmpleado();
+            String pass = us.getContrasena();
+            EmpleadosEntity emp = new EmpleadosEntity();
+            emp.setNombreEmpleado(nombre);
+            emp.setContrasena(pass);
+            
+            consulta = "SELECT e FROM EmpleadosEntity e WHERE e.usuarioEmpleado = :nombre and e.contrasena = :pass ";
+            Query query = em.createQuery(consulta);
+            query.setParameter("nombre", nombre);
+            query.setParameter("pass", pass);
+            List<EmpleadosEntity> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                usuario = lista.get(0);
+            }
+          /*  if (lista != null) {
+                System.out.println("Datos encontrados");
+            } else {
+                System.out.println("Datos no encontrados");
+            }*/
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return usuario;
     }
 }

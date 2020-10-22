@@ -22,18 +22,24 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+      <!--  #{request.getSession(false).getAttribute("User")} -->
     </h:head>
 
     <h:body>
         <div class="viewport">
             <ui:insert name="menu">
-                <b:navBar brand="Universal Music" brandHref="#" inverse="true" styleClass="opacity-1">
+                <b:navBar brand="Universal Music" brandHref="#" inverse="true" style="opacity: 0.8;  color: #FFF; z-index: 999;">
                     <b:navbarLinks style="opacity: 0.5; ">
                         <b:navLink value="Play List" outcome="faces/crearPlayList"></b:navLink>
                         <b:navLink value="Mi Music" outcome="faces/mymusica"></b:navLink>
                         <b:navLink value="Comprar Music" outcome="faces/comprarCancion"></b:navLink>
                         <b:navLink value="Paquetes" outcome="faces/paquetes"></b:navLink>
-                        <b:navLink value="Salir" href="Login.jsp"></b:navLink>
+                        <b:dropMenu value="${request.getSession(false).getAttribute('User')} ">
+                            <b:navLink value="Salir" href="Login.jsp"></b:navLink>
+                            <b:dropMenu value="Cambiar Contraseña">
+                            <!--    <b:navLink value="... you want!" href="#"></b:navLink> -->
+                            </b:dropMenu>
+                        </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>
 

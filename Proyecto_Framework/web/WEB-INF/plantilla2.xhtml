@@ -35,7 +35,12 @@
                         <b:navLink value="Artistas" outcome="faces/listadoArtistas.xhtml"></b:navLink>
                         <b:navLink value="Play List" outcome="faces/listadoNombrePlaylist.xhtml"></b:navLink>
                         <b:navLink value="Agregar Play List" outcome="faces/agregarNombrePlaylist.xhtml"></b:navLink>
-                        <b:navLink value="Salir" outcome="Login.jsp"></b:navLink>
+                        <b:dropMenu value="${request.getSession(false).getAttribute('Editor')} ">
+                            <b:navLink value="Salir" href="Login.jsp"></b:navLink>
+                            <b:dropMenu value="Cambiar Contraseña">
+                                <!--    <b:navLink value="... you want!" href="#"></b:navLink> -->
+                            </b:dropMenu>
+                        </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>
             </ui:insert>
@@ -54,7 +59,7 @@
                                         <li><a href="faces/listadoArtistas.xhtml">Artistas</a></li>
                                         <li><a href="faces/listadoNombrePlaylist.xhtml">Play List</a></li>
                                         <li><a href="faces/agregarNombrePlaylist.xhtml">Agregar Play List</a></li>
-                                         <li><a href="Login.jsp">Salir</a></li>
+                                        <li><a href="Login.jsp">Salir</a></li>
                                     </ul>
                                 </article>
                             </b:column>

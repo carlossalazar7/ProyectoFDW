@@ -12,65 +12,71 @@ import javax.servlet.http.HttpSession;
 import sv.edu.udb.www.model.*;
 import sv.edu.udb.www.managed_beans.*;
 
-@WebServlet(name = "LoginServlet", urlPatterns = { "/LoginServlet" })
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	public LoginServlet() {
-	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		LoginDao loginDao = new LoginDao();		
-		String userName = request.getParameter("username");
-		String password = request.getParameter("password");
-		System.out.println(userName);
-		System.out.println(password);
-		
-		LoginBean loginBean = new LoginBean();
+    private static final long serialVersionUID = 1L;
 
-		loginBean.setUserName(userName);
-		loginBean.setPassword(password);
+    public LoginServlet() {
+    }
 
-		try {
-			String userValidate = loginDao.authenticateUser(loginBean);
-			int numero = loginDao.obtenerCodigo(userName);
-			loginBean.setCodigoEmpleado(numero);
-			System.out.println(numero);
-			if (userValidate.equals("1")) {
-				System.out.println("Admin's Home");
-				HttpSession session = request.getSession(); // Creating a session
-				session.setAttribute("Admin", userName); // setting session attribute
-				request.setAttribute("usuarioEmpleado", userName);
-				request.setAttribute("codigoEmpleado", numero);
-				request.getRequestDispatcher("faces/listado.xhtml").forward(request, response);
-			} else if (userValidate.equals("2")) {
-				System.out.println("Admin2's Home");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        LoginDao loginDao = new LoginDao();
+        String userName = request.getParameter("username");
+        String password = request.getParameter("password");
+        System.out.println(userName);
+        System.out.println(password);
 
-				HttpSession session = request.getSession();
-				session.setAttribute("Editor", userName);
-				request.setAttribute("usuarioEmpleado", userName);
-				request.setAttribute("codigoEmpleado", numero);
+        LoginBean loginBean = new LoginBean();
 
-				request.getRequestDispatcher("faces/paginaadmin2.xhtml").forward(request, response);
-			} else if (userValidate.equals("3")) {
-				System.out.println("User's Home");
+        loginBean.setUserName(userName);
+        loginBean.setPassword(password);
 
-				HttpSession session = request.getSession();
-				session.setMaxInactiveInterval(10 * 60);
-				session.setAttribute("User", userName);
-				request.setAttribute("usuarioEmpleado", userName);
-				request.setAttribute("codigoEmpleado", numero);
-				request.getRequestDispatcher("faces/paginausuario.xhtml").forward(request, response);
-			} else {
-				System.out.println("Error message = " + userValidate);
-				request.setAttribute("errMessage", userValidate);
-				request.getRequestDispatcher("Login.jsp").forward(request, response);
-			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (Exception e2) {
-			e2.printStackTrace();
-		}
-	} // End of doPost()
+        try {
+            String userValidate = loginDao.authenticateUser(loginBean);
+            int numero = loginDao.obtenerCodigo(userName);
+            loginBean.setCodigoEmpleado(numero);
+            System.out.println(numero);
+            switch (userValidate) {
+                case "1":
+                    {
+                        System.out.println("Admin's Home");
+                        HttpSession session = request.getSession(); // Creating a session
+                        session.setAttribute("Admin", userName); // setting session attribute
+                        request.setAttribute("usuarioEmpleado", userName);
+                        request.setAttribute("codigoEmpleado", numero);
+                        request.getRequestDispatcher("faces/listado.xhtml").forward(request, response);
+                        break;
+                    }
+                case "2":
+                    {
+                        System.out.println("Admin2's Home");
+                        HttpSession session = request.getSession();
+                        session.setAttribute("Editor", userName);
+                        request.setAttribute("usuarioEmpleado", userName);
+                        request.setAttribute("codigoEmpleado", numero);
+                        request.getRequestDispatcher("faces/paginaadmin2.xhtml").forward(request, response);
+                        break;
+                    }
+                case "3":
+                    {
+                        System.out.println("User's Home");
+                        HttpSession session = request.getSession();
+                        session.setMaxInactiveInterval(10 * 60);
+                        session.setAttribute("User", userName);
+                        request.setAttribute("usuarioEmpleado", userName);
+                        request.setAttribute("codigoEmpleado", numero);
+                        request.getRequestDispatcher("faces/paginausuario.xhtml").forward(request, response);
+                        break;
+                    }
+                default:
+                    System.out.println("Error message = " + userValidate);
+                    request.setAttribute("errMessage", userValidate);
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                    break;
+            }
+        } catch (IOException | SQLException | ServletException e1) {
+        }
+    } // End of doPost()
 }

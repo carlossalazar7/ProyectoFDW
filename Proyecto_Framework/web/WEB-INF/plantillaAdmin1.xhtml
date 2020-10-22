@@ -23,6 +23,12 @@
                         <b:navLink value="Ventas" outcome="NewUser"></b:navLink>
                         <b:navLink value="Gráficas" outcome="grafica"></b:navLink>
                         <b:navLink value="Listado Empleados" href="Login.jsp"></b:navLink>
+                        <b:dropMenu value="${request.getSession(false).getAttribute('Admin')} ">
+                            <b:navLink value="Salir" href="Login.jsp"></b:navLink>
+                            <b:dropMenu value="Cambiar Contraseña">
+                            <!--    <b:navLink value="... you want!" href="#"></b:navLink> -->
+                            </b:dropMenu>
+                        </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>
             </ui:insert>

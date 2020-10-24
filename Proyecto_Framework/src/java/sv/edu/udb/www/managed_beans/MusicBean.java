@@ -23,6 +23,7 @@ public class MusicBean {
       private MusicModel modelo = new MusicModel();
     private MusicEntity song;
     private List<MusicEntity> music;
+    private int operacion;
     
     public MusicEntity getMusic() {
         return song;
@@ -51,6 +52,16 @@ public class MusicBean {
  para obtener la lista de objetos a partir de la bd */
         return modelo.listarCanciones();
     }
+    
+    public String obtenerLike(int id){
+    operacion = modelo.obtenerLike(id);
+    
+    modelo.darLike(id, operacion);
+    
+    return null;
+    
+    }
+    
 
     public String guardarMusica(int id) {
         if (modelo.obtenerCancion1(id)== 1) {
@@ -96,5 +107,19 @@ public class MusicBean {
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         
       
+    }
+
+    /**
+     * @return the operacion
+     */
+    public int getOperacion() {
+        return operacion;
+    }
+
+    /**
+     * @param operacion the operacion to set
+     */
+    public void setOperacion(int operacion) {
+        this.operacion = operacion;
     }
 }

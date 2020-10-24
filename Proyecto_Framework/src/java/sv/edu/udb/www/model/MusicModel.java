@@ -129,4 +129,47 @@ public class MusicModel {
         }
     }
     
+    
+     public int obtenerLike(int id){
+    EntityManager em = JpaUtil.getEntityManager();
+    try{
+    MusicEntity cancion = em.find(MusicEntity.class, id);
+    int likes = cancion.getLikes();
+    int operacion = likes + 1;
+    System.out.println("Likes obtenidos");
+    System.out.println(likes);
+    System.out.println(operacion);
+    em.close();
+    return operacion;
+    }
+    catch(Exception e ){
+    System.out.println("ERRRRORRRR");
+    em.close();
+    return 0;
+    }
+    }
+    
+    public void darLike(int id,int operacion){
+     EntityManager em = JpaUtil.getEntityManager();
+       EntityTransaction tran = em.getTransaction();
+       try{
+     MusicEntity cancion = em.find(MusicEntity.class, id);
+       tran.begin();
+       cancion.setLikes(operacion);
+       em.merge(cancion);
+       tran.commit();
+       System.out.println("LIKEADO");
+       em.close();
+       
+       
+       }catch(Exception e){
+            System.out.println("NO LIKEADO");
+       em.close();
+      
+       }
+       
+       
+     
+    }
+
 }

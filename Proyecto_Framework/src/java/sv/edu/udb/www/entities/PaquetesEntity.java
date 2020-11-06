@@ -6,7 +6,9 @@
 package sv.edu.udb.www.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,6 +51,7 @@ public class PaquetesEntity implements Serializable {
     private GenerosEntity id;
     @OneToMany(mappedBy = "idPaquete")
     private List<VentasEntity> ventasEntityList;
+
 
     public PaquetesEntity() {
     }

@@ -14,23 +14,26 @@
     <h:body>
         <ui:composition template="./WEB-INF/plantilla2.xhtml">
             <ui:define name="contenido">
-                <h:form id="formulario">
+                <h:form id="formulario" enctype="multipart/form-data">
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
                     <h:panelGrid columns="2" styleClass="col-md-10 col-sm-10 col-xs-12 input-group" style="color:white;">
                         <h:outputText value="Nombre de la canción" />
                         <b:inputText value="#{musicBean.music.nombreCancion}" required="true" required-message="Nombre de la canción" />
 
                         <h:outputLabel  value="Genero:"/>
                         <b:selectOneMenu value="#{musicBean.genero.id}">
-                    <c:forEach items="${generosBean.listaGeneros}" var="item">
-                        <f:selectItem itemLabel="${item.nombreGenero}" itemValue="${item.id}"/>
-                    </c:forEach>
-                </b:selectOneMenu>
+                            <c:forEach items="${generosBean.listaGeneros}" var="item">
+                                <f:selectItem itemLabel="${item.nombreGenero}" itemValue="${item.id}"/>
+                            </c:forEach>
+                        </b:selectOneMenu>
                         <h:outputText value="Precio de la canción" />
                         <b:inputText type="number" value="#{musicBean.music.precio}" required="true" required-message="Precio de la canción" />
                         <h:outputText value="Lyrics" />
                         <b:inputTextarea value="#{musicBean.music.lyrics}" required="true" required-message="Letra de la canción" />
                         <h:outputText value="Imagen de la canción" />
-                        <b:inputText value="#{musicBean.music.imagen}" required="true" required-message="Portada de la canción" />
+                        <p:fileUpload value="#{musicBean.file}" required="true" skinSimple="true" styleClass="btn btn-primary form-control" mode="simple"  />
 
                     </h:panelGrid>
                     <br></br>

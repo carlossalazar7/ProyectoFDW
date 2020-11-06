@@ -5,10 +5,8 @@
  */
 package sv.edu.udb.www.managed_beans;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -16,6 +14,7 @@ import sv.edu.udb.www.entities.GenerosEntity;
 import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.model.MusicModel;
 import sv.edu.udb.www.utils.JsfUtil;
+import org.primefaces.model.file.UploadedFile;
 
 /**
  *
@@ -31,6 +30,7 @@ public class MusicBean {
     private List<GenerosEntity> generos;
     private List<MusicEntity> music;
     private int operacion;
+    private UploadedFile file;
 
     public MusicEntity getMusic() {
         return song;
@@ -42,7 +42,21 @@ public class MusicBean {
 
     public MusicBean() {
         song = new MusicEntity();
-         genero = new GenerosEntity();
+        genero = new GenerosEntity();
+    }
+
+    /**
+     * @return the file
+     */
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(UploadedFile file) {
+        this.file = file;
     }
 
     /**
@@ -71,6 +85,13 @@ public class MusicBean {
 
     public String guardarMusica(int id) {
         song.setId(genero);
+        String archivo;
+        archivo = file.getFileName();
+        String arch = file.toString();
+        String archiv = file.getContentType();
+        System.out.println(archivo+ "\n"+"\n"+ arch);
+        song.setImagen("C:/img/"+archivo);
+        song.setLikes(0);
         if (modelo.obtenerCancion1(id) == 1) {
 
             if (modelo.modificarCanciones(song) != 1) {
@@ -87,7 +108,15 @@ public class MusicBean {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
                 return null;//Regreso a la misma página
             } else {
-                JsfUtil.setFlashMessage("exito", "Canción registrado exitosamente");
+                if (file != null) {
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Info", "Canción guardada " + arch));
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Error", "Error al  guardar " + arch));
+                }
+
                 //Forzando la redirección en el cliente
                 return null;
             }
@@ -184,5 +213,4 @@ public class MusicBean {
     public void setGeneros(List<GenerosEntity> generos) {
         this.generos = generos;
     }
-
 }

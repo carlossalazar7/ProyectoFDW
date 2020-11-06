@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import sv.edu.udb.www.entities.GenerosEntity;
 import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.model.MusicModel;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -26,6 +27,8 @@ public class MusicBean {
 
     private MusicModel modelo = new MusicModel();
     private MusicEntity song;
+    private GenerosEntity genero;
+    private List<GenerosEntity> generos;
     private List<MusicEntity> music;
     private int operacion;
 
@@ -39,6 +42,7 @@ public class MusicBean {
 
     public MusicBean() {
         song = new MusicEntity();
+         genero = new GenerosEntity();
     }
 
     /**
@@ -66,6 +70,7 @@ public class MusicBean {
     }
 
     public String guardarMusica(int id) {
+        song.setId(genero);
         if (modelo.obtenerCancion1(id) == 1) {
 
             if (modelo.modificarCanciones(song) != 1) {
@@ -150,6 +155,34 @@ public class MusicBean {
             return null;
         }
 
+    }
+
+    /**
+     * @return the genero
+     */
+    public GenerosEntity getGenero() {
+        return genero;
+    }
+
+    /**
+     * @param genero the genero to set
+     */
+    public void setGenero(GenerosEntity genero) {
+        this.genero = genero;
+    }
+
+    /**
+     * @return the generos
+     */
+    public List<GenerosEntity> getGeneros() {
+        return generos;
+    }
+
+    /**
+     * @param generos the generos to set
+     */
+    public void setGeneros(List<GenerosEntity> generos) {
+        this.generos = generos;
     }
 
 }

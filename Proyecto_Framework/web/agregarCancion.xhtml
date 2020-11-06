@@ -6,7 +6,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Agregar nuevo usuario</title>
     </h:head>
@@ -19,12 +20,11 @@
                         <b:inputText value="#{musicBean.music.nombreCancion}" required="true" required-message="Nombre de la canción" />
 
                         <h:outputLabel  value="Genero:"/>
-                        <h:selectOneMenu id="carrera" styleClass="form-control">
-                            <f:selectItem itemValue="1" itemLabel="POP" />
-                            <f:selectItem  itemValue="2" itemLabel="BACHATA" />
-                            <f:selectItem itemValue="3" itemLabel="CLASICA"  />
-
-                        </h:selectOneMenu>
+                        <b:selectOneMenu value="#{musicBean.genero.id}">
+                    <c:forEach items="${generosBean.listaGeneros}" var="item">
+                        <f:selectItem itemLabel="${item.nombreGenero}" itemValue="${item.id}"/>
+                    </c:forEach>
+                </b:selectOneMenu>
                         <h:outputText value="Precio de la canción" />
                         <b:inputText type="number" value="#{musicBean.music.precio}" required="true" required-message="Precio de la canción" />
                         <h:outputText value="Lyrics" />
@@ -60,7 +60,6 @@
                             </h:commandButton>
                         </b:dataTableColumn>
                     </b:dataTable>
-
                 </h:form>
                 <h:outputScript>
                     <c:if test = "#{not empty flash.exito}" >

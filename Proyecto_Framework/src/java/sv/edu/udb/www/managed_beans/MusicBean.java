@@ -5,10 +5,13 @@
  */
 package sv.edu.udb.www.managed_beans;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import sv.edu.udb.www.entities.GenerosEntity;
+import javax.faces.context.FacesContext;
 import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.model.MusicModel;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -20,16 +23,16 @@ import sv.edu.udb.www.utils.JsfUtil;
 @ManagedBean
 @RequestScoped
 public class MusicBean {
-      private MusicModel modelo = new MusicModel();
+
+    private MusicModel modelo = new MusicModel();
     private MusicEntity song;
     private List<MusicEntity> music;
     private int operacion;
-    
+
     public MusicEntity getMusic() {
         return song;
     }
 
-    
     public void setMusic(MusicEntity cancion) {
         this.song = cancion;
     }
@@ -42,29 +45,28 @@ public class MusicBean {
      *
      * @return
      */
-    public List<MusicEntity> getTopMusica(){
-    
-    return modelo.topCanciones();
+    public List<MusicEntity> getTopMusica() {
+
+        return modelo.topCanciones();
     }
-    
+
     public List<MusicEntity> getListaMusica() {
         /* Notese que se llama al método listarEstudiantes
  para obtener la lista de objetos a partir de la bd */
         return modelo.listarCanciones();
     }
-    
-    public String obtenerLike(int id){
-    operacion = modelo.obtenerLike(id);
-    
-    modelo.darLike(id, operacion);
-    
-    return null;
-    
+
+    public String obtenerLike(int id) {
+        operacion = modelo.obtenerLike(id);
+
+        modelo.darLike(id, operacion);
+
+        return null;
+
     }
-    
 
     public String guardarMusica(int id) {
-        if (modelo.obtenerCancion1(id)== 1) {
+        if (modelo.obtenerCancion1(id) == 1) {
 
             if (modelo.modificarCanciones(song) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
@@ -86,7 +88,7 @@ public class MusicBean {
             }
         }
     }
-    
+
     public String eliminarMusica() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet por ID
@@ -99,14 +101,12 @@ public class MusicBean {
         }
         return null;
     }
-    
+
     public void obtenerMusica() {
         String id = JsfUtil.getRequest().getParameter("id");
         song = modelo.obtenerCancion(Integer.parseInt(id));
-        
+
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
-        
-      
     }
 
     /**
@@ -122,4 +122,34 @@ public class MusicBean {
     public void setOperacion(int operacion) {
         this.operacion = operacion;
     }
+
+    /**
+     *
+     * @return
+     */
+    public List<MusicEntity> listarSong() {
+        String id = JsfUtil.getRequest().getParameter("id");
+        //System.out.println(modelo.ListadoMusica(Integer.parseInt(id)));
+        List<MusicEntity> lista = null;
+        lista.add((MusicEntity) modelo.ListadoMusica(Integer.parseInt(id)));
+        getMostrar();
+        return lista;
+    }
+
+    public List<MusicEntity> getMostrar() {
+        try {
+            //  listarSong();
+            MusicEntity music1 = (MusicEntity) listarSong();
+            List<MusicEntity> lista = null;
+            lista.add(music1);
+            System.out.println("Nombres: " + music1.getNombreCancion());
+            // FacesContext.getCurrentInstance().getExternalContext().redirect("faces/musicSelect.xhtml");
+            return lista;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+
+    }
+
 }

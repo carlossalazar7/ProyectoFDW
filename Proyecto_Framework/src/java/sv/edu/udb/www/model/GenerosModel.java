@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.edu.udb.www.entities.GenerosEntity;
+import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.utils.JpaUtil;
 
 /**
@@ -17,7 +18,6 @@ import sv.edu.udb.www.utils.JpaUtil;
  * @author carlo
  */
 public class GenerosModel {
-    
 
     public List<GenerosEntity> listarGategorias() {
         //Obtengo una instancia de EntityManager
@@ -48,6 +48,7 @@ public class GenerosModel {
             return null;
         }
     }
+
     public int obtenerGenero1(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
@@ -76,7 +77,6 @@ public class GenerosModel {
             return 0;
         }
     }
-    
 
     public int modificarGeneros(GenerosEntity generos) {
         EntityManager em = JpaUtil.getEntityManager();
@@ -92,7 +92,7 @@ public class GenerosModel {
             return 0;
         }
     }
-    
+
     public int eliminarEstudiante(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
@@ -113,7 +113,5 @@ public class GenerosModel {
             return 0;
         }
     }
-
-   
 
 }

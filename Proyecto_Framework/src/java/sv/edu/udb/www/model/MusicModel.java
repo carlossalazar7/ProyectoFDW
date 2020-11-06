@@ -17,6 +17,7 @@ import sv.edu.udb.www.utils.JpaUtil;
  * @author Lenovo
  */
 public class MusicModel {
+
     public List<MusicEntity> listarCanciones() {
         //Obtengo una instancia de EntityManager
         EntityManager em = JpaUtil.getEntityManager();
@@ -32,25 +33,24 @@ public class MusicModel {
             return null;
         }
     }//Final de listar
-    
-    public List<MusicEntity> topCanciones(){
-         EntityManager em = JpaUtil.getEntityManager();
-         try{
-        Query consulta = em.createNamedQuery("MusicEntity.findTop");
-           consulta.setFirstResult(0);
-           consulta.setMaxResults(10);
-           
+
+    public List<MusicEntity> topCanciones() {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            Query consulta = em.createNamedQuery("MusicEntity.findTop");
+            consulta.setFirstResult(0);
+            consulta.setMaxResults(10);
+
             List<MusicEntity> lista = consulta.getResultList();
             em.close();// Cerrando el EntityManager
             return lista;
-    
-    
-    
-    }catch(Exception e){
-        em.close();
-        return null;
-        
-    }}
+
+        } catch (Exception e) {
+            em.close();
+            return null;
+
+        }
+    }
 
     public MusicEntity obtenerCancion(int id) {
         EntityManager em = JpaUtil.getEntityManager();
@@ -64,6 +64,7 @@ public class MusicModel {
             return null;
         }
     }
+
     public int obtenerCancion1(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
@@ -128,48 +129,59 @@ public class MusicModel {
             return 0;
         }
     }
-    
-    
-     public int obtenerLike(int id){
-    EntityManager em = JpaUtil.getEntityManager();
-    try{
-    MusicEntity cancion = em.find(MusicEntity.class, id);
-    int likes = cancion.getLikes();
-    int operacion = likes + 1;
-    System.out.println("Likes obtenidos");
-    System.out.println(likes);
-    System.out.println(operacion);
-    em.close();
-    return operacion;
-    }
-    catch(Exception e ){
-    System.out.println("ERRRRORRRR");
-    em.close();
-    return 0;
-    }
-    }
-    
-    public void darLike(int id,int operacion){
-     EntityManager em = JpaUtil.getEntityManager();
-       EntityTransaction tran = em.getTransaction();
-       try{
-     MusicEntity cancion = em.find(MusicEntity.class, id);
-       tran.begin();
-       cancion.setLikes(operacion);
-       em.merge(cancion);
-       tran.commit();
-       System.out.println("LIKEADO");
-       em.close();
-       
-       
-       }catch(Exception e){
-            System.out.println("NO LIKEADO");
-       em.close();
-      
-       }
-       
-       
-     
+
+    public int obtenerLike(int id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            MusicEntity cancion = em.find(MusicEntity.class, id);
+            int likes = cancion.getLikes();
+            int operacion = likes + 1;
+            System.out.println("Likes obtenidos");
+            System.out.println(likes);
+            System.out.println(operacion);
+            em.close();
+            return operacion;
+        } catch (Exception e) {
+            System.out.println("ERRRRORRRR");
+            em.close();
+            return 0;
+        }
     }
 
+    public void darLike(int id, int operacion) {
+        EntityManager em = JpaUtil.getEntityManager();
+        EntityTransaction tran = em.getTransaction();
+        try {
+            MusicEntity cancion = em.find(MusicEntity.class, id);
+            tran.begin();
+            cancion.setLikes(operacion);
+            em.merge(cancion);
+            tran.commit();
+            System.out.println("LIKEADO");
+            em.close();
+
+        } catch (Exception e) {
+            System.out.println("NO LIKEADO");
+            em.close();
+
+        }
+
+    }
+
+    public List<MusicEntity> ListadoMusica(int id) {
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        System.out.println(id);
+        try {
+            consulta = "SELECT m, g.id FROM MusicEntity m INNER JOIN GenerosEntity g ON m.id.id = g.id WHERE g.id = :id";
+            Query query = em.createQuery(consulta);
+            query.setParameter("id", id);
+            List<MusicEntity> lista = query.getResultList();
+            System.out.println("llego al try  correctamente");
+            return lista;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }

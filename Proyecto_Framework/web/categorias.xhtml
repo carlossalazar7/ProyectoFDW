@@ -5,7 +5,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
         <title>Facelet Title</title>
@@ -106,14 +107,20 @@
                     }
 
                 </style>
-                <c:forEach items="${generosBean.listaGeneros}" var="item">                                    
-                    <figure class="snip1321 mx-auto"><img src="https://free4kwallpapers.com/uploads/originals/2020/05/09/dj-headphones-by-mikael-kristenson-wallpaper.jpg" alt="sq-sample26" />
-                        <figcaption><i class="fa fa-music"></i>
-                            <h4>Categoria: </h4>
-                            <h2>${item.nombreGenero}</h2>
-                        </figcaption><a href="#"></a>
-                    </figure>
-                </c:forEach>
+                <h:form>
+                    <c:forEach items="${generosBean.listaGeneros}" var="item">                                    
+                        <figure class="snip1321 mx-auto"><img src="https://free4kwallpapers.com/uploads/originals/2020/05/09/dj-headphones-by-mikael-kristenson-wallpaper.jpg" alt="sq-sample26" />
+                            <figcaption><i class="fa fa-music"></i>
+                                <h4>Categoria: </h4>
+                                <h2>${item.nombreGenero}</h2>
+                            </figcaption>
+                            <p:commandButton value="mostrar" id="nonAjax" styleClass="ui-priority-primary "
+                                             action="#{musicBean.mostrar()}" ajax="false" >
+                                <f:param name="id" value="#{item.id}"/>
+                            </p:commandButton>
+                        </figure>
+                    </c:forEach>
+                </h:form>
                 <script>
                     /* Demo purposes only */
                     $(".hover").mouseleave(function () {

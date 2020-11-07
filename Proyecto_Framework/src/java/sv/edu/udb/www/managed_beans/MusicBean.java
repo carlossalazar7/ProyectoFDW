@@ -90,7 +90,7 @@ public class MusicBean {
         String arch = file.toString();
         String archiv = file.getContentType();
         System.out.println(archivo+ "\n"+"\n"+ arch);
-        song.setImagen("C:/img/"+archivo);
+        song.setImagen("img/"+archivo);
         song.setLikes(0);
         if (modelo.obtenerCancion1(id) == 1) {
 

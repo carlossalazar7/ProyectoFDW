@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
         <title>Facelet Title</title>
@@ -12,37 +13,37 @@
     <h:body>
         <ui:composition template="./WEB-INF/plantillaboot.xhtml">
             <ui:define name="contenido">
-            <h:form styleClass="mx-auto w-25">
-                        <h3>Crear Cuenta</h3>
-                       
-                        <h:inputHidden id="codigo" 
-                                         value="#{empleadosBean.empleado.codigoTipoEmpleado}"
-                                         required="true" 
-                                         requiredMessage="Debes ingresar el nombre"/>
-                        <h:outputLabel for="nombre" value="Nombre completo:"/>
-                        <h:inputText id="nombre" styleClass="form-control"
-                                         value="#{empleadosBean.empleado.nombreEmpleado}"
-                                         required="true" 
-                                         requiredMessage="Debes ingresar el nombre"/>
-                        <h:outputLabel for="usuario" value="Usuario:"/>
-                        <h:inputText id="usuario" styleClass="form-control"
-                                         value="#{empleadosBean.empleado.usuarioEmpleado}"
-                                         required="true"
-                                         requiredMessage="Debes ingresar el nombre"/>
-                        <h:outputLabel for="correo" value="Correo:"/>
-                        <h:inputText id="correo" styleClass="form-control"
-                                         value="#{empleadosBean.empleado.correo}"
-                                         required="true"
-                                         requiredMessage="Debes ingresar el nombre"/>
-                        <h:outputLabel for="contra" value="Password:"/>
-                        <h:inputSecret id="contra" styleClass="form-control"
-                                         value="#{empleadosBean.empleado.contrasena}"
-                                         required="true"
-                                         requiredMessage="Debes ingresar el nombre"/>
-                          <h:commandButton value="Guardar" styleClass="btn btn-success"
-                                          action="#{empleadosBean.guardarEmpleado(empleadosBean.empleado.codigoEmpleado)}" style="margin-right:10px"/>                                      
-                     </h:form>
-                 <br/><br/><br/><br/><br/><br/><br/>   
+                <h:form styleClass="mx-auto w-25">
+                    <h3>Crear Cuenta</h3>
+
+
+                    <h:outputLabel for="nombre" value="Nombre completo:"/>
+                    <h:inputText id="nombre" styleClass="form-control"
+                                 value="#{empleadosBean.empleado.nombreEmpleado}"
+                                 required="true" 
+                                 requiredMessage="Debes ingresar el nombre"/>
+                    <h:outputLabel for="usuario" value="Usuario:"/>
+                    <h:inputText id="usuario" styleClass="form-control"
+                                 value="#{empleadosBean.empleado.usuarioEmpleado}"
+                                 required="true"
+                                 requiredMessage="Debes ingresar el nombre"/>
+                    <h:outputLabel for="correo" value="Correo:"/>
+                    <h:inputText id="correo" styleClass="form-control"
+                                 value="#{empleadosBean.empleado.correo}"
+                                 required="true"
+                                 requiredMessage="Debes ingresar el nombre"/>
+                    <h:outputLabel for="contra" value="Password:"/>
+                    <h:inputSecret id="contra" styleClass="form-control"
+                                   value="#{empleadosBean.empleado.contrasena}"
+                                   required="true"
+                                   requiredMessage="Debes ingresar el nombre"/>
+                    <h:inputHidden id="codigo" value="#{empleadosBean.tipoempleado.codigoTipoEmpleado}">
+                        
+                    </h:inputHidden>
+                    <h:commandButton value="Guardar" styleClass="btn btn-success"
+                                     action="#{empleadosBean.guardarEmpleado2(empleadosBean.empleado.codigoEmpleado)}" style="margin-right:10px"/>                                      
+                </h:form>
+                <br/><br/><br/><br/><br/><br/><br/>   
                 <br/>
             </ui:define>
         </ui:composition>

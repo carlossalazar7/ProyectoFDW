@@ -26,26 +26,31 @@
                              required="true"
                              requiredMessage="Debes ingresar el usuario"/>  
                 <h:outputLabel for="contrasena" value="Contraseña"/>
-                <b:inputText id="contrasena" styleClass="form-control"
+                <b:inputSecret id="contrasena" styleClass="form-control"
                              value="#{empleadosBean.empleado.contrasena}"
                              required="true"
                              requiredMessage="Debes ingresar su contrasena"/>  
                 <h:outputLabel for="correo" value="Correo"/>
-                <b:inputText id="correo" styleClass="form-control"
+                <b:inputText id="correo" type="email" styleClass="form-control"
                              value="#{empleadosBean.empleado.correo}"
                              required="true"
-                             requiredMessage="Debes ingresar su correo"/>  
+                             requiredMessage="Debes ingresar su correo">
+                    <f:facet name="prepend">
+                        <h:outputText value="@" />
+                    </f:facet>
+                </b:inputText>
                 <h:outputLabel for="codigo" value="Codigo"/>
-                <b:inputText id="codigo" styleClass="form-control"
-                             value="#{empleadosBean.empleado.codigoTipoEmpleado}"
-                             required="true"
-                             requiredMessage="Debes ingresar codigo de Empleado"/>  
+                <b:selectOneMenu  id="codigo" styleClass="form-control" value="#{empleadosBean.tipoempleado.codigoTipoEmpleado}">
+                    <c:forEach items="${tipoempleadosBean.tipoEmpleados}" var="item">
+                        <f:selectItem itemLabel="${item.nombreTipoEmpleado}" itemValue="${item.codigoTipoEmpleado}"/>
+                    </c:forEach>
+                </b:selectOneMenu>
             </h:panelGrid>
             <h:commandButton value="Guardar" styleClass="btn btn-primary "
                              action="#{empleadosBean.guardarEmpleado(empleadosBean.empleado.codigoEmpleado)}"
                              style="margin-right:10px"/>
             <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success "/>
-            
+
         </b:form>
         <h:form class="table table-responsive ">
             <b:dataTable  value="#{empleadosBean.listaEmpleados}"
@@ -73,6 +78,6 @@
             return confirm("¿Está seguro que desea eliminar este estudiante");
             }
         </h:outputScript>
-       
+
     </ui:define>
 </ui:composition>

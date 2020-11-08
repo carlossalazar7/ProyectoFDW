@@ -17,35 +17,75 @@
         <ui:composition template="./WEB-INF/userPlantilla.xhtml">
             <ui:define name="contenido">
                 <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700" rel="stylesheet"/>
+                <link href="https://fonts.googleapis.com/css2?family=Anton" rel="stylesheet" />
                 <style>
-                    audio::-webkit-media-controls-play-button{
-                        background-color:yellowgreen;}
-                    audio::-webkit-media-controls-audio-button{
-                        background-color: yellowgreen;
+                    audio::-webkit-media-controls-panel{
+                        background-color: #000;
                     }
-                    audio { width: 180px; }
+                    audio{
+                        font-size: 1px;
+                    }
+                    audio::-webkit-media-controls-timeline{
+                        color: #5bc0de;
+                    }
+                    audio::-webkit-media-controls-current-time-display{
+                        color: #24ff72;
+                    }
+                    audio::-webkit-media-controls-time-remaining-display{
+                        color: #24ff72;
+                    }
+                    audio::-webkit-media-controls-volume-slider{
+                        background-color: #5bc0de;
+                        transform: rotate(-90deg);
+                        z-index: 9999;
+                    }
+                    audio::-webkit-media-controls-play-button{
+                        background-color:yellowgreen;
+                        font-size: 1px;
+                        border-radius: 45px;
+                    }
+                    audio::-webkit-media-controls-mute-button{
+                        background-color: #5bc0de;
+                        border-radius: 45px;
+                    }
+                    audio::-webkit-media-controls-mute-button:hover{
+                        background-color: #5bc0de;
+                        transition-duration: 3s;
+                    }
+                    audio { width: 190px; }
                     .card{
                         display: inline-block;
                         margin-top:65px;
                     }
+                    audio::-webkit-media-controls-timeline{
+                        -webkit-filter: hue-rotate(143deg) saturate(5);   
+                    }
+                    audio::-webkit-media-controls-volume-slider {
+                        -webkit-filter: hue-rotate(143deg) saturate(5);    
+                    }
+                    audio::-webkit-media-controls-timeline {
+                        -webkit-filter: hue-rotate(143deg) saturate(5);    
+                    }
                 </style>
                 <h:form id="formulario">
                     <div class="wrapper">
-                        <h2 class="text-center" style="color:#ffffff">Music</h2>
+                        <h2 class="text-center" style="color:#ffffff; font-family: 'Anton', sans-serif;">Music</h2>
                         <div class="cards">
                             <c:forEach items="${musicBean.listaMusica}" var="item">
-                                <div class="card w-100" >
-                                    <div class="overlayer">
+                                <div class="card" style=" width: 150px;">
+                                    <div class="overlayer title">
                                         <i class="fa fa-play-circle"></i>
+                                        <br/>
+                                        <a href="#" style="font-family: 'Open Sans Condensed', sans-serif;">Nombre: ${item.nombreCancion}</a><br/>
+                                        <a href="#" style="font-family: 'Open Sans Condensed', sans-serif;" >Genero: ${item.id.nombreGenero}</a>
                                     </div>
                                     <img src="${item.imagen}" alt="" />
                                     <div class="title">
                                         <audio src="${item.lyrics}" controls=""  />                                    
-                                        <a href="#" style="font-family: 'Open Sans Condensed', sans-serif;">Nombre: ${item.nombreCancion}</a><br/>
-                                        <a href="#" style="font-family: 'Open Sans Condensed', sans-serif;" >Genero: ${item.id.nombreGenero}</a>
-                                        <p:commandButton  action="#{musicBean.obtenerLike(item.idMusic)}" id="iconOnly" icon="pi pi-thumbs-up" title="Votar" onclick="return confirmarEliminacion();">
+                                        <br/>
+                                        <p:commandButton  action="#{musicBean.obtenerLike(item.idMusic)}" value="votar" id="iconOnly" icon="pi pi-thumbs-up" title="Votar" onclick="return confirmarEliminacion();">
                                             <f:ajax execute="@form" render="@form" />
-                                        </p:commandButton>     
+                                        </p:commandButton>
                                     </div>
                                 </div> 
                             </c:forEach>     
@@ -63,6 +103,7 @@
                     return alert("Su voto se ha realizado con exito");
                     }
                 </h:outputScript>
+                <br/><br/><br/><br/>
                 <br/><br/><br/><br/>
 
             </ui:define>

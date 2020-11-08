@@ -11,13 +11,9 @@
     xmlns:p="http://primefaces.org/ui">
     <ui:define name="contenido">
         <b:form id="miFormulario" inline="true" enctype="multipart/form-data">
-            <h:panelGroup layout="block" styleClass="alert alert-danger"
-                          rendered="#{not empty facesContext.messageList}">
-                <h:messages />
-                <p:messages id="messages" showDetail="true" closable="true">
+              <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate />
                 </p:messages>
-            </h:panelGroup>
             <h:panelGrid columns="4" styleClass="table">
                 <h:outputLabel for="nombre" value="Nombre"/>
                 <b:inputText id="nombre" styleClass="form-control"
@@ -39,7 +35,7 @@
                     </c:forEach>
                 </b:selectOneMenu>
                 <h:outputLabel for="descripcion" value="Descripcion"/>
-                <b:inputTextarea id="contrasena" styleClass="form-control"
+                <b:inputTextarea id="contrasena" styleClass="form-control col-2"
                                  value="#{artistaBean.artista.descripcion}"
                                  required="true"
                                  requiredMessage="Debes ingresar una descripcion"/>  
@@ -55,9 +51,10 @@
                           var="est" rendered="#{artistaBean.listaArtista.size()>0}" class="editableCarTable table table-bordered table-hover table-responsive table-striped">
                 <b:dataTableColumn value="#{est.idArtista}"/>
                 <b:dataTableColumn value="#{est.nombreArtistaPublic}" />
+                <b:dataTableColumn label="imagen"><img src="#{est.nombreArtista}" style="width:100px;" /></b:dataTableColumn>
                 <b:dataTableColumn value="#{est.id.nombreGenero}" />
                 <b:dataTableColumn value="#{est.descripcion}"/>
-                <b:dataTableColumn>
+                <b:dataTableColumn label="opciones" >
                     <h:commandButton value="Eliminar" styleClass="btn btn-danger"
                                      action="#{artistaBean.eliminarArtista}"
                                      onclick="return confirmarEliminacion();">

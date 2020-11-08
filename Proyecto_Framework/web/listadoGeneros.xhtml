@@ -36,15 +36,10 @@
             <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success btn-block"/>
         </h:form>
         <h:form style="padding-top: 5%; margin: auto; padding-bottom: 5%;" class="mx-auto" >
-            <p:dataTable var="car" rows="10"  paginator="true" sortOrder="ascending" widgetVar="carsTable" filteredValue="#{generosBean.listaGeneros}" value="#{generosBean.listaGeneros}" class="table table-dark" id="carsTable" style="width: 85%;" rowsPerPageTemplate="5,10,15" >
+            <p:dataTable var="car" rows="10"  paginator="true" sortOrder="ascending"
+               widgetVar="carsTable" filteredValue="#{generosBean.listaGeneros}" value="#{generosBean.listaGeneros}" 
+               class="table table-dark" id="carsTable" style="width: 85%;" rowsPerPageTemplate="5,10,15" >
                 <p:growl id="growl" life="2000" />
-                <f:facet name="header">
-                    <p:outputPanel>
-                        <h:outputText value="Buscar:" />
-                        <h:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" />
-                    </p:outputPanel>
-                </f:facet>
-
                 <p:column headerText="ID">
                     <h:outputText value="#{car.id}" />
                 </p:column>

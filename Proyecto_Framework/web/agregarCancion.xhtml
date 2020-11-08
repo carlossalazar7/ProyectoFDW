@@ -9,7 +9,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Agregar nuevo usuario</title>
+        <title>Agregar nuevo canción</title>
     </h:head>
     <h:body>
         <ui:composition template="./WEB-INF/plantilla2.xhtml">
@@ -43,22 +43,27 @@
                     </h:panelGrid>
                 </h:form>
                 <br/><br/><br/>
-                <h:form styleClass="table-responsive table-dark " >
-                    <b:dataTable  value="#{musicBean.listaMusica}"
-                                  var="music" rendered="#{musicBean.listaMusica.size()>0}" class="editableCarTable">
-                        <b:dataTableColumn label="ID" value="#{music.idMusic}"/>
-                        <b:dataTableColumn label="Portada" >
-                            <img src="#{music.imagen}" style="width:100px;" />
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Nombre" value="#{music.nombreCancion}" />
-                        <b:dataTableColumn label="Genero" value="#{music.id.nombreGenero}"  />
-                        <b:dataTableColumn label="Precio" value="#{music.precio}" />
-                        <b:dataTableColumn label="Likes" value="#{music.likes}" />
-
+                <h:form >
+                    <b:dataTable  value="#{musicBean.listaMusica}" var="music"  page-length="5" page-length-menu="5,10,20" >
+                        <f:facet name="header">
+                            <tr>
+                                <th>ID</th>
+                                <th>Portada</th>
+                                <th>Nombre</th>
+                                <th>Genero</th>
+                                <th>Precio</th>
+                                <th>Likes</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </f:facet>
+                        <b:dataTableColumn value="#{music.idMusic}"/>
+                        <b:dataTableColumn><img src="#{music.imagen}" style="width:100px;" /></b:dataTableColumn>
+                        <b:dataTableColumn  value="#{music.nombreCancion}" />
+                        <b:dataTableColumn  value="#{music.id.nombreGenero}"  />
+                        <b:dataTableColumn  value="#{music.precio}" />
+                        <b:dataTableColumn  value="#{music.likes}" />
                         <b:dataTableColumn>
-                            <h:commandButton value="Eliminar" styleClass="btn btn-danger"
-                                             action="#{musicBean.eliminarMusica}"
-                                             onclick="return confirmarEliminacion();">
+                            <h:commandButton value="Eliminar" styleClass="btn btn-danger" action="#{musicBean.eliminarMusica}" onclick="return confirmarEliminacion();">
                                 <f:param name="id" value="#{music.idMusic}"/>
                             </h:commandButton>
                         </b:dataTableColumn>

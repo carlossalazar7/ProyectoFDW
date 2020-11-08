@@ -8,6 +8,7 @@ package sv.edu.udb.www.managed_beans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
+import org.primefaces.model.file.UploadedFile;
 import sv.edu.udb.www.entities.*;
 import sv.edu.udb.www.model.*;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -37,9 +38,55 @@ public class ArtistaBean {
     ArtistaModel modelo = new ArtistaModel();
     private ArtistaEntity artista;
     private List<ArtistaEntity> listaArtista;
+    private UploadedFile img;
+    private GenerosEntity genero;
+    private List<GenerosEntity> generos;
+
+    /**
+     * @return the genero
+     */
+    public GenerosEntity getGenero() {
+        return genero;
+    }
+
+    /**
+     * @param genero the genero to set
+     */
+    public void setGenero(GenerosEntity genero) {
+        this.genero = genero;
+    }
+
+    /**
+     * @return the generos
+     */
+    public List<GenerosEntity> getGeneros() {
+        return generos;
+    }
+
+    /**
+     * @param generos the generos to set
+     */
+    public void setGeneros(List<GenerosEntity> generos) {
+        this.generos = generos;
+    }
+
+    /**
+     * @return the img
+     */
+    public UploadedFile getImg() {
+        return img;
+    }
+
+    /**
+     * @param img the img to set
+     */
+    public void setImg(UploadedFile img) {
+        this.img = img;
+    }
 
     public ArtistaBean() {
         artista = new ArtistaEntity();
+        genero = new GenerosEntity();
         System.out.println(artista.getDescripcion());
     }
 
@@ -49,8 +96,17 @@ public class ArtistaBean {
         return modelo.listarArtista();
     }
 
-     public String guardarArtista(int idArtista) {
-        if (modelo.obtenerArtista1(idArtista) == 1) {
+    public String guardarArtista(int id) {
+        String imagen;
+        artista.setId(genero);
+        if (img != null) {
+            imagen = img.getFileName();
+            artista.setNombreArtista("artistas/" + imagen);
+
+        } else {
+            System.out.println("Error al guardar");
+        }
+        if (modelo.obtenerArtista1(id) == 1) {
 
             if (modelo.modificarArtista(artista) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
@@ -73,27 +129,25 @@ public class ArtistaBean {
             }
         }
     }
-     
-     public String eliminarArtista() {
+
+    public String eliminarArtista() {
         // Leyendo el parametro enviado desde la vista
         String id = JsfUtil.getRequest().getParameter("id");
 
-        if (modelo.eliminarArtista(Integer.parseInt(id))> 0) {
+        if (modelo.eliminarArtista(Integer.parseInt(id)) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
         }
         return null;
     }
-     
-     public void obtenerArtista() {
+
+    public void obtenerArtista() {
         //Cambiar carnet a ID
         String id = JsfUtil.getRequest().getParameter("id");
         artista = modelo.obtenerArtista(Integer.parseInt(id));
-        
+
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
-        
-      
     }
 
 }

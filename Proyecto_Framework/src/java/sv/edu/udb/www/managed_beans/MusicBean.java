@@ -31,6 +31,7 @@ public class MusicBean {
     private List<MusicEntity> music;
     private int operacion;
     private UploadedFile file;
+    private UploadedFile canciones;
 
     public MusicEntity getMusic() {
         return song;
@@ -59,6 +60,20 @@ public class MusicBean {
         this.file = file;
     }
 
+    
+    /**
+     * @return the canciones
+     */
+    public UploadedFile getCanciones() {
+        return canciones;
+    }
+
+    /**
+     * @param canciones the canciones to set
+     */
+    public void setCanciones(UploadedFile canciones) {
+        this.canciones = canciones;
+    }
     /**
      *
      * @return
@@ -86,10 +101,10 @@ public class MusicBean {
     public String guardarMusica(int id) {
         song.setId(genero);
         String archivo;
+        String nombreCancion;
+        nombreCancion = canciones.getFileName();
         archivo = file.getFileName();
-        String arch = file.toString();
-        String archiv = file.getContentType();
-        System.out.println(archivo+ "\n"+"\n"+ arch);
+        song.setLyrics("mp3/"+nombreCancion);
         song.setImagen("img/"+archivo);
         song.setLikes(0);
         if (modelo.obtenerCancion1(id) == 1) {
@@ -111,10 +126,10 @@ public class MusicBean {
                 if (file != null) {
 
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                            "Info", "Canción guardada " + arch));
+                            "Info", "Canción guardada " + archivo));
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Error", "Error al  guardar " + arch));
+                            "Error", "Error al  guardar " + archivo));
                 }
 
                 //Forzando la redirección en el cliente

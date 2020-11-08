@@ -30,9 +30,9 @@
                         </b:selectOneMenu>
                         <h:outputText value="Precio de la canción" />
                         <b:inputText type="number" value="#{musicBean.music.precio}" required="true" required-message="Precio de la canción" />
-                        <h:outputText value="Lyrics" />
-                        <b:inputTextarea value="#{musicBean.music.lyrics}" required="true" required-message="Letra de la canción" />
-                        <h:outputText value="Imagen de la canción" />
+                        <h:outputText value="Audio:" />
+                        <p:fileUpload value="#{musicBean.canciones}" required="true" skinSimple="true" styleClass="btn btn-primary form-control" mode="simple"  />
+                        <h:outputText value="Imagen:" />
                         <p:fileUpload value="#{musicBean.file}" required="true" skinSimple="true" styleClass="btn btn-primary form-control" mode="simple"  />
 
                     </h:panelGrid>

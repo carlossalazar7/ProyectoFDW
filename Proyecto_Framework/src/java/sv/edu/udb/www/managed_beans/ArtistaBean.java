@@ -8,6 +8,8 @@ package sv.edu.udb.www.managed_beans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.primefaces.model.file.UploadedFile;
 import sv.edu.udb.www.entities.*;
 import sv.edu.udb.www.model.*;
@@ -97,15 +99,11 @@ public class ArtistaBean {
     }
 
     public String guardarArtista(int id) {
-        String imagen;
         artista.setId(genero);
-        if (img != null) {
-            imagen = img.getFileName();
-            artista.setNombreArtista("artistas/" + imagen);
+        String imagen;
+        imagen = img.getFileName();
+        artista.setNombreArtista("artistas/" + imagen);
 
-        } else {
-            System.out.println("Error al guardar");
-        }
         if (modelo.obtenerArtista1(id) == 1) {
 
             if (modelo.modificarArtista(artista) != 1) {
@@ -125,6 +123,14 @@ public class ArtistaBean {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
                 System.out.println(modelo.insertarArtista(artista));
+                if (img != null) {
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Info", "Artista guardado " + imagen));
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Error", "Error al  guardar " + imagen));
+                }
                 return null;
             }
         }

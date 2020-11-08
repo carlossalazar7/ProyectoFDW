@@ -10,10 +10,13 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:p="http://primefaces.org/ui">
     <ui:define name="contenido">
-        <b:form id="miFormulario" inline="true">
+        <b:form id="miFormulario" inline="true" enctype="multipart/form-data">
             <h:panelGroup layout="block" styleClass="alert alert-danger"
                           rendered="#{not empty facesContext.messageList}">
                 <h:messages />
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate />
+                </p:messages>
             </h:panelGroup>
             <h:panelGrid columns="4" styleClass="table">
                 <h:outputLabel for="nombre" value="Nombre"/>
@@ -42,10 +45,9 @@
                                  requiredMessage="Debes ingresar una descripcion"/>  
                 <h:inputHidden id="id" value="#{artistaBean.artista.idArtista}"/> 
             </h:panelGrid>
-            <h:commandButton value="Guardar" styleClass="btn btn-primary "
-                             action="#{artistaBean.guardarArtista(artistaBean.artista.idArtista)}"
-                             style="margin-right:10px"/>
-            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success "/>
+            <h:commandButton value="Guardar" styleClass="btn btn-primary " action="#{artistaBean.guardarArtista(artistaBean.artista.idArtista)}"
+                             style="margin-right:10px" />
+            <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success " />
 
         </b:form>
         <h:form styleClass="table table-responsive" >

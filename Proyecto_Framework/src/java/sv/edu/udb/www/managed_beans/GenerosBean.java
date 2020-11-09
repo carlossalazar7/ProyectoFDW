@@ -77,14 +77,14 @@ public class GenerosBean {
         //Cambiar carnet a ID
         String id = JsfUtil.getRequest().getParameter("id");
         if (modelo.eliminarEstudiante(Integer.parseInt(id)) > 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Info", "Genero eliminado "));
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Info", "Genero Eliminado "));
 
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Danger", "El Genero no se pudo eliminar "));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error", "El Genero no se pudo eliminar "));
         }
-        return "listadoGeneros?faces-redirect=true";
+        return null;
 
     }
 

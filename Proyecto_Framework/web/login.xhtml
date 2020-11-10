@@ -19,7 +19,7 @@
                 <p:inputText id="txtClave" value="${empleadosBean.empleado.contrasena}"  required="true"/>
                 
                 <h:column/>
-                <p:commandButton icon="ui-icon-key" value="Iniciar Sessión" action="#{empleadosBean.login()}" />
+                <p:commandButton icon="ui-icon-key" value="Iniciar Sessión" action="#{empleadosBean.login(request, response)}" />
                 <p:separator />
             </h:panelGrid>
         </h:form>

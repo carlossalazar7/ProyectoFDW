@@ -1,7 +1,10 @@
 package sv.edu.udb.www.managed_beans;
 
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
@@ -18,11 +22,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
-import sun.rmi.transport.Transport;
 import sv.edu.udb.www.entities.*;
 import sv.edu.udb.www.model.*;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -64,7 +65,8 @@ public class EmpleadosBean {
 
     public void verificar() {
         try {
-            String nombre = modelo.iniciarSesion(empleado).getUsuarioEmpleado();
+            String nombre;
+            nombre = modelo.iniciarSesion(empleado).getUsuarioEmpleado();
             nombre = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("admin");
             //    FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
 
@@ -72,7 +74,7 @@ public class EmpleadosBean {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhml");
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e);
         }
 
@@ -165,7 +167,7 @@ public class EmpleadosBean {
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
 
-    public void login() {
+    public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         if (modelo.iniciarSesion(empleado) != null) {
             if (modelo.iniciarSesion(empleado).getCodigoTipoEmpleado().getCodigoTipoEmpleado() == 0) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -177,26 +179,53 @@ public class EmpleadosBean {
                         "Success", "Datos correctos"));
 
                 System.out.println(codigo);
-                try {
-                    switch (codigo) {
-                        case 1:
-                            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("admin", nombre);
-                            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/paginaadmin1.xhtml");
-                            break;
-                        case 2:
-                            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("admin", nombre);
+                switch (codigo) {
+                    case 1:
+                        try {
+                            HttpSession session = request.getSession();
+                            session.setAttribute("Admin", nombre);
+                            request.setAttribute("usuarioEmpleado", nombre);
+                            request.setAttribute("codigoEmpleado", codigo);
+                            //request.getRequestDispatcher("faces/listado.xhtml").forward(request,response);
+                            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Admin", nombre);
+                            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/listado.xhtml");
+
+                        } catch (IOException e) {
+                            System.out.println(e);
+                        }
+
+                        break;
+                    case 2:
+                        try {
+                            HttpSession session = request.getSession();
+                            session.setAttribute("Editor", nombre);
+                            request.setAttribute("usuarioEmpleado", nombre);
+                            request.setAttribute("codigoEmpleado", codigo);
+                            //request.getRequestDispatcher("faces/paginaadmin2.xhtml").forward(request, response);
+                            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Editor", nombre);
                             FacesContext.getCurrentInstance().getExternalContext().redirect("faces/paginaadmin2.xhtml");
-                            break;
-                        case 3:
-                            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("admin", nombre);
+
+                        } catch (IOException e) {
+                            System.out.println(e);
+                        }
+                        break;
+                    case 3:
+                        try {
+                            HttpSession session = request.getSession();
+                            session.setMaxInactiveInterval(10 * 60);
+                            session.setAttribute("User", nombre);
+                            request.setAttribute("usuarioEmpleado", nombre);
+                            request.setAttribute("codigoEmpleado", codigo);
+                            //request.getRequestDispatcher("faces/paginausuario.xhtml").forward(request, response);
+                            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("User", nombre);
                             FacesContext.getCurrentInstance().getExternalContext().redirect("faces/paginausuario.xhtml");
-                            break;
-                        default:
-                            System.out.println("Error");
-                            break;
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(EmpleadosBean.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                        break;
+                    default:
+                        System.out.println("Error");
+                        break;
                 }
             }
         } else {
@@ -275,8 +304,7 @@ public class EmpleadosBean {
 
             transport.close();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (UnsupportedEncodingException | MessagingException ex) {
             aviso = 1;
         }
     }
@@ -326,8 +354,7 @@ public class EmpleadosBean {
 
             transport.close();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException | MessagingException ex) {
             aviso = 1;
         }
     }

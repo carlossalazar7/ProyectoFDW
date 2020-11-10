@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/emotes.css"/>
         <link rel="stylesheet" href="css/menu.css"/>
-        <f:event type="preRenderView" listener="#{empleadosBean.verificar()}" />
     </h:head>
     <h:body>
         <div class="viewport">
@@ -24,7 +23,7 @@
                         <b:navLink value="Gráficas" outcome="grafica"></b:navLink>
                         <b:navLink value="Listado Empleados" outcome="listado"></b:navLink>
                         <b:dropMenu value="${request.getSession(false).getAttribute('Admin')} ">
-                            <b:navLink value="Salir" href="Login.jsp"></b:navLink>
+                            <b:navLink value="Salir" href="faces/Login.xhtml"></b:navLink>
                             <b:navLink value="Cambiar Contraseña" outcome="cambiarContrasena"></b:navLink>
                         </b:dropMenu>
                     </b:navbarLinks>

@@ -146,14 +146,15 @@ public class EmpleadosBean {
 
     public void modificarContrasena() {
         modelo.modificarContrasenas(empleado);
-                JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
-                System.out.println("Se cambio");
-           
+        JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
+        System.out.println("Se cambio");
+
     }
+
     public void recuperarContrasena() {
         modelo.recuperarContrasenas(empleado);
-                JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
-                System.out.println("Se cambio");           
+        JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
+        System.out.println("Se cambio");
     }
 
     public void obtenerEmpleados() {
@@ -279,7 +280,7 @@ public class EmpleadosBean {
             aviso = 1;
         }
     }
-    
+
     public void Correo2() {
         String correo = empleado.getCorreo();
         String usuario = empleado.getUsuarioEmpleado();
@@ -311,9 +312,13 @@ public class EmpleadosBean {
             mimeBodyPart.setText("Estimad@ Usuario:" + usuario);
             MimeBodyPart mimeBodyPart2 = new MimeBodyPart();
             mimeBodyPart2.setText("\nSu contraseña es: " + password);
+            // Creo la parte del mensaje
+            MimeBodyPart mimeBodyPartAdjunto = new MimeBodyPart();
+            mimeBodyPartAdjunto.attachFile("C:/Users/Lenovo/Desktop/imagenes/imagen.png");
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(mimeBodyPart);
             multipart.addBodyPart(mimeBodyPart2);
+            multipart.addBodyPart(mimeBodyPartAdjunto);
             mimeMessage.setContent(multipart);
             javax.mail.Transport transport = session.getTransport("smtp");
             transport.connect(correoEnvia, claveCorreo);

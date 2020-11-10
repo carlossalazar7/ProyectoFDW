@@ -161,7 +161,7 @@ public class EmpleadosModel {
                 MimeBodyPart mimeBodyPart = new MimeBodyPart();
                 mimeBodyPart.setText("Estimad@ Usuario:" + nombre);
                 MimeBodyPart mimeBodyPart2 = new MimeBodyPart();
-                mimeBodyPart2.setText("\nSu contraseña es: " + passwordEmpresa);
+                mimeBodyPart2.setText("\nSu nueva contraseña es: " + passwordEmpresa);
                 // Creo la parte del mensaje
                 MimeBodyPart mimeBodyPartAdjunto = new MimeBodyPart();
                 mimeBodyPartAdjunto.attachFile("C:/Users/Lenovo/Desktop/imagenes/imagen.png");

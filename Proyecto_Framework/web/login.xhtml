@@ -31,8 +31,7 @@
                         <p:inputText id="txtUsuario"  value="${empleadosBean.empleado.usuarioEmpleado}" required="true"/>
 
                         <p:outputLabel for="txtClave" value="Clave" />
-                        <p:inputText id="txtClave" value="${empleadosBean.empleado.contrasena}"  required="true"/>
-
+                        <b:inputSecret id="txtClave" value="${empleadosBean.empleado.contrasena}"  required="true"/>
                         <h:column/>
                         <p:commandButton icon="ui-icon-key" value="Iniciar Sessión" action="#{empleadosBean.login(request, response)}" />
                     </h:panelGrid>

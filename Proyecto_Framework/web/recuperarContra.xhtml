@@ -8,38 +8,25 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-        <title>Crear cuenta</title>
+        <title>Recuperar Contraseña</title>
     </h:head>
     <h:body>
         <ui:composition template="./WEB-INF/plantillaFuera.xhtml">
             <ui:define name="contenido">
                 <h:form styleClass="mx-auto w-25">
-                    <h3>Crear Cuenta</h3>
-                    <h:outputLabel for="nombre" value="Nombre completo:"/>
-                    <h:inputText id="nombre" styleClass="form-control"
-                                 value="#{empleadosBean.empleado.nombreEmpleado}"
-                                 required="true" 
-                                 requiredMessage="Debes ingresar el nombre"/>
-                    <h:outputLabel for="usuario" value="Usuario:"/>
+                    <h3>Recuperar Contraseña</h3>
+                    <h:outputLabel for="usuario" value="Ingrese su Usuario"/>
                     <h:inputText id="usuario" styleClass="form-control"
                                  value="#{empleadosBean.empleado.usuarioEmpleado}"
                                  required="true"
                                  requiredMessage="Debes ingresar el nombre"/>
-                    <h:outputLabel for="correo" value="Correo:"/>
+                    <h:outputLabel for="correo" value="Ingrese su Correo"/>
                     <h:inputText id="correo" styleClass="form-control"
                                  value="#{empleadosBean.empleado.correo}"
                                  required="true"
-                                 requiredMessage="Debes ingresar el nombre"/>
-                    <h:outputLabel for="contra" value="Password:"/>
-                    <h:inputSecret id="contra" styleClass="form-control"
-                                   value="#{empleadosBean.empleado.contrasena}"
-                                   required="true"
-                                   requiredMessage="Debes ingresar el nombre"/>
-                    <h:inputHidden id="codigo" value="#{empleadosBean.tipoempleado.codigoTipoEmpleado}">
-                        
-                    </h:inputHidden>
-                    <h:commandButton value="Guardar" styleClass="btn btn-success"
-                                     action="#{empleadosBean.guardarEmpleado2(empleadosBean.empleado.codigoEmpleado)}" style="margin-right:10px"/>                                      
+                                 requiredMessage="Debes ingresar el nombre"/>                    
+                    <h:commandButton value="Cambiar" styleClass="btn btn-success"
+                                     action="#{empleadosBean.recuperarContrasena()}" style="margin-right:10px"/>                                      
                 </h:form>
                 <br/><br/><br/><br/><br/><br/><br/>   
                 <br/>

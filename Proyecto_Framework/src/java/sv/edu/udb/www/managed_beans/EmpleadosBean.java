@@ -17,6 +17,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 import sun.rmi.transport.Transport;
 import sv.edu.udb.www.entities.*;
@@ -36,6 +40,8 @@ public class EmpleadosBean {
     private TipoempleadosEntity tipoempleado;
     private List<TipoempleadosEntity> tipoempleados;
     private List<EmpleadosEntity> empleados;
+    private EntityManager manager;
+    private EntityManager em;
 
     public EmpleadosBean() {
         empleado = new EmpleadosEntity();
@@ -96,7 +102,7 @@ public class EmpleadosBean {
             }
         }
     }
-    
+
     public String guardarEmpleado2(int codigo) {
         int dato = 3;
         tipoempleado.setCodigoTipoEmpleado(dato);
@@ -137,8 +143,18 @@ public class EmpleadosBean {
         }
         return "listado?faces-redirect=true";
     }
-    
-    
+
+    public void modificarContrasena() {
+        modelo.modificarContrasenas(empleado);
+                JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
+                System.out.println("Se cambio");
+           
+    }
+    public void recuperarContrasena() {
+        modelo.recuperarContrasenas(empleado);
+                JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
+                System.out.println("Se cambio");           
+    }
 
     public void obtenerEmpleados() {
         //Cambiar carnet a ID
@@ -215,52 +231,99 @@ public class EmpleadosBean {
     public void setTipoempleados(List<TipoempleadosEntity> tipoempleados) {
         this.tipoempleados = tipoempleados;
     }
-    
-    public void Correo(){
+
+    public void Correo() {
         String correo = empleado.getCorreo();
         String nombre = empleado.getNombreEmpleado();
         String usuario = empleado.getUsuarioEmpleado();
         String password = empleado.getContrasena();
-		// El correo gmail de envío
-		String correoEnvia = "desafiodwf2020@gmail.com";
-		  String claveCorreo = "DESAFIO2020";
+        // El correo gmail de envío
+        String correoEnvia = "desafiodwf2020@gmail.com";
+        String claveCorreo = "DESAFIO2020";
 
-		// La configuración para enviar correo
-		Properties properties = new Properties();
+        // La configuración para enviar correo
+        Properties properties = new Properties();
 
-		properties.put("mail.smtp.host", "smtp.gmail.com");
-		properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
 
-		properties.put("mail.smtp.starttls.enable", "true");
-		properties.put("mail.smtp.auth", "true");
-		properties.put("mail.user", correoEnvia);
-		properties.put("mail.password", claveCorreo);
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.user", correoEnvia);
+        properties.put("mail.password", claveCorreo);
 
-		Session session = Session.getInstance(properties, null);
-		int aviso = 0;
-		try {
-			MimeMessage mimeMessage = new MimeMessage(session);
-			mimeMessage.setFrom(new InternetAddress(correoEnvia, "Empresa"));
-			InternetAddress[] internetAddresses = { new InternetAddress(correo) };
-			mimeMessage.setRecipients(Message.RecipientType.TO, internetAddresses);
-			mimeMessage.setSubject("Contraseña");
-			MimeBodyPart mimeBodyPart = new MimeBodyPart();
-			mimeBodyPart.setText("Estimad@ Usuario:" + nombre);
-			MimeBodyPart mimeBodyPart2 = new MimeBodyPart();
-			mimeBodyPart2.setText("\nSu contraseña es: " + password);
-			Multipart multipart = new MimeMultipart();
-			multipart.addBodyPart(mimeBodyPart);
-			multipart.addBodyPart(mimeBodyPart2);
-			mimeMessage.setContent(multipart);
-			javax.mail.Transport transport = session.getTransport("smtp");
-			transport.connect(correoEnvia, claveCorreo);
-			transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+        Session session = Session.getInstance(properties, null);
+        int aviso = 0;
+        try {
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.setFrom(new InternetAddress(correoEnvia, "Empresa"));
+            InternetAddress[] internetAddresses = {new InternetAddress(correo)};
+            mimeMessage.setRecipients(Message.RecipientType.TO, internetAddresses);
+            mimeMessage.setSubject("Contraseña");
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setText("Estimad@ Usuario:" + nombre);
+            MimeBodyPart mimeBodyPart2 = new MimeBodyPart();
+            mimeBodyPart2.setText("\nSu contraseña es: " + password);
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            multipart.addBodyPart(mimeBodyPart2);
+            mimeMessage.setContent(multipart);
+            javax.mail.Transport transport = session.getTransport("smtp");
+            transport.connect(correoEnvia, claveCorreo);
+            transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
 
-			transport.close();
+            transport.close();
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			aviso = 1;
-		}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            aviso = 1;
+        }
+    }
+    
+    public void Correo2() {
+        String correo = empleado.getCorreo();
+        String usuario = empleado.getUsuarioEmpleado();
+        String password = empleado.getContrasena();
+        // El correo gmail de envío
+        String correoEnvia = "desafiodwf2020@gmail.com";
+        String claveCorreo = "DESAFIO2020";
+
+        // La configuración para enviar correo
+        Properties properties = new Properties();
+
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.user", correoEnvia);
+        properties.put("mail.password", claveCorreo);
+
+        Session session = Session.getInstance(properties, null);
+        int aviso = 0;
+        try {
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.setFrom(new InternetAddress(correoEnvia, "Empresa"));
+            InternetAddress[] internetAddresses = {new InternetAddress(correo)};
+            mimeMessage.setRecipients(Message.RecipientType.TO, internetAddresses);
+            mimeMessage.setSubject("Contraseña");
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setText("Estimad@ Usuario:" + usuario);
+            MimeBodyPart mimeBodyPart2 = new MimeBodyPart();
+            mimeBodyPart2.setText("\nSu contraseña es: " + password);
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            multipart.addBodyPart(mimeBodyPart2);
+            mimeMessage.setContent(multipart);
+            javax.mail.Transport transport = session.getTransport("smtp");
+            transport.connect(correoEnvia, claveCorreo);
+            transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+
+            transport.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            aviso = 1;
+        }
     }
 }

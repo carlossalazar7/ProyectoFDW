@@ -8,6 +8,7 @@ package sv.edu.udb.www.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 /**
@@ -25,6 +27,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "empleados")
+@SqlResultSetMapping(name="updateResult", columns = { @ColumnResult(name = "count")})
 @NamedQueries({
     @NamedQuery(name = "EmpleadosEntity.findAll", query = "SELECT e FROM EmpleadosEntity e")
     , @NamedQuery(name = "EmpleadosEntity.findByCodigoEmpleado", query = "SELECT e FROM EmpleadosEntity e WHERE e.codigoEmpleado = :codigoEmpleado")

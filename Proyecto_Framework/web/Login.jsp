@@ -282,8 +282,8 @@
                         <span>or use your account</span>
                         <input type="text" name="username" placeholder="Email" />
                         <input type="password" name="password" placeholder="Password" />
-                        <a href="#">Forgot your password?</a>
                         <button type="submit">Sign In</button>
+                        <a href="recuperarContra.xhtml">Forgot your password?</a>
                     </form>
                 </div>
                 <div class="overlay-container">
@@ -291,7 +291,7 @@
                         
                         <div class="overlay-panel overlay-right">
                             <h1>Welcome Back!</h1>
-                            <p>To keep connected with us please login with your personal info</p>
+                            <p>To keep connected with us please create with your personal info</p>
                             <button class="text-decoration-none bg-warning"><a href="NewUser.xhtml" >Crear Cuenta</a></button>
                         </div>
                     </div>

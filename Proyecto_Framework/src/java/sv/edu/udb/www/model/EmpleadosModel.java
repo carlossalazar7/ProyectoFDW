@@ -6,6 +6,15 @@
 package sv.edu.udb.www.model;
 
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -91,6 +100,125 @@ public class EmpleadosModel {
         }
     }
 
+    public EmpleadosEntity recuperarContrasenas(EmpleadosEntity us) {
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb = new StringBuilder(20);
+        Random passw = new Random();
+        for (int i = 0; i < 10; i++) {
+            char c = chars[passw.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String passwordEmpresa = sb.toString();
+        EmpleadosEntity usuario = null;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        EntityTransaction et = em.getTransaction();
+        try {
+
+            String nombre = us.getUsuarioEmpleado();
+            String email = us.getCorreo();
+            System.out.println("Antes consulta");
+            System.out.println(nombre);
+            System.out.println(passwordEmpresa);
+            System.out.println(email);
+            EmpleadosEntity emp = new EmpleadosEntity();
+            et.begin();
+            consulta = "UPDATE EmpleadosEntity SET contrasena = :contra WHERE usuarioEmpleado = :user AND correo = :email";
+            Query query = em.createQuery(consulta);
+            query.setParameter("contra", passwordEmpresa);
+            query.setParameter("user", nombre);
+            query.setParameter("email", email);
+            emp.setContrasena(passwordEmpresa);
+            System.out.println("Despues consulta");
+            System.out.println(nombre);
+            System.out.println(passwordEmpresa);
+            System.out.println(email);
+            query.executeUpdate();
+            et.commit();
+            // El correo gmail de envío
+            String correoEnvia = "desafiodwf2020@gmail.com";
+            String claveCorreo = "DESAFIO2020";
+
+            // La configuración para enviar correo
+            Properties properties = new Properties();
+
+            properties.put("mail.smtp.host", "smtp.gmail.com");
+            properties.put("mail.smtp.port", "587");
+
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.user", correoEnvia);
+            properties.put("mail.password", claveCorreo);
+
+            Session session = Session.getInstance(properties, null);
+            int aviso = 0;
+            try {
+                MimeMessage mimeMessage = new MimeMessage(session);
+                mimeMessage.setFrom(new InternetAddress(correoEnvia, "Empresa"));
+                InternetAddress[] internetAddresses = {new InternetAddress(email)};
+                mimeMessage.setRecipients(Message.RecipientType.TO, internetAddresses);
+                mimeMessage.setSubject("Contraseña");
+                MimeBodyPart mimeBodyPart = new MimeBodyPart();
+                mimeBodyPart.setText("Estimad@ Usuario:" + nombre);
+                MimeBodyPart mimeBodyPart2 = new MimeBodyPart();
+                mimeBodyPart2.setText("\nSu contraseña es: " + passwordEmpresa);
+                // Creo la parte del mensaje
+                MimeBodyPart mimeBodyPartAdjunto = new MimeBodyPart();
+                mimeBodyPartAdjunto.attachFile("C:/Users/Lenovo/Desktop/imagenes/imagen.png");
+                Multipart multipart = new MimeMultipart();
+                multipart.addBodyPart(mimeBodyPart);
+                multipart.addBodyPart(mimeBodyPart2);
+                multipart.addBodyPart(mimeBodyPartAdjunto);
+                mimeMessage.setContent(multipart);
+                javax.mail.Transport transport = session.getTransport("smtp");
+                transport.connect(correoEnvia, claveCorreo);
+                transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+
+                transport.close();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                aviso = 1;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return usuario;
+    }
+
+    public EmpleadosEntity modificarContrasenas(EmpleadosEntity us) {
+        EmpleadosEntity usuario = null;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        EntityTransaction et = em.getTransaction();
+        try {
+            String nombre = us.getUsuarioEmpleado();
+            String pass = us.getContrasena();
+            String email = us.getCorreo();
+            System.out.println("Antes consulta");
+            System.out.println(nombre);
+            System.out.println(pass);
+            System.out.println(email);
+            EmpleadosEntity emp = new EmpleadosEntity();
+            et.begin();
+            consulta = "UPDATE EmpleadosEntity SET contrasena = :contra WHERE usuarioEmpleado = :user AND correo = :email";
+            Query query = em.createQuery(consulta);
+            query.setParameter("contra", pass);
+            query.setParameter("user", nombre);
+            query.setParameter("email", email);
+            emp.setContrasena(pass);
+            System.out.println("Despues consulta");
+            System.out.println(nombre);
+            System.out.println(pass);
+            System.out.println(email);
+            query.executeUpdate();
+            et.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return usuario;
+    }
+
     public int eliminarEmpleado(int codigo) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;
@@ -122,7 +250,7 @@ public class EmpleadosModel {
             EmpleadosEntity emp = new EmpleadosEntity();
             emp.setNombreEmpleado(nombre);
             emp.setContrasena(pass);
-            
+
             consulta = "SELECT e FROM EmpleadosEntity e WHERE e.usuarioEmpleado = :nombre and e.contrasena = :pass ";
             Query query = em.createQuery(consulta);
             query.setParameter("nombre", nombre);
@@ -131,7 +259,7 @@ public class EmpleadosModel {
             if (!lista.isEmpty()) {
                 usuario = lista.get(0);
             }
-          /*  if (lista != null) {
+            /*  if (lista != null) {
                 System.out.println("Datos encontrados");
             } else {
                 System.out.println("Datos no encontrados");
@@ -141,4 +269,5 @@ public class EmpleadosModel {
         }
         return usuario;
     }
+
 }

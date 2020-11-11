@@ -60,7 +60,6 @@ public class MusicBean {
         this.file = file;
     }
 
-    
     /**
      * @return the canciones
      */
@@ -74,6 +73,7 @@ public class MusicBean {
     public void setCanciones(UploadedFile canciones) {
         this.canciones = canciones;
     }
+
     /**
      *
      * @return
@@ -90,11 +90,18 @@ public class MusicBean {
     }
 
     public String obtenerLike(int id) {
-        operacion = modelo.obtenerLike(id);
-
-        modelo.darLike(id, operacion);
-
-        return null;
+        try {
+            operacion = modelo.obtenerLike(id);
+            modelo.darLike(id, operacion);
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Gracias por votar por tú canción favorita"));
+            return null;
+        } catch (Exception e) {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "Algo ha sucedo mal porfavor intenta de nuevo"));
+            System.out.println(e);
+            return null;
+        }
 
     }
 
@@ -104,17 +111,21 @@ public class MusicBean {
         String nombreCancion;
         nombreCancion = canciones.getFileName();
         archivo = file.getFileName();
-        song.setLyrics("mp3/"+nombreCancion);
-        song.setImagen("img/"+archivo);
+        song.setLyrics("mp3/" + nombreCancion);
+        song.setImagen("img/" + archivo);
         song.setLikes(0);
         if (modelo.obtenerCancion1(id) == 1) {
 
             if (modelo.modificarCanciones(song) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "No se pudo ingresar la canción"));
                 return null;//Regreso a la misma página
             } else {
                 JsfUtil.setFlashMessage("exito", "Canción registrada exitosamente");
                 //Forzando la redirección en el cliente
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Canción ingresada correctamente"));
                 return null;
             }
         } else {
@@ -145,8 +156,12 @@ public class MusicBean {
 
         if (modelo.eliminarCanciones(Integer.parseInt(id)) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Canción elimina correctamente"));
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Error", "La canción no se pudo eliminar por favor intenta de nuevo"));
         }
         return null;
     }

@@ -1,6 +1,5 @@
 package sv.edu.udb.www.managed_beans;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -9,8 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.mail.Message;
@@ -86,21 +83,29 @@ public class EmpleadosBean {
 
             if (modelo.modificarEmpleados(empleado) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "No se pudo modificar el usuario"));
                 return null;//Regreso a la misma página
             } else {
-                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                //  JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Usuario Modificado correctamente "));
                 //Forzando la redirección en el cliente
-                return "listado?faces-redirect=true";
+                return null;
             }
         } else {
 
             if (modelo.insertarEmpleados(empleado) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "No se pudo guardar el usuario"));
                 return null;//Regreso a la misma página
             } else {
-                JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                // JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Usuario Guardado "));
                 //Forzando la redirección en el cliente
-                return "listado?faces-redirect=true";
+                return null;
             }
         }
     }
@@ -139,11 +144,15 @@ public class EmpleadosBean {
         String codigo = JsfUtil.getRequest().getParameter("codigo");
 
         if (modelo.eliminarEmpleado(Integer.parseInt(codigo)) > 0) {
-            JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+            //  JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Success", "Usuario eliminado "));
         } else {
-            JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error", "No se pudo eliminar el usuario"));
+            //JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
         }
-        return "listado?faces-redirect=true";
+        return null;
     }
 
     public void modificarContrasena() {
@@ -153,10 +162,27 @@ public class EmpleadosBean {
 
     }
 
-    public void recuperarContrasena() {
-        modelo.recuperarContrasenas(empleado);
-        JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
-        System.out.println("Se cambio");
+    public String recuperarContrasena() {
+        try {
+            if (modelo.recuperarContrasenas(empleado) != null) {
+                JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
+                System.out.println("Se cambio");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "No se pudo encontrar ningún usuario con ese correo, por favor intente nuevamente"));
+                return null;
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Su nueva contraseña fue enviada a su correo"));
+
+                return null;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error", "Algo sucedio mal, por favor intente de nuevo"));
+            return null;
+        }
     }
 
     public void obtenerEmpleados() {
@@ -342,7 +368,7 @@ public class EmpleadosBean {
             mimeBodyPart2.setText("\nSu contraseña es: " + password);
             // Creo la parte del mensaje
             MimeBodyPart mimeBodyPartAdjunto = new MimeBodyPart();
-            mimeBodyPartAdjunto.attachFile("C:/Users/Lenovo/Desktop/imagenes/imagen.png");
+            mimeBodyPartAdjunto.attachFile("C:/music.jpg");
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(mimeBodyPart);
             multipart.addBodyPart(mimeBodyPart2);

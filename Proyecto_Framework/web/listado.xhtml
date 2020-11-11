@@ -7,13 +7,13 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:f="http://java.sun.com/jsf/core"
     template="./WEB-INF/plantillaAdmin1.xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
     <ui:define name="contenido">
         <b:form id="miFormulario" inline="true">
-            <h:panelGroup layout="block" styleClass="alert alert-danger"
-                          rendered="#{not empty facesContext.messageList}">
-                <h:messages />
-            </h:panelGroup>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate />
+            </p:messages>
             <h:panelGrid columns="4" styleClass="table">
                 <h:outputLabel for="nombre" value="Nombre"/>
                 <b:inputText id="nombre" styleClass="form-control"
@@ -55,9 +55,9 @@
         <h:form class="table table-responsive ">
             <b:dataTable  value="#{empleadosBean.listaEmpleados}"
                           var="est" rendered="#{empleadosBean.listaEmpleados.size()>0}"  class="w-100 table table-responsive editableCarTable">
-                <b:dataTableColumn value="#{est.codigoEmpleado}"/>
                 <b:dataTableColumn value="#{est.nombreEmpleado}" />
                 <b:dataTableColumn value="#{est.usuarioEmpleado}" />
+                <b:dataTableColumn value="#{est.codigoTipoEmpleado.nombreTipoEmpleado}" />
                 <b:dataTableColumn value="#{est.correo}"  order="asc" />
 
                 <b:dataTableColumn>

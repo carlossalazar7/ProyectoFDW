@@ -5,10 +5,12 @@
  */
 package sv.edu.udb.www.model;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
@@ -164,7 +166,7 @@ public class EmpleadosModel {
                 mimeBodyPart2.setText("\nSu nueva contraseña es: " + passwordEmpresa);
                 // Creo la parte del mensaje
                 MimeBodyPart mimeBodyPartAdjunto = new MimeBodyPart();
-                mimeBodyPartAdjunto.attachFile("C:/Users/Lenovo/Desktop/imagenes/imagen.png");
+                mimeBodyPartAdjunto.attachFile("C:/music.jpg");
                 Multipart multipart = new MimeMultipart();
                 multipart.addBodyPart(mimeBodyPart);
                 multipart.addBodyPart(mimeBodyPart2);
@@ -176,8 +178,7 @@ public class EmpleadosModel {
 
                 transport.close();
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (IOException | MessagingException ex) {
                 aviso = 1;
             }
         } catch (Exception e) {

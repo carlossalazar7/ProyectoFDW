@@ -5,10 +5,12 @@
  */
 package sv.edu.udb.www.model;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.servlet.http.HttpSession;
 import sv.edu.udb.www.entities.PlaylistEntity;
 import sv.edu.udb.www.utils.JpaUtil;
 
@@ -17,6 +19,7 @@ import sv.edu.udb.www.utils.JpaUtil;
  * @author Lenovo
  */
 public class PlaylistModel {
+
     public List<PlaylistEntity> listarPlayList() {
         //Obtengo una instancia de EntityManager
         EntityManager em = JpaUtil.getEntityManager();
@@ -45,7 +48,7 @@ public class PlaylistModel {
             return null;
         }
     }
-    
+
     public int obtenerPlayList1(int idPlayList) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
@@ -108,6 +111,25 @@ public class PlaylistModel {
         } catch (Exception e) {
             em.close();
             return 0;
+        }
+    }
+
+    public List<PlaylistEntity> Lista(HttpServletRequest request) {
+        String consulta;
+        HttpSession session = request.getSession();
+        String cod = (String) session.getAttribute("codigoEmpleado");
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+
+            consulta = "SELECT p FROM PlaylistEntity p WHERE p.idUser.codigoEmpleado = :id";
+            Query query = em.createQuery(consulta);
+            query.setParameter("id", cod);
+            List<PlaylistEntity> lista = query.getResultList();
+            System.out.println("llego al try  correctamente");
+            return lista;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
         }
     }
 }

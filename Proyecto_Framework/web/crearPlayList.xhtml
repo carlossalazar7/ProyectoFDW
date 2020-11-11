@@ -18,7 +18,7 @@
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Crear Play List</button>
 
                 <div class="wrapper">
-                    <h2 class="text-center" style="color:#ffffff">My Play List</h2>
+                    <h2 class="text-center" style="color:#ffffff">Play List Públicas</h2>
                     <div class="cards">
                         <c:forEach items="${nombreplaylistBean.listaPlaylist}" var="item">
 
@@ -32,8 +32,34 @@
                                     <a href="faces/mymusica.xhtml">${item.nombrePlayList}</a>
                                 </div>
                             </div>
-                        </c:forEach>                    
+                        </c:forEach>    
+                        
                     </div>
+                    
+                    
+                </div>
+                
+                
+                <div class="wrapper">
+                     <h2 class="text-center" style="color:#ffffff" >My Play List</h2>
+                    <div class="cards">
+                        <c:forEach items="${nombreplaylistBean.Mylist(request)}" var="item2">
+
+                            <div class="card">
+                                <div class="overlayer">
+                                    <i class="fa fa-play-circle"></i>
+                                </div>
+                                <img src="https://i.pinimg.com/736x/02/b8/94/02b894f7ea6ad9f724648ee511ad018f--edm-music-house-music.jpg" alt=""/>
+                                <div class="title">
+
+                                    <a href="faces/mymusica.xhtml">${item2.idNombrePlayList.nombrePlayList}</a>
+                                </div>
+                            </div>
+                        </c:forEach>    
+                        
+                    </div>
+                    
+                    
                 </div>
                 <br/><br/><br/><br/>
                 <!-- Modal -->

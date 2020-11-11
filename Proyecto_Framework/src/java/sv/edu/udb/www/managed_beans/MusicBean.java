@@ -98,7 +98,7 @@ public class MusicBean {
             return null;
         } catch (Exception e) {
              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Error", "Algo ha sucedo mal porfavor intenta de nuevo"));
+                        "Error", "Algo ha sucedo mal por favor intenta de nuevo"));
             System.out.println(e);
             return null;
         }

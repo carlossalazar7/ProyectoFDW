@@ -21,12 +21,12 @@
                              required="true"
                              requiredMessage="Debes ingresar su Nombre completo"/>  
                 <h:outputLabel for="Nacimiento" value="Fecha de nacimiento"/>
-                <b:inputText id="nacimiento" styleClass="form-control"
+                <b:inputText id="nacimiento" type="date" styleClass="form-control"
                              value="#{artistaBean.artista.nacimiento}"
-                             required="true" placeholder="00/00/0000"
-                             requiredMessage="Debes ingresar fecha de Nacimiento"></b:inputText>
+                             required="true"  requiredMessage="Debes ingresar fecha de Nacimiento">
+                </b:inputText>
                 <h:outputLabel for="imagen" value="Imagen"/>
-                <p:fileUpload value="#{artistaBean.img}" required="true" skinSimple="true" styleClass="btn btn-primary form-control" mode="simple"  />
+                <p:fileUpload value="#{artistaBean.img}" required="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" skinSimple="true" styleClass="btn btn-primary form-control" mode="simple"  />
 
                 <h:outputLabel for="genero" value="Genero"/>
                 <b:selectOneMenu value="#{artistaBean.genero.id}">

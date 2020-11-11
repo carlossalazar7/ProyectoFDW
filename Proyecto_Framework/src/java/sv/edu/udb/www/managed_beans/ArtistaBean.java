@@ -108,9 +108,14 @@ public class ArtistaBean {
 
             if (modelo.modificarArtista(artista) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "Algo ha sucedo mal momente de modificar por favor intenta de nuevo"));
                 return null;//Regreso a la misma página
             } else {
-                JsfUtil.setFlashMessage("exito", "Artista registrado exitosamente");
+                //JsfUtil.setFlashMessage("exito", "Artista registrado exitosamente");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Info", "Artista modificado correctamente "));
+                
                 //Forzando la redirección en el cliente
                 return null;
             }
@@ -118,6 +123,8 @@ public class ArtistaBean {
 
             if (modelo.insertarArtista(artista) != 1) {
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "Algo ha sucedo mal momente de guardar por favor intenta de nuevo"));
                 return null;//Regreso a la misma página
             } else {
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
@@ -131,6 +138,8 @@ public class ArtistaBean {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                             "Error", "Error al  guardar " + imagen));
                 }
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Info", "Artista guardado correctamente "));
                 return null;
             }
         }
@@ -142,8 +151,13 @@ public class ArtistaBean {
 
         if (modelo.eliminarArtista(Integer.parseInt(id)) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Artista eliminado corectamente"));
+            
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "Algo ha sucedo mal momente de eliminar por favor intenta de nuevo"));
         }
         return null;
     }

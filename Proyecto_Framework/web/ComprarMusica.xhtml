@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="css/playlist.css"/>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./WEB-INF/userPlantilla.xhtml">
+            <ui:define name="contenido">
+
+                <div class="container mx-auto" style="width: 100%">
+                    <div class="row mx-auto">
+                        <!-- You can make it whatever width you want. I'm making it full width
+        on <= small devices and 4/12 page width on >= medium devices -->
+                        <div class="col-xs-12 col-md-4">
+
+                            <!-- CREDIT CARD FORM STARTS HERE -->
+                            <div class="panel panel-default credit-card-box mx-auto" style="float: left; display: inline-block;">
+                                <div class="panel-heading display-table">
+                                    <div class="row display-tr">
+                                        <h3 class="panel-title display-td">Payment Details</h3>
+                                        <div class="display-td">
+                                            <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <form role="form" id="payment-form">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="cardNumber">CARD NUMBER</label>
+                                                    <div class="input-group">
+                                                        <input type="tel" class="form-control" name="cardNumber" placeholder="Valid Card Number" autocomplete="cc-number" required="" autofocus="" />
+                                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7 col-md-7">
+                                                <div class="form-group">
+                                                    <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                                    <input type="tel" class="form-control" name="cardExpiry" placeholder="MM / YY" autocomplete="cc-exp" required="" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-5 col-md-5 pull-right">
+                                                <div class="form-group">
+                                                    <label for="cardCVC">CV CODE</label>
+                                                    <input type="tel" class="form-control" name="cardCVC" placeholder="CVC" autocomplete="cc-csc" required="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="couponCode">COUPON CODE</label>
+                                                    <input type="text" class="form-control" name="couponCode" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button class="btn btn-success btn-lg btn-block" type="submit">Pagar</button>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="display:none;">
+                                            <div class="col-xs-12">
+                                                <p class="payment-errors"></p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- CREDIT CARD FORM ENDS HERE -->
+                            <div class="panel panel-default credit-card-box mx-auto" style="float: right; display: inline-block;">
+                                <h:form id="formulario" enctype="multipart/form-data">
+                                    <h:panelGrid columns="2" styleClass="col-md-10 col-sm-10 col-xs-12 input-group" style="color:white;">
+                                        <h:outputText value="Nombre de la canción" />
+                                        <b:inputText value="#{musicBean.music.nombreCancion}" required="true" required-message="Nombre de la canción" />
+
+                                        <h:outputLabel  value="Genero:"/>
+                                        <b:inputText type="text" value="#{musicBean.music.id.nombreGenero}" required="true" required-message="Precio de la canción" />
+                                        <h:outputText value="Precio de la canción" />
+                                        <b:inputText type="number" value="#{musicBean.music.precio}" required="true" required-message="Precio de la canción" />
+                                        <h:outputText value="Audio:" />
+                                    </h:panelGrid>
+                                    <br></br>
+                                    <h:panelGrid styleClass="col-md-10 col-sm-12 col-xs-12" style="text-align: center">
+                                        <b:commandButton style=" width:100%;" value="Agregar" action="#{musicBean.guardarMusica(musicBean.music.idMusic)}" look="success"/>
+                                        <b:messages />
+                                    </h:panelGrid>
+                                </h:form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- If you're using Stripe for payments -->
+                <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>

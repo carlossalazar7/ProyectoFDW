@@ -64,6 +64,19 @@ public class MusicModel {
             return null;
         }
     }
+    
+    public MusicEntity obtenerMusica(int id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            //Recupero el objeto desde la BD a través del método find
+            MusicEntity cancion = em.find(MusicEntity.class, id);
+            em.close();
+            return cancion;
+        } catch (Exception e) {
+            em.close();
+            return null;
+        }
+    }
 
     public int obtenerCancion1(int id) {
         EntityManager em = JpaUtil.getEntityManager();

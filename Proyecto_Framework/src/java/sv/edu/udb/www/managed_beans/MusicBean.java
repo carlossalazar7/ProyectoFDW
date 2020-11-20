@@ -183,8 +183,13 @@ public class MusicBean {
     public void obtenerMusica() {
         String id = JsfUtil.getRequest().getParameter("id");
         song = modelo.obtenerCancion(Integer.parseInt(id));
-
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+    }
+     public String obtenerMusica2() {
+        String id = JsfUtil.getRequest().getParameter("codigo");
+        song = modelo.obtenerMusica(Integer.parseInt(id));
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        return "/faces/ComprarMusica";
     }
 
     /**

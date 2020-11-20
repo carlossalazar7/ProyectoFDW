@@ -85,4 +85,17 @@ public class VentasBean {
         
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
+     
+     public void guardarVenta2() {
+        String id = JsfUtil.getRequest().getParameter("idMusic");
+        String Usuario = JsfUtil.getRequest().getParameter("codigo");
+        String Mail = JsfUtil.getRequest().getParameter("correo");
+        System.out.println("Esto es en el Bean");
+        System.out.println(id);
+        System.out.println(Usuario);
+        System.out.println(Mail);
+        modelo.insertarVentas(venta);
+        JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente"); 
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+    }
 }

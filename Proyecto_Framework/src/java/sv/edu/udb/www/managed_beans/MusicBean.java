@@ -195,13 +195,13 @@ public class MusicBean {
         
         String code = JsfUtil.getRequest().getParameter("code");
         empleados = modelo2.obtenerUser(code);
-        System.out.println(modelo2.obtenerUser(code).getNombreEmpleado());
+        String NombreUsuario=modelo2.obtenerUser(code).getNombreEmpleado();
+        System.out.println(NombreUsuario);
         System.out.println(code);
-        
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
-        
         return "/faces/ComprarMusica";
     }
+     
 
     /**
      * @return the operacion

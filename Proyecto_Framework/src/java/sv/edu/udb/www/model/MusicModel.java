@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import sv.edu.udb.www.entities.EmpleadosEntity;
 import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.utils.JpaUtil;
 
@@ -196,5 +197,25 @@ public class MusicModel {
             System.out.println(e);
             return null;
         }
+    }
+    
+    public MusicEntity modificarContrasenas(MusicEntity us, EmpleadosEntity empl) {
+        MusicEntity usuario = null;
+        EmpleadosEntity usuario2 = null;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        EntityTransaction et = em.getTransaction();
+        try {
+            int idMusic = us.getIdMusic();
+            String Usuario = empl.getNombreEmpleado();
+            String email = empl.getCorreo();
+            System.out.println("Antes consulta");
+            System.out.println(idMusic);
+            System.out.println(Usuario);
+            System.out.println(email);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return usuario;
     }
 }

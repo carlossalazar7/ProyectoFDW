@@ -196,10 +196,6 @@ public class EmpleadosModel {
             String nombre = us.getUsuarioEmpleado();
             String pass = us.getContrasena();
             String email = us.getCorreo();
-            System.out.println("Antes consulta");
-            System.out.println(nombre);
-            System.out.println(pass);
-            System.out.println(email);
             EmpleadosEntity emp = new EmpleadosEntity();
             et.begin();
             consulta = "UPDATE EmpleadosEntity SET contrasena = :contra WHERE usuarioEmpleado = :user AND correo = :email";
@@ -208,10 +204,6 @@ public class EmpleadosModel {
             query.setParameter("user", nombre);
             query.setParameter("email", email);
             emp.setContrasena(pass);
-            System.out.println("Despues consulta");
-            System.out.println(nombre);
-            System.out.println(pass);
-            System.out.println(email);
             query.executeUpdate();
             et.commit();
         } catch (Exception e) {

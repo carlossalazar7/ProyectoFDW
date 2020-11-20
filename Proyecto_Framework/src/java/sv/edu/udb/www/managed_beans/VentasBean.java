@@ -5,9 +5,13 @@
  */
 package sv.edu.udb.www.managed_beans;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import sv.edu.udb.www.entities.*;
 import sv.edu.udb.www.model.*;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -19,15 +23,19 @@ import sv.edu.udb.www.utils.JsfUtil;
 @ManagedBean
 @RequestScoped
 public class VentasBean {
-     
-     private VentasModel modelo = new VentasModel();
+
+    private VentasModel modelo = new VentasModel();
     private VentasEntity venta;
+    private MusicEntity music;
+    private EmpleadosEntity empleado;
     private List<VentasEntity> ventas;
 
     public VentasBean() {
         venta = new VentasEntity();
+        music = new MusicEntity();
+        empleado = new EmpleadosEntity();
     }
-    
+
     public VentasEntity getVentas() {
         return venta;
     }
@@ -65,7 +73,7 @@ public class VentasBean {
             }
         }
     }
-    
+
     public String eliminarVenta() {
         // Leyendo el parametro enviado desde la vista
         //Cambiar carnet por ID
@@ -78,24 +86,66 @@ public class VentasBean {
         }
         return null;
     }
-    
-     public void obtenerVenta() {
+
+    public void obtenerVenta() {
         String idVenta = JsfUtil.getRequest().getParameter("idVenta");
         venta = modelo.obtenerVentas(Integer.parseInt(idVenta));
-        
+
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
-     
-     public void guardarVenta2() {
+
+    public String guardarVenta2() {
         String id = JsfUtil.getRequest().getParameter("idMusic");
         String Usuario = JsfUtil.getRequest().getParameter("codigo");
         String Mail = JsfUtil.getRequest().getParameter("correo");
-        System.out.println("Esto es en el Bean");
-        System.out.println(id);
-        System.out.println(Usuario);
-        System.out.println(Mail);
-        modelo.insertarVentas(venta);
-        JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente"); 
-        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        
+        // date
+        Date date = new Date();  
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String strDate = formatter.format(date);
+        // date
+        music.setIdMusic(Integer.parseInt(id));
+        empleado.setCodigoEmpleado(Integer.parseInt(Usuario));
+        venta.setIdMusic(music);
+        venta.setIdUser(empleado);
+        venta.setFechaVenta(strDate);
+        if (modelo.insertarVentas(venta) != 1) {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "Algo salio mal, intente de nuevo"));
+             
+            return null;//Regreso a la misma página
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Gracias por su compra"));       
+            return null;
+        }
     }
-}
+
+    /**
+     * @return the music
+     */
+    public MusicEntity getMusic() {
+        return music;
+    }
+
+    /**
+     * @param music the music to set
+     */
+    public void setMusic(MusicEntity music) {
+        this.music = music;
+    }
+
+    /**
+     * @return the empleado
+     */
+    public EmpleadosEntity getEmpleado() {
+        return empleado;
+    }
+
+    /**
+     * @param empleado the empleado to set
+     */
+    public void setEmpleado(EmpleadosEntity empleado) {
+        this.empleado = empleado;
+    }
+  }

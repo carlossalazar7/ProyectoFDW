@@ -260,15 +260,28 @@ public class EmpleadosModel {
             if (!lista.isEmpty()) {
                 usuario = lista.get(0);
             }
-            /*  if (lista != null) {
-                System.out.println("Datos encontrados");
-            } else {
-                System.out.println("Datos no encontrados");
-            }*/
         } catch (Exception e) {
             System.out.println(e);
         }
         return usuario;
     }
 
+    public EmpleadosEntity obtenerUser(String code) {
+        EmpleadosEntity usuario = null;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            consulta = "SELECT e FROM EmpleadosEntity e WHERE e.usuarioEmpleado = :nombre  ";
+            Query query = em.createQuery(consulta);
+            query.setParameter("nombre", code);
+            List<EmpleadosEntity> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                usuario = lista.get(0);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } 
+        System.out.println(usuario.getNombreEmpleado());
+        return usuario;
+    }
 }

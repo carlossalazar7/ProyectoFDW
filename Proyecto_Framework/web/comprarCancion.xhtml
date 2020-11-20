@@ -23,6 +23,7 @@
                     <p:commandButton value="Comprar Canción" id="nonAjax" styleClass="btn btn-info"
                                      action="#{musicBean.obtenerMusica2()}" ajax="false">
                         <f:param name="codigo" value="#{est.idMusic}"/>
+                        <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
                     </p:commandButton>
                 </b:dataTableColumn>
             </b:dataTable>

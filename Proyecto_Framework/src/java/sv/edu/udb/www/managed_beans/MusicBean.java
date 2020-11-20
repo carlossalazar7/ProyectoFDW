@@ -7,9 +7,7 @@ package sv.edu.udb.www.managed_beans;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javafx.event.ActionEvent;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,6 +27,8 @@ import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.model.MusicModel;
 import sv.edu.udb.www.utils.JsfUtil;
 import org.primefaces.model.file.UploadedFile;
+import sv.edu.udb.www.entities.EmpleadosEntity;
+import sv.edu.udb.www.model.EmpleadosModel;
 
 /**
  *
@@ -39,9 +39,12 @@ import org.primefaces.model.file.UploadedFile;
 public class MusicBean {
 
     private MusicModel modelo = new MusicModel();
+    private EmpleadosModel modelo2 = new EmpleadosModel();
     private MusicEntity song;
     private GenerosEntity genero;
+    private EmpleadosEntity empleados;
     private List<GenerosEntity> generos;
+    private List<EmpleadosEntity>  empleado;
     private List<MusicEntity> music;
     private int operacion;
     private UploadedFile file;
@@ -58,6 +61,7 @@ public class MusicBean {
     public MusicBean() {
         song = new MusicEntity();
         genero = new GenerosEntity();
+        empleados = new  EmpleadosEntity();
     }
 
     /**
@@ -188,7 +192,14 @@ public class MusicBean {
      public String obtenerMusica2() {
         String id = JsfUtil.getRequest().getParameter("codigo");
         song = modelo.obtenerMusica(Integer.parseInt(id));
+        
+        String code = JsfUtil.getRequest().getParameter("code");
+        empleados = modelo2.obtenerUser(code);
+        System.out.println(modelo2.obtenerUser(code).getNombreEmpleado());
+        System.out.println(code);
+        
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        
         return "/faces/ComprarMusica";
     }
 
@@ -304,4 +315,53 @@ public class MusicBean {
 		stream.close();
 		FacesContext.getCurrentInstance().responseComplete();
 	}
+
+    /**
+     * @return the modelo2
+     */
+    public EmpleadosModel getModelo2() {
+        return modelo2;
+    }
+
+    /**
+     * @param modelo2 the modelo2 to set
+     */
+    public void setModelo2(EmpleadosModel modelo2) {
+        this.modelo2 = modelo2;
+    }
+
+    /**
+     * @return the empleados
+     */
+    public EmpleadosEntity getEmpleados() {
+        return empleados;
+    }
+
+    /**
+     * @param empleados the empleados to set
+     */
+    public void setEmpleados(EmpleadosEntity empleados) {
+        this.empleados = empleados;
+    }
+
+    /**
+     * @return the empleado
+     */
+    public List<EmpleadosEntity> getEmpleado() {
+        return empleado;
+    }
+
+    /**
+     * @param empleado the empleado to set
+     */
+    public void setEmpleado(List<EmpleadosEntity> empleado) {
+        this.empleado = empleado;
+    }
+
+    /**
+     * @param music the music to set
+     */
+    public void setMusic(List<MusicEntity> music) {
+        this.music = music;
+    }
 }

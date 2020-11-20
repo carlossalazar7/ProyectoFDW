@@ -170,7 +170,7 @@ public class EmpleadosBean {
         JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
         System.out.println("Se cambio");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Success", "Contraseña Modificada correctamente "));
+                "Success", "Contraseña Modificada correctamente "));
 
     }
 
@@ -212,6 +212,7 @@ public class EmpleadosBean {
                         "Error", "Contraseña o usuario incorrecto "));
             } else {
                 String nombre = modelo.iniciarSesion(empleado).getUsuarioEmpleado();
+                String fullName = modelo.iniciarSesion(empleado).getNombreEmpleado();
                 int codigo = modelo.iniciarSesion(empleado).getCodigoTipoEmpleado().getCodigoTipoEmpleado();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Success", "Datos correctos"));
@@ -224,6 +225,7 @@ public class EmpleadosBean {
                             session.setAttribute("Admin", nombre);
                             request.setAttribute("usuarioEmpleado", nombre);
                             request.setAttribute("codigoEmpleado", codigo);
+                            request.setAttribute("fullName", fullName);
                             //request.getRequestDispatcher("faces/listado.xhtml").forward(request,response);
                             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Admin", nombre);
                             FacesContext.getCurrentInstance().getExternalContext().redirect("faces/listado.xhtml");
@@ -239,8 +241,11 @@ public class EmpleadosBean {
                             session.setAttribute("Editor", nombre);
                             request.setAttribute("usuarioEmpleado", nombre);
                             request.setAttribute("codigoEmpleado", codigo);
+                            request.setAttribute("fullName", fullName);
+                            
                             //request.getRequestDispatcher("faces/paginaadmin2.xhtml").forward(request, response);
                             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Editor", nombre);
+                            //   FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("fullName", fullName);
                             FacesContext.getCurrentInstance().getExternalContext().redirect("faces/paginaadmin2.xhtml");
 
                         } catch (IOException e) {
@@ -254,10 +259,12 @@ public class EmpleadosBean {
                             session.setAttribute("User", nombre);
                             request.setAttribute("usuarioEmpleado", nombre);
                             request.setAttribute("codigoEmpleado", codigo);
+                            request.setAttribute("fullName", fullName);
                             //request.getRequestDispatcher("faces/paginausuario.xhtml").forward(request, response);
                             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("User", nombre);
+                           // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("fullName", fullName);
                             FacesContext.getCurrentInstance().getExternalContext().redirect("faces/paginausuario.xhtml");
-                        } catch (Exception e) {
+                        } catch (IOException e) {
                             System.out.println(e);
                         }
                         break;
@@ -396,46 +403,43 @@ public class EmpleadosBean {
             aviso = 1;
         }
     }
-    
-     //Creacion de PDF de musica
-    
-    public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException{
-		//Map<String,Object> parametros= new HashMap<String,Object>();
-		//parametros.put("txtUsuario", "MitoCode");
-		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Empleados.jasper"));
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaEmpleados()));
-		
-		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-		response.addHeader("Content-disposition","attachment; filename=ListaEmpleados.pdf");
-		ServletOutputStream stream = response.getOutputStream();
-		
-		JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-		
-		stream.flush();
-		stream.close();
-		FacesContext.getCurrentInstance().responseComplete();
-	}
-    
+
+    //Creacion de PDF de musica
+    public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException {
+        //Map<String,Object> parametros= new HashMap<String,Object>();
+        //parametros.put("txtUsuario", "MitoCode");
+
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Empleados.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), null, new JRBeanCollectionDataSource(this.getListaEmpleados()));
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=ListaEmpleados.pdf");
+        ServletOutputStream stream = response.getOutputStream();
+
+        JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+        stream.flush();
+        stream.close();
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
     //Creación de Excel de Musica
-    
-    public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException{
-		
-		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Excelempleados.jasper"));
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaEmpleados()));
-		
-		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-		response.addHeader("Content-disposition","attachment; filename=ListaEmpleados.xls");
-		ServletOutputStream stream = response.getOutputStream();
-		
-		JRXlsExporter exporter = new JRXlsExporter();
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
-		exporter.exportReport();
-		
-		stream.flush();
-		stream.close();
-		FacesContext.getCurrentInstance().responseComplete();
-	}
+    public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException {
+
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Excelempleados.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), null, new JRBeanCollectionDataSource(this.getListaEmpleados()));
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=ListaEmpleados.xls");
+        ServletOutputStream stream = response.getOutputStream();
+
+        JRXlsExporter exporter = new JRXlsExporter();
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
+        exporter.exportReport();
+
+        stream.flush();
+        stream.close();
+        FacesContext.getCurrentInstance().responseComplete();
+    }
 }

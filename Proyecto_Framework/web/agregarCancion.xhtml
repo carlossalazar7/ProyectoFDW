@@ -14,6 +14,10 @@
     <h:body>
         <ui:composition template="./WEB-INF/plantilla2.xhtml">
             <ui:define name="contenido">
+                <h:form id="formulario1" >
+                    <h:commandButton  value="Exportar PDF" action="#{musicBean.exportarPDF(actionEvent)}" />
+                    <h:commandButton  value="Exportar Excel" action="#{musicBean.exportarExcel(actionEvent)}" />
+                </h:form>
                 <h:form id="formulario" enctype="multipart/form-data">
                     <h:panelGrid columns="2" styleClass="col-md-10 col-sm-10 col-xs-12 input-group" style="color:white;">
                         <h:outputText value="Nombre de la canción" />

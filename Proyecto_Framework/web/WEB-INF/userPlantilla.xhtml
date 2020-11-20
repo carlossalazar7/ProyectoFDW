@@ -35,10 +35,8 @@
                         <b:navLink value="Comprar Music" outcome="faces/comprarCancion"></b:navLink>
                         <b:navLink value="Paquetes" outcome="faces/paquetes"></b:navLink>
                         <b:dropMenu value="${request.getSession(false).getAttribute('User')} ">
-                            <b:navLink value="Salir" href="faces/login.xhtml"></b:navLink>
-                            <b:dropMenu value="Cambiar Contraseña">
-                            <!--    <b:navLink value="... you want!" href="#"></b:navLink> -->
-                            </b:dropMenu>
+                        <b:navLink value="Salir" href="faces/login.xhtml"></b:navLink>
+                        <b:navLink value="Cambiar Contraseña" outcome="faces/cambiarContrasena"></b:navLink>
                         </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>
@@ -59,6 +57,7 @@
                                         <li><a href="faces/categorias.xhtml">Generos</a></li>
                                         <li><a href="faces/music.xhtml">Música</a></li>
                                         <li><a href="faces/comprarCancion.xhtml">Comprar Canción</a></li>
+                                        <li><a href="faces/cambiarContrasena.xhtml">Comprar Canción</a></li>
                                     </ul>
                                 </article>
                             </b:column>

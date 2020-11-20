@@ -99,7 +99,7 @@ public class EmpleadosBean {
             } else {
                 //  JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Success", "Usuario Modificado correctamente "));
+                        "Success", "Usuario Agregado correctamente "));
                 //Forzando la redirección en el cliente
                 return null;
             }
@@ -169,6 +169,8 @@ public class EmpleadosBean {
         modelo.modificarContrasenas(empleado);
         JsfUtil.setFlashMessage("Éxito", "Contraseña modificada exitosamente");
         System.out.println("Se cambio");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Contraseña Modificada correctamente "));
 
     }
 
@@ -401,7 +403,7 @@ public class EmpleadosBean {
 		//Map<String,Object> parametros= new HashMap<String,Object>();
 		//parametros.put("txtUsuario", "MitoCode");
 		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/Empleados.jasper"));
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Empleados.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaEmpleados()));
 		
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
@@ -420,7 +422,7 @@ public class EmpleadosBean {
     public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException{
 		
 		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/Excelempleados.jasper"));
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Excelempleados.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaEmpleados()));
 		
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();

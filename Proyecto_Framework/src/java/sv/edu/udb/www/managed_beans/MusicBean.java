@@ -264,7 +264,7 @@ public class MusicBean {
 		//Map<String,Object> parametros= new HashMap<String,Object>();
 		//parametros.put("txtUsuario", "MitoCode");
 		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/PDFmusica.jasper"));
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/PDFmusica.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaMusica()));
 		
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
@@ -283,7 +283,7 @@ public class MusicBean {
     public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException{
 		
 		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/Excelmusica.jasper"));
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Excelmusica.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaMusica()));
 		
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();

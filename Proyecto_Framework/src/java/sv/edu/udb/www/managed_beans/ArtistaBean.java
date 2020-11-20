@@ -188,7 +188,7 @@ public class ArtistaBean {
 		//Map<String,Object> parametros= new HashMap<String,Object>();
 		//parametros.put("txtUsuario", "MitoCode");
 		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/Usuarios.jasper"));
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Usuarios.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaArtista()));
 		
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
@@ -207,7 +207,7 @@ public class ArtistaBean {
     public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException{
 		
 		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/UsuariosExcel.jasper"));
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/UsuariosExcel.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaArtista()));
 		
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();

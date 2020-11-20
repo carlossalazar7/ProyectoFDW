@@ -5,15 +5,19 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-        <title>Facelet Title</title>
+        <title>Cambiar Contraseña</title>
     </h:head>
     <h:body>
         <ui:composition template="./WEB-INF/plantillaFuera.xhtml">
             <ui:define name="contenido">
                 <h:form styleClass="mx-auto w-25">
+                    <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate />
+            </p:messages>
                     <h3>Cambiar Contraseña</h3>
                     <h:outputLabel for="usuario" value="Ingrese su Usuario"/>
                     <h:inputText id="usuario" styleClass="form-control"

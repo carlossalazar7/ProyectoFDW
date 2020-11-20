@@ -113,7 +113,7 @@ public class GenerosBean {
 		//Map<String,Object> parametros= new HashMap<String,Object>();
 		//parametros.put("txtUsuario", "MitoCode");
 		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/Generos.jasper"));
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Generos.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaGeneros()));
 		
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
@@ -132,7 +132,7 @@ public class GenerosBean {
     public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException{
 		
 		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/Excelgeneros.jasper"));
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Excelgeneros.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaGeneros()));
 		
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();

@@ -10,10 +10,15 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:p="http://primefaces.org/ui">
     <ui:define name="contenido">
+        <h:form>
+            <h:commandButton  value="Exportar PDF" action="#{artistaBean.exportarPDF(actionEvent)}" />
+            <h:commandButton  value="Exportar Excel" action="#{artistaBean.exportarExcel(actionEvent)}" />
+        </h:form>
         <b:form id="miFormulario" inline="true" enctype="multipart/form-data">
               <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate />
                 </p:messages>
+           
             <h:panelGrid columns="4" styleClass="table">
                 <h:outputLabel for="nombre" value="Nombre"/>
                 <b:inputText id="nombre" styleClass="form-control"

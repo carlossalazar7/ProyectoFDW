@@ -1,5 +1,6 @@
 package sv.edu.udb.www.managed_beans;
 
+import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 import java.util.Properties;
+import javafx.event.ActionEvent;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.mail.Message;
@@ -20,7 +22,15 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import sv.edu.udb.www.entities.*;
 import sv.edu.udb.www.model.*;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -384,4 +394,46 @@ public class EmpleadosBean {
             aviso = 1;
         }
     }
+    
+     //Creacion de PDF de musica
+    
+    public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException{
+		//Map<String,Object> parametros= new HashMap<String,Object>();
+		//parametros.put("txtUsuario", "MitoCode");
+		
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/Empleados.jasper"));
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaEmpleados()));
+		
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		response.addHeader("Content-disposition","attachment; filename=ListaEmpleados.pdf");
+		ServletOutputStream stream = response.getOutputStream();
+		
+		JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+		
+		stream.flush();
+		stream.close();
+		FacesContext.getCurrentInstance().responseComplete();
+	}
+    
+    //Creación de Excel de Musica
+    
+    public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException{
+		
+		
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Jasper/Excelempleados.jasper"));
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaEmpleados()));
+		
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		response.addHeader("Content-disposition","attachment; filename=ListaEmpleados.xls");
+		ServletOutputStream stream = response.getOutputStream();
+		
+		JRXlsExporter exporter = new JRXlsExporter();
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
+		exporter.exportReport();
+		
+		stream.flush();
+		stream.close();
+		FacesContext.getCurrentInstance().responseComplete();
+	}
 }

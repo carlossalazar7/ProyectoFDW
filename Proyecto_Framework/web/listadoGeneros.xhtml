@@ -10,6 +10,10 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:p="http://primefaces.org/ui">
     <ui:define name="contenido">
+        <h:form>
+            <h:commandButton  value="Exportar PDF" action="#{generosBean.exportarPDF(actionEvent)}" />
+            <h:commandButton  value="Exportar Excel" action="#{generosBean.exportarExcel(actionEvent)}" />
+        </h:form>
         <h:form id="miFormulario">
 
             <p:breadCrumb>

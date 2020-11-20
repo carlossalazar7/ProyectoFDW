@@ -67,10 +67,14 @@
                         -webkit-filter: hue-rotate(143deg) saturate(5);    
                     }
                 </style>
+               
                 <h:form id="formulario">
                     <div class="wrapper">
                         <h2 class="text-center" style="color:#ffffff; font-family: 'Anton', sans-serif;">Music</h2>
+                          <h:commandButton  value="Exportar PDF" action="#{musicBean.exportarPDF(actionEvent)}" />
+                          <h:commandButton  value="Exportar Excel" action="#{musicBean.exportarExcel(actionEvent)}" />
                         <div class="cards">
+                           
                             <c:forEach items="${musicBean.listaMusica}" var="item">
                                 <div class="card" style=" width: 150px;">
                                     <div class="overlayer title">

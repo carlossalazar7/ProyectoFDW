@@ -10,6 +10,10 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:p="http://primefaces.org/ui">
     <ui:define name="contenido">
+        <h:form>
+            <h:commandButton  value="Exportar PDF" action="#{empleadosBean.exportarPDF(actionEvent)}" />
+            <h:commandButton  value="Exportar Excel" action="#{empleadosBean.exportarExcel(actionEvent)}" />
+        </h:form>
         <b:form id="miFormulario" inline="true">
             <p:messages id="messages" showDetail="true" closable="true">
                 <p:autoUpdate />

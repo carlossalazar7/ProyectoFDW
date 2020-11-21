@@ -49,6 +49,8 @@ public class MusicBean {
     private int operacion;
     private UploadedFile file;
     private UploadedFile canciones;
+    private List<MusicEntity> porGenero;
+    
 
     public MusicEntity getMusic() {
         return song;
@@ -106,6 +108,17 @@ public class MusicBean {
  para obtener la lista de objetos a partir de la bd */
         return modelo.listarCanciones();
     }
+    
+    public String filtrar(){
+        int numeroGenero =Integer.parseInt( JsfUtil.getRequest().getParameter("id"));
+        
+    System.out.println("Si llegó al Bean y el numero es: "+numeroGenero);
+    porGenero = modelo.ListadoMusicaGenero(numeroGenero);
+    System.out.println("Devolucion: "+modelo.ListadoMusicaGenero(numeroGenero));
+    
+    return "/faces/MusicGeneros";
+    }
+    
 
     public String obtenerLike(int id) {
         try {
@@ -363,4 +376,24 @@ public class MusicBean {
     public void setMusic(List<MusicEntity> music) {
         this.music = music;
     }
+
+    /**
+     * @return the numeroGenero
+     */
+    
+
+    /**
+     * @return the porGenero
+     */
+    public List<MusicEntity> getPorGenero() {
+        return porGenero;
+    }
+
+    /**
+     * @param porGenero the porGenero to set
+     */
+    public void setPorGenero(List<MusicEntity> porGenero) {
+        this.porGenero = porGenero;
+    }
+    
 }

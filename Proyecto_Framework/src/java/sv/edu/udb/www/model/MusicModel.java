@@ -242,4 +242,21 @@ public class MusicModel {
             return null;
         }
     }
+    
+     public List<MusicEntity> ListadoMusicaGenero(int id) {
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        System.out.println(id);
+        try {
+            consulta = "SELECT m  FROM MusicEntity m INNER JOIN GenerosEntity g  WHERE g.nombreGenero = :id";
+            Query query = em.createQuery(consulta);
+            query.setParameter("id", id);
+            List<MusicEntity> lista = query.getResultList();
+            System.out.println("llego al try  correctamente y el id es: "+id);
+            return lista;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }

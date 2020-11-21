@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="css/playlist.css"/>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./WEB-INF/userPlantilla.xhtml">
+            <ui:define name="contenido">
+                <div class="container">
+
+                    <b:form style="width: 100%;">
+                        <p:commandButton value="Actualizar" id="nonAjax" styleClass="btn btn-info"
+                                         action="#{ventasBean.historial()}" ajax="false">
+                            <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
+                        </p:commandButton>
+                        <br/>
+                    </b:form>
+                    <h:form style="width: 70%;" class="table table-hover">
+                        <b:dataTable value="#{ventasBean.historia}"
+                                     var="car"
+                                     excel="true"
+                                     csv="true"
+                                     pdf="true"
+                                     lang="es"
+                                     columnVisibility="true"
+                                     copy="true"
+                                     print="true"
+                                     responsive="true"
+                                     searching="true"
+                                     >
+                            <b:dataTableColumn value="#{car.idUser.nombreEmpleado}" label="Correo" />
+                            <b:dataTableColumn value="#{car.idUser.correo}" label="Usuario" />
+                            <b:dataTableColumn value="#{car.idMusic.nombreCancion}" label="Música Comprada" />
+                            <b:dataTableColumn value="$#{car.idMusic.precio}" label="Precio" />
+                            <b:dataTableColumn value="#{car.fechaVenta}" label="Fecha de compra" />
+
+                        </b:dataTable>
+                    </h:form>
+
+                </div>
+                <script>
+                    /* Demo purposes only */
+                    $(".hover").mouseleave(function () {
+                        $(this).removeClass("hover");
+                    });
+
+                </script>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>

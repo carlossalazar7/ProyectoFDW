@@ -25,11 +25,12 @@ import sv.edu.udb.www.utils.JsfUtil;
 public class VentasBean {
 
     private VentasModel modelo = new VentasModel();
-    private MusicModel modelo2 = new MusicModel(); 
+    private MusicModel modelo2 = new MusicModel();
     private VentasEntity venta;
     private MusicEntity music;
     private EmpleadosEntity empleado;
     private List<VentasEntity> ventas;
+    private List<VentasEntity> historia;
 
     public VentasBean() {
         venta = new VentasEntity();
@@ -87,7 +88,7 @@ public class VentasBean {
         }
         return null;
     }
-    
+
     public void obtenerVenta() {
         String idVenta = JsfUtil.getRequest().getParameter("idVenta");
         venta = modelo.obtenerVentas(Integer.parseInt(idVenta));
@@ -99,9 +100,9 @@ public class VentasBean {
         String id = JsfUtil.getRequest().getParameter("idMusic");
         String Usuario = JsfUtil.getRequest().getParameter("codigo");
         String Mail = JsfUtil.getRequest().getParameter("correo");
-        
+
         // date
-        Date date = new Date();  
+        Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         String strDate = formatter.format(date);
         // date
@@ -111,13 +112,13 @@ public class VentasBean {
         venta.setIdUser(empleado);
         venta.setFechaVenta(strDate);
         if (modelo.insertarVentas(venta) != 1) {
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Error", "Algo salio mal, intente de nuevo"));
-             
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error", "Algo salio mal, intente de nuevo"));
+
             return null;//Regreso a la misma página
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Success", "Gracias por su compra"));       
+                    "Success", "Gracias por su compra"));
             return null;
         }
     }
@@ -149,4 +150,31 @@ public class VentasBean {
     public void setEmpleado(EmpleadosEntity empleado) {
         this.empleado = empleado;
     }
-  }
+
+    public void historial() {
+        //Cambiar carnet a ID
+        String usuario = JsfUtil.getRequest().getParameter("code");
+        historia = modelo.historial(usuario);
+    }
+
+    /**
+     * @param ventas the ventas to set
+     */
+    public void setVentas(List<VentasEntity> ventas) {
+        this.ventas = ventas;
+    }
+
+    /**
+     * @return the historia
+     */
+    public List<VentasEntity> getHistoria() {
+        return historia;
+    }
+
+    /**
+     * @param historia the historia to set
+     */
+    public void setHistoria(List<VentasEntity> historia) {
+        this.historia = historia;
+    }
+}

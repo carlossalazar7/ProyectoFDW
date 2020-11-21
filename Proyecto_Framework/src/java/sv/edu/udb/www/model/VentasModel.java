@@ -108,4 +108,20 @@ public class VentasModel {
             return 0;
         }
     }
+    
+     public List<VentasEntity> historial(String code) {
+        List<VentasEntity> lista;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            consulta = "SELECT v FROM VentasEntity v INNER JOIN EmpleadosEntity e  WHERE e.usuarioEmpleado = :codigo";
+            Query query = em.createQuery(consulta);
+            query.setParameter("codigo", code);
+            lista = query.getResultList();
+            return lista;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }

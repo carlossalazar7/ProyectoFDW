@@ -25,6 +25,7 @@ import sv.edu.udb.www.utils.JsfUtil;
 public class VentasBean {
 
     private VentasModel modelo = new VentasModel();
+    private MusicModel modelo2 = new MusicModel(); 
     private VentasEntity venta;
     private MusicEntity music;
     private EmpleadosEntity empleado;
@@ -86,7 +87,7 @@ public class VentasBean {
         }
         return null;
     }
-
+    
     public void obtenerVenta() {
         String idVenta = JsfUtil.getRequest().getParameter("idVenta");
         venta = modelo.obtenerVentas(Integer.parseInt(idVenta));

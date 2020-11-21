@@ -276,4 +276,23 @@ public class EmpleadosModel {
         System.out.println(usuario.getNombreEmpleado());
         return usuario;
     }
+    
+    public EmpleadosEntity obtenerUser2(String code) {
+        EmpleadosEntity usuario = null;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            consulta = "SELECT e FROM EmpleadosEntity e WHERE e.usuarioEmpleado = :nombre  ";
+            Query query = em.createQuery(consulta);
+            query.setParameter("nombre", code);
+            List<EmpleadosEntity> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                usuario = lista.get(0);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } 
+        System.out.println(usuario.getNombreEmpleado());
+        return usuario;
+    }
 }

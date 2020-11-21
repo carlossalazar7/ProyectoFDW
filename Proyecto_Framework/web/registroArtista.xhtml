@@ -4,42 +4,65 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
         <title>Facelet Title</title>
-        <style>
-            
-@media only screen and (max-width: 600px) {
-
-  .biografiaAutor{
-      width: 500px;
-  }
-}
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
         </style>
     </h:head>
     <h:body>
         <ui:composition template="./WEB-INF/plantillaboot.xhtml">
             <ui:define name="contenido">
-                <div class="row mx-auto biografiaAutor table-responsive" style=" margin-left: 15%; ">
-                    <h:dataTable styleClass="" value="#{artistaBean.listaArtista}"
-                                 var="est" rendered="#{artistaBean.listaArtista.size()>0}">
-                        <h:column class="col-sm d-inline" >
-                            <div class="about__section" style="display: inline-block;padding: 5px; width: 750%; ">
-                                <!-- Specificity container -->
-                                <a href="javascript:void(0);" title="Staff Writer">
-                                    <div class="about__slot">
-                                        <div class="headshot img-fluid" onclick="biograph(this.parentNode);" style="background-image:url('#{est.nombreArtista}');  background-repeat: no-repeat; "></div>
-                                        <div class="about__info">
-                                            <h4><h:outputText  styleClass="name" value="#{est.nombreArtistaPublic}"/></h4>
-                                        </div>     
-                                        <div class="bioText"><h:outputText value="#{est.descripcion}"/><br/><br/>f g+ tw li</div>
-                                    </div>
-                                </a>
-                            </div><br/>
-                        </h:column>
-                    </h:dataTable>
-                </div>
+
+                <h:form id="form">
+                    <p:dataGrid var="car" value="#{artistaBean.listaArtista}" columns="3" layout="grid"
+                                rows="6" paginator="true" id="cars"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="6,9,12,15">
+                        <f:facet name="header">
+                            Biografías de los artistas
+                        </f:facet>
+
+                        <p:panel header="#{car.nombreArtistaPublic}" style="text-align:center">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <img src="${car.nombreArtista}" width="100" height="100" alt="" />
+                                <h:outputText value="#{car.id.nombreGenero}" />
+                                <h:outputText value="#{car.nacimiento}" />
+                                <h:outputText value="#{car.descripcion}" />
+                                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                                    <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+                                    <f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />
+                                </p:commandLink>
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </p:dataGrid>
+
+                    <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="carDetail" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty dataGridView.selectedCar}" columnClasses="label,value">
+                                <f:facet name="header">
+                                </f:facet>
+                                <h:outputText value="Id:" />
+                                <h:outputText value="#{dataGridView.selectedCar.id}" />
+
+                                <h:outputText value="Year" />
+                                <h:outputText value="#{dataGridView.selectedCar.year}" />
+
+                                <h:outputText value="Color:" />
+                                <h:outputText value="#{dataGridView.selectedCar.color}" style="color:#{dataGridView.selectedCar.color}"/>
+
+                                <h:outputText value="Price" />
+                                <h:outputText value="$#{dataGridView.selectedCar.price}" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>

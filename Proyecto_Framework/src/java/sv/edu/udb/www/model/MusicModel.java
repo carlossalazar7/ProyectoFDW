@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.edu.udb.www.entities.EmpleadosEntity;
 import sv.edu.udb.www.entities.MusicEntity;
+import sv.edu.udb.www.entities.VentasEntity;
 import sv.edu.udb.www.utils.JpaUtil;
 
 /**
@@ -217,5 +218,28 @@ public class MusicModel {
             System.out.println(e);
         }
         return usuario;
+    }
+    public List<VentasEntity> listar(String code) {
+        VentasEntity usuario = null;
+        MusicEntity music = null;
+        List<VentasEntity> lista;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            EmpleadosEntity emp = new EmpleadosEntity();
+            consulta = "SELECT v FROM VentasEntity v INNER JOIN EmpleadosEntity e  WHERE e.usuarioEmpleado = :codigo";
+            Query query = em.createQuery(consulta);
+            query.setParameter("codigo", code);
+            System.out.println("Este es el id");
+            System.out.println(code);
+            lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                usuario = lista.get(0);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }

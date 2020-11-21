@@ -44,16 +44,20 @@ import sv.edu.udb.www.utils.JsfUtil;
 public class EmpleadosBean {
 
     private EmpleadosModel modelo = new EmpleadosModel();
+    private MusicModel modelo2 = new MusicModel();
     private EmpleadosEntity empleado;
+    private VentasEntity venta;
     private TipoempleadosEntity tipoempleado;
     private List<TipoempleadosEntity> tipoempleados;
     private List<EmpleadosEntity> empleados;
+    private List<VentasEntity> ventas;
     private EntityManager manager;
     private EntityManager em;
 
     public EmpleadosBean() {
         empleado = new EmpleadosEntity();
         tipoempleado = new TipoempleadosEntity();
+        venta = new VentasEntity();
     }
 
     public EmpleadosEntity getEmpleado() {
@@ -203,6 +207,16 @@ public class EmpleadosBean {
         empleado = modelo.obtenerEmpleados(Integer.parseInt(codigo));
 
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+    }
+    
+    public void obtenerEmpleados2() {
+        //Cambiar carnet a ID
+        String usuario = JsfUtil.getRequest().getParameter("code");
+        String NombreUsuario=modelo.obtenerUser(usuario).getNombreEmpleado();
+        ventas = modelo2.listar(usuario);
+
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        
     }
 
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException {
@@ -441,5 +455,33 @@ public class EmpleadosBean {
         stream.flush();
         stream.close();
         FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    /**
+     * @return the venta
+     */
+    public VentasEntity getVenta() {
+        return venta;
+    }
+
+    /**
+     * @param venta the venta to set
+     */
+    public void setVenta(VentasEntity venta) {
+        this.venta = venta;
+    }
+
+    /**
+     * @return the ventas
+     */
+    public List<VentasEntity> getVentas() {
+        return ventas;
+    }
+
+    /**
+     * @param ventas the ventas to set
+     */
+    public void setVentas(List<VentasEntity> ventas) {
+        this.ventas = ventas;
     }
 }

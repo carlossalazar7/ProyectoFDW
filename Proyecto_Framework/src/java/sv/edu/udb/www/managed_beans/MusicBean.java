@@ -192,7 +192,6 @@ public class MusicBean {
      public String obtenerMusica2() {
         String id = JsfUtil.getRequest().getParameter("codigo");
         song = modelo.obtenerMusica(Integer.parseInt(id));
-        
         String code = JsfUtil.getRequest().getParameter("code");
         empleados = modelo2.obtenerUser(code);
         String NombreUsuario=modelo2.obtenerUser(code).getNombreEmpleado();

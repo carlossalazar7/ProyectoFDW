@@ -23,12 +23,12 @@
             <ui:insert name="menu">
                 <b:navBar brand="Universal Music" brandHref="#" inverse="true" style="opacity: 0.8;  color: #FFF; z-index: 999;">
                     <b:navbarLinks style="opacity: 0.5; ">
-                        <b:navLink value="Play List" outcome="/crearPlayList"></b:navLink>
-                        <b:navLink value="Mi Music" outcome="/mymusica"></b:navLink>
-                        <b:navLink value="Comprar Music" outcome="/comprarCancion"></b:navLink>
-                        <b:navLink value="Paquetes" outcome="/paquetes"></b:navLink>
+                        <b:navLink value="Play List" outcome="faces/crearPlayList"></b:navLink>
+                        <b:navLink value="Mi Music" outcome="faces/mymusica"></b:navLink>
+                        <b:navLink value="Comprar Music" outcome="faces/comprarCancion"></b:navLink>
+                        <b:navLink value="Paquetes" outcome="faces/paquetes"></b:navLink>
                         <b:dropMenu value="${request.getSession(false).getAttribute('User')} ">
-                        <b:navLink value="Salir" href="/login.xhtml"></b:navLink>
+                        <b:navLink value="Salir" href="faces/login.xhtml"></b:navLink>
                         <b:navLink value="Cambiar Contraseña" outcome="/cambiarContrasena"></b:navLink>
                         </b:dropMenu>
                     </b:navbarLinks>

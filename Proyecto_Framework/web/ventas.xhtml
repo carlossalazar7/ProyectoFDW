@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="./WEB-INF/plantillaAdmin1.xhtml"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+    <ui:define name="contenido">  
+        <p:breadCrumb>
+            <p:menuitem value="Home" url="index.xhtml" />
+            <p:menuitem value="Music" url="music.xhtml" />
+            <p:menuitem value="Ventas" url="ventas.xhtml" />
+        </p:breadCrumb>
+        <div style="display: inline-block; width: 45%;">
+            <h2 class="text-center" style="color: #FFF; display: inline-block;" >Canciones más vendidas</h2>
+            <p:panel class="w-50" style=" align-content: center" >
+                <p:donutChart model="#{grafic.donutModel}" style="width: 100%" />
+            </p:panel>
+
+            <p:panel class="w-50">
+                <p:barChart model="#{ ventas.barModel}" />
+            </p:panel>
+            <br/><br/><br/><br/>
+        </div>
+        <div class="float-left w-50" style=" width:45%; float: left; padding-left: 5%; ">
+            <h2 class="" style="color: #FFF">Lista de ventas</h2>
+            <h:form style="width: 100%;" class="table table-hover">
+                <b:dataTable value="#{ventasBean.ventass}"
+                             var="car"
+                             excel="true"
+                             csv="true"
+                             pdf="true"
+                             lang="es"
+                             columnVisibility="true"
+                             copy="true"
+                             print="true"
+                             responsive="true"
+                             searching="false"
+                             >
+                    <b:dataTableColumn value="#{car.idUser.nombreEmpleado}" label="Usuario" />
+                     <b:dataTableColumn value="#{car.idUser.correo}" label="Correo" />
+                    <b:dataTableColumn value="#{car.idMusic.nombreCancion}"  label="Canción"/>
+                    <b:dataTableColumn value="$#{car.idMusic.precio}"  order="asc"/>
+                    <b:dataTableColumn value="#{car.fechaVenta}" label="Fecha de venta" />
+                </b:dataTable>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

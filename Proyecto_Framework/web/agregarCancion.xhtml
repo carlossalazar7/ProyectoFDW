@@ -44,30 +44,31 @@
                     </h:panelGrid>
                 </h:form>
                 <br/><br/><br/>
-                <h:form >
-                    <b:dataTable  value="#{musicBean.listaMusica}" var="music"  page-length="5" page-length-menu="5,10,20" >
-                        <f:facet name="header">
-                            <tr>
-                                <th>ID</th>
-                                <th>Portada</th>
-                                <th>Nombre</th>
-                                <th>Genero</th>
-                                <th>Precio</th>
-                                <th>Likes</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </f:facet>
-                        <b:dataTableColumn value="#{music.idMusic}"/>
-                        <b:dataTableColumn><img src="#{music.imagen}" style="width:100px;" /></b:dataTableColumn>
+                <h:form style="width: 100%;" class="table table-hover">
+                    <b:dataTable value="#{musicBean.listaMusica}"
+                                 var="music"
+                                 excel="true"
+                                 csv="true"
+                                 pdf="true"
+                                 lang="es"
+                                 columnVisibility="true"
+                                 copy="true"
+                                 print="true"
+                                 responsive="true"
+                                 searching="true"
+                                 >
+                        <b:dataTableColumn value="#{music.idMusic}" label="Correo" />
+                        <b:dataTableColumn label="Imagen" ><img src="#{music.imagen}" style="width:100px;" /></b:dataTableColumn>
                         <b:dataTableColumn  value="#{music.nombreCancion}" />
                         <b:dataTableColumn  value="#{music.id.nombreGenero}"  />
                         <b:dataTableColumn  value="#{music.precio}" />
                         <b:dataTableColumn  value="#{music.likes}" />
-                        <b:dataTableColumn>
+                        <b:dataTableColumn label="Eliminar">
                             <h:commandButton value="Eliminar" styleClass="btn btn-danger" action="#{musicBean.eliminarMusica}" onclick="return confirmarEliminacion();">
                                 <f:param name="id" value="#{music.idMusic}"/>
                             </h:commandButton>
                         </b:dataTableColumn>
+
                     </b:dataTable>
                 </h:form>
                 <h:outputScript>

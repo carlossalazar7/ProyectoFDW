@@ -249,7 +249,7 @@ public class MusicModel {
         EntityManager em = JpaUtil.getEntityManager();
         System.out.println(id);
         try {
-            consulta = "SELECT m  FROM MusicEntity m INNER JOIN GenerosEntity g  WHERE g.nombreGenero = :id";
+            consulta = "SELECT m  FROM MusicEntity m INNER JOIN GenerosEntity g  WHERE g.id = :id";
             Query query = em.createQuery(consulta);
             query.setParameter("id", id);
             List<MusicEntity> lista = query.getResultList();

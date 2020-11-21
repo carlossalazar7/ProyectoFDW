@@ -273,7 +273,6 @@ public class EmpleadosModel {
         } catch (Exception e) {
             System.out.println(e);
         } 
-        System.out.println(usuario.getNombreEmpleado());
         return usuario;
     }
     
@@ -292,7 +291,6 @@ public class EmpleadosModel {
         } catch (Exception e) {
             System.out.println(e);
         } 
-        System.out.println(usuario.getNombreEmpleado());
         return usuario;
     }
 }

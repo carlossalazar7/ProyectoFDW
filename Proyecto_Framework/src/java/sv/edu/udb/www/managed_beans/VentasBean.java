@@ -100,7 +100,6 @@ public class VentasBean {
         String id = JsfUtil.getRequest().getParameter("idMusic");
         String Usuario = JsfUtil.getRequest().getParameter("codigo");
         String Mail = JsfUtil.getRequest().getParameter("correo");
-
         // date
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");

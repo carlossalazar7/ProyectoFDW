@@ -47,9 +47,11 @@ public class EmpleadosBean {
     private MusicModel modelo2 = new MusicModel();
     private EmpleadosEntity empleado;
     private VentasEntity venta;
+        private PlaylistEntity play;
     private TipoempleadosEntity tipoempleado;
     private List<TipoempleadosEntity> tipoempleados;
     private List<EmpleadosEntity> empleados;
+        private List<PlaylistEntity> plays;
     private List<VentasEntity> ventas;
     private EntityManager manager;
     private EntityManager em;
@@ -58,6 +60,7 @@ public class EmpleadosBean {
         empleado = new EmpleadosEntity();
         tipoempleado = new TipoempleadosEntity();
         venta = new VentasEntity();
+        play = new PlaylistEntity();
     }
 
     public EmpleadosEntity getEmpleado() {
@@ -214,9 +217,31 @@ public class EmpleadosBean {
         String usuario = JsfUtil.getRequest().getParameter("code");
         String NombreUsuario=modelo.obtenerUser(usuario).getNombreEmpleado();
         ventas = modelo2.listar(usuario);
-
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
-        
+    }
+    public String obtenerEmpleados3() {
+        //Cambiar carnet a ID
+        String usuario = JsfUtil.getRequest().getParameter("code");
+        int NombreUsuario=modelo.obtenerUser(usuario).getCodigoEmpleado();
+        String id = Integer.toString(NombreUsuario);
+        System.out.println("Este es el usuario ");
+        System.out.println(usuario);
+        System.out.println("Este es el id usuario ");
+        System.out.println(id);
+                return "/faces/crearPlaylist2.xhtml";
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+    }
+    public void obtenerEmpleados4() {
+        //Cambiar carnet a ID
+        String usuario = JsfUtil.getRequest().getParameter("code");
+        int NombreUsuario=modelo.obtenerUser(usuario).getCodigoEmpleado();
+        String id = Integer.toString(NombreUsuario);
+        System.out.println("Este es el usuario ");
+        System.out.println(usuario);
+        System.out.println("Este es el id usuario ");
+        System.out.println(id);
+        plays = modelo2.listar2(usuario);
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
 
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException {
@@ -483,5 +508,33 @@ public class EmpleadosBean {
      */
     public void setVentas(List<VentasEntity> ventas) {
         this.ventas = ventas;
+    }
+
+    /**
+     * @return the play
+     */
+    public PlaylistEntity getPlay() {
+        return play;
+    }
+
+    /**
+     * @param play the play to set
+     */
+    public void setPlay(PlaylistEntity play) {
+        this.play = play;
+    }
+
+    /**
+     * @return the plays
+     */
+    public List<PlaylistEntity> getPlays() {
+        return plays;
+    }
+
+    /**
+     * @param plays the plays to set
+     */
+    public void setPlays(List<PlaylistEntity> plays) {
+        this.plays = plays;
     }
 }

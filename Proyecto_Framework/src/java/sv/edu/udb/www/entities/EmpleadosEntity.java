@@ -159,5 +159,9 @@ public class EmpleadosEntity implements Serializable {
     public String toString() {
         return "sv.edu.udb.www.entities.EmpleadosEntity[ codigoEmpleado=" + codigoEmpleado + " ]";
     }
+
+    public void setCodigoEmpleado(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

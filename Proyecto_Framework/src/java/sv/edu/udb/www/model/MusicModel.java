@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.edu.udb.www.entities.EmpleadosEntity;
+import sv.edu.udb.www.entities.PlaylistEntity;
 import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.entities.VentasEntity;
 import sv.edu.udb.www.utils.JpaUtil;
@@ -253,6 +254,30 @@ public class MusicModel {
             query.setParameter("id", id);
             List<MusicEntity> lista = query.getResultList();
             System.out.println("llego al try  correctamente y el id es: "+id);
+            return lista;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+     
+     public List<PlaylistEntity> listar2(String code) {
+        PlaylistEntity usuario = null;
+        MusicEntity music = null;
+        List<PlaylistEntity> lista;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            EmpleadosEntity emp = new EmpleadosEntity();
+            consulta = "SELECT v FROM PlaylistEntity v INNER JOIN EmpleadosEntity e WHERE e.usuarioEmpleado = :codigo";
+            Query query = em.createQuery(consulta);
+            query.setParameter("codigo", code);
+            System.out.println("Este es el id");
+            System.out.println(code);
+            lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                usuario = lista.get(0);
+            }
             return lista;
         } catch (Exception e) {
             System.out.println(e);

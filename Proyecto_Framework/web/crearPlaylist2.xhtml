@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="./WEB-INF/userPlantilla.xhtml"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="contenido">
+        <b:form id="miFormulario" inline="true">
+            <h:panelGroup layout="block" styleClass="alert alert-danger"
+                          rendered="#{not empty facesContext.messageList}">
+                <h:messages />
+            </h:panelGroup>
+            <h:panelGrid columns="4" styleClass="table">
+                <h:outputLabel for="cancion" value="Cancion"/>
+                <b:selectOneMenu value="#{playlistBean.song.idMusic}">
+                    <c:forEach items="${musicBean.listaMusica}" var="item">
+                        <f:selectItem itemLabel="${item.nombreCancion}" itemValue="${item.idMusic}"/>
+                    </c:forEach>
+                </b:selectOneMenu> 
+                <h:outputLabel for="PlayList" value="PlayList"/>
+                <b:selectOneMenu value="#{playlistBean.nombre.idNombrePlayList}">
+                    <c:forEach items="${nombreplaylistBean.listaPlaylist}" var="item">
+                        <f:selectItem itemLabel="${item.nombrePlayList}" itemValue="${item.idNombrePlayList}"/>
+                    </c:forEach>
+                </b:selectOneMenu> 
+                <h:inputHidden value="#{empleadosBean.empleado.codigoEmpleado}">
+                </h:inputHidden>
+            </h:panelGrid>
+            <h:commandButton value="Guardar" styleClass="btn btn-primary"
+                             action="#{playlistBean.guardarPlayLista(playlistBean.playLista.idPlayList)}"
+                             style="margin-right:10px">
+            </h:commandButton>
+            </b:form>
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
+
+    </ui:define>
+</ui:composition>

@@ -5,17 +5,24 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>PlayList</title>
         <link rel="stylesheet" href="css/playlist.css"/>
         <link rel="stylesheet" href="css/paquetes.css"/>
     </h:head>
     <h:body>
         <ui:composition template="./WEB-INF/userPlantilla.xhtml">
             <ui:define name="contenido">
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Crear Play List</button>
-
+                <b:form>
+                    <center>
+                    <p:commandButton value="Crear mi Playlist" id="nonAjax" styleClass="btn btn-info"
+                                     action="#{empleadosBean.obtenerEmpleados3()}" ajax="false">
+                        <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
+                    </p:commandButton>
+                        </center>
+                </b:form>
                 <div class="wrapper">
                     <h2 class="text-center" style="color:#ffffff">Play List Públicas</h2>
                     <div class="cards">
@@ -32,17 +39,25 @@
                                 </div>
                             </div>
                         </c:forEach>    
-                        
+
                     </div>
-                    
-                    
+
+
                 </div>
-                
-                
+
+
+                    <h2 class="text-center" style="color:#ffffff" >My Play List</h2>
+                    <b:form>
+                        <center>
+                    <p:commandButton value="Observar mis Playlist" id="nonAjax" styleClass="btn btn-info"
+                                     action="#{empleadosBean.obtenerEmpleados4()}" ajax="false">
+                        <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
+                    </p:commandButton>
+                            </center>
+                </b:form>
                 <div class="wrapper">
-                     <h2 class="text-center" style="color:#ffffff" >My Play List</h2>
                     <div class="cards">
-                        <c:forEach items="${nombreplaylistBean.Mylist(request)}" var="item2">
+                        <c:forEach items="${empleadosBean.plays}" var="item">
 
                             <div class="card">
                                 <div class="overlayer">
@@ -50,51 +65,22 @@
                                 </div>
                                 <img src="https://i.pinimg.com/736x/02/b8/94/02b894f7ea6ad9f724648ee511ad018f--edm-music-house-music.jpg" alt=""/>
                                 <div class="title">
-
-                                    <a href="faces/mymusica.xhtml">${item2.idNombrePlayList.nombrePlayList}</a>
+                                    <a href="faces/mymusica.xhtml">${item.idMusic.nombreCancion}</a><br></br><br></br>
                                 </div>
+                                <br></br>
+                                <br></br><br></br><br></br>
                             </div>
                         </c:forEach>    
-                        
+  
+
                     </div>
-                    
-                    
+
+
                 </div>
                 <br/><br/><br/><br/>
                 <!-- Modal -->
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <h:form id="miFormulario">
-                                    <h:panelGroup layout="block" styleClass="alert alert-danger"
-                                                  rendered="#{not empty facesContext.messageList}">
-                                        <h:messages />
-                                    </h:panelGroup>
-                                    <h:panelGrid columns="4" styleClass="table">
-                                        <h:outputLabel for="nombre" value="Nombre de Play List"/>
-                                        <b:inputText id="carnet" styleClass="form-control"
-                                                     value="#{nombreplaylistBean.playlista.nombrePlayList}"
-                                                     required="true"
-                                                     requiredMessage="Debes ingresar el nombre"/>     
-                                        <h:commandButton value="Guardar" styleClass="btn btn-primary " action="#{nombreplaylistBean.guardarListaPlaylist2(nombreplaylistBean.playlista.idNombrePlayList)}"
-                                                         />
-                                    </h:panelGrid>
-                                </h:form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </ui:define>
         </ui:composition>
     </h:body>

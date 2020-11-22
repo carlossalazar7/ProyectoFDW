@@ -41,6 +41,7 @@ public class VentasBean {
     private MusicModel modelo2 = new MusicModel();
     private VentasEntity venta;
     private MusicEntity music;
+    private PaquetesEntity paquete;
     private EmpleadosEntity empleado;
     private List<VentasEntity> ventas;
     private List<VentasEntity> historia;
@@ -49,6 +50,7 @@ public class VentasBean {
         venta = new VentasEntity();
         music = new MusicEntity();
         empleado = new EmpleadosEntity();
+        paquete = new PaquetesEntity();
     }
 
     public VentasEntity getVentas() {
@@ -158,10 +160,81 @@ public class VentasBean {
                 mimeMessage.setSubject("Contraseña");
                 MimeBodyPart mimeBodyPart = new MimeBodyPart();
                 mimeBodyPart.setText("Estimad@ Usuario:" + user + " , Gracias por su compra\n"
-                        + "Los detalles de su compra son: \n" + "Árticulo comprado: " + cancion + "\n" + "Precio: " 
+                        + "Los detalles de su compra son: \n" + "Árticulo comprado: " + cancion + "\n" + "Precio: "
                         + precio);
                 MimeBodyPart mimeBodyPartAdjunto = new MimeBodyPart();
                 mimeBodyPartAdjunto.attachFile(img);
+                Multipart multipart = new MimeMultipart();
+                multipart.addBodyPart(mimeBodyPart);
+                mimeMessage.setContent(multipart);
+                javax.mail.Transport transport = session.getTransport("smtp");
+                transport.connect(correoEnvia, claveCorreo);
+                transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+
+                transport.close();
+
+            } catch (UnsupportedEncodingException | MessagingException ex) {
+                aviso = 1;
+            } catch (IOException ex) {
+                Logger.getLogger(VentasBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Success", "Gracias por su compra"));
+            return null;
+        }
+    }
+
+    public String guardarVenta3() {
+        String idPaquete = JsfUtil.getRequest().getParameter("id");
+        String precio = JsfUtil.getRequest().getParameter("precio");
+        String idEmpleado = JsfUtil.getRequest().getParameter("codigo");
+        String Mail = JsfUtil.getRequest().getParameter("correo");
+        String user = JsfUtil.getRequest().getParameter("user");
+        String articulo = JsfUtil.getRequest().getParameter("articulo");
+
+        // date
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String strDate = formatter.format(date);
+        // fin date
+        empleado.setCodigoEmpleado(Integer.parseInt(idEmpleado));
+        paquete.setIdPaquete(Integer.parseInt(idPaquete));
+        venta.setIdUser(empleado);
+        venta.setIdPaquete(paquete);
+        venta.setFechaVenta(strDate);
+        if (modelo.insertarVentas(venta) != 1) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error", "Algo salio mal, intente de nuevo"));
+
+            return null;//Regreso a la misma página
+        } else {
+            // El correo gmail de envío
+            String correoEnvia = "desafiodwf2020@gmail.com";
+            String claveCorreo = "DESAFIO2020";
+
+            // La configuración para enviar correo
+            Properties properties = new Properties();
+
+            properties.put("mail.smtp.host", "smtp.gmail.com");
+            properties.put("mail.smtp.port", "587");
+
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.user", correoEnvia);
+            properties.put("mail.password", claveCorreo);
+
+            Session session = Session.getInstance(properties, null);
+            int aviso = 0;
+            try {
+                MimeMessage mimeMessage = new MimeMessage(session);
+                mimeMessage.setFrom(new InternetAddress(correoEnvia, "Empresa Universal Music"));
+                InternetAddress[] internetAddresses = {new InternetAddress(Mail)};
+                mimeMessage.setRecipients(Message.RecipientType.TO, internetAddresses);
+                mimeMessage.setSubject("Contraseña");
+                MimeBodyPart mimeBodyPart = new MimeBodyPart();
+                mimeBodyPart.setText("Estimad@ Usuario:" + user + " , Gracias por su compra\n"
+                        + "Los detalles de su compra son: \n" + "Árticulo comprado: " + articulo + "\n" + "Precio: "
+                        + precio);
                 Multipart multipart = new MimeMultipart();
                 multipart.addBodyPart(mimeBodyPart);
                 mimeMessage.setContent(multipart);
@@ -235,5 +308,19 @@ public class VentasBean {
      */
     public void setHistoria(List<VentasEntity> historia) {
         this.historia = historia;
+    }
+
+    /**
+     * @return the paquete
+     */
+    public PaquetesEntity getPaquete() {
+        return paquete;
+    }
+
+    /**
+     * @param paquete the paquete to set
+     */
+    public void setPaquete(PaquetesEntity paquete) {
+        this.paquete = paquete;
     }
 }

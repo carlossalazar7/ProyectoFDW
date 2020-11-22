@@ -28,7 +28,9 @@ import sv.edu.udb.www.model.MusicModel;
 import sv.edu.udb.www.utils.JsfUtil;
 import org.primefaces.model.file.UploadedFile;
 import sv.edu.udb.www.entities.EmpleadosEntity;
+import sv.edu.udb.www.entities.PaquetesEntity;
 import sv.edu.udb.www.model.EmpleadosModel;
+import sv.edu.udb.www.model.PaquetesModel;
 
 /**
  *
@@ -40,12 +42,15 @@ public class MusicBean {
 
     private MusicModel modelo = new MusicModel();
     private EmpleadosModel modelo2 = new EmpleadosModel();
+    private PaquetesModel modelo3 = new PaquetesModel();
     private MusicEntity song;
+    private PaquetesEntity paquete;
     private GenerosEntity genero;
     private EmpleadosEntity empleados;
     private List<GenerosEntity> generos;
     private List<EmpleadosEntity> empleado;
     private List<MusicEntity> music;
+    private List<PaquetesEntity> paquetes;
     private int operacion;
     private UploadedFile file;
     private UploadedFile canciones;
@@ -210,6 +215,19 @@ public class MusicBean {
         return "/faces/ComprarMusica";
     }
 
+    public String obtenerMusica3() {
+        String id = JsfUtil.getRequest().getParameter("codigo");
+        paquete = modelo3.obtenerPaquetes(Integer.parseInt(id));
+        // song = modelo.obtenerMusica(Integer.parseInt(id));
+        String code = JsfUtil.getRequest().getParameter("code");
+        System.out.println(code);
+        System.out.println(modelo3.obtenerPaquetes(Integer.parseInt(id)).getNombrePaquete());
+        System.out.println(modelo2.obtenerUser(code).getNombreEmpleado());
+        empleados = modelo2.obtenerUser(code);
+        // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
+        return "/faces/comprar";
+    }
+
     /**
      * @return the operacion
      */
@@ -293,7 +311,7 @@ public class MusicBean {
         response.addHeader("Content-disposition", "attachment; filename=ListaMusica.pdf");
         try (ServletOutputStream stream = response.getOutputStream()) {
             JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-            
+
             stream.flush();
         }
         FacesContext.getCurrentInstance().responseComplete();
@@ -312,7 +330,7 @@ public class MusicBean {
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
             exporter.exportReport();
-            
+
             stream.flush();
         }
         FacesContext.getCurrentInstance().responseComplete();
@@ -382,6 +400,34 @@ public class MusicBean {
      */
     public void setPorGenero(List<MusicEntity> porGenero) {
         this.porGenero = porGenero;
+    }
+
+    /**
+     * @return the paquetes
+     */
+    public List<PaquetesEntity> getPaquetes() {
+        return paquetes;
+    }
+
+    /**
+     * @param paquetes the paquetes to set
+     */
+    public void setPaquetes(List<PaquetesEntity> paquetes) {
+        this.paquetes = paquetes;
+    }
+
+    /**
+     * @return the paquete
+     */
+    public PaquetesEntity getPaquete() {
+        return paquete;
+    }
+
+    /**
+     * @param paquete the paquete to set
+     */
+    public void setPaquete(PaquetesEntity paquete) {
+        this.paquete = paquete;
     }
 
 }

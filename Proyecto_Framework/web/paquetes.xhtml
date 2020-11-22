@@ -4,8 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
         <title>Facelet Title</title>
@@ -164,10 +164,11 @@
                                         </ul>
                                     </div>
                                     <h:form >
-                                        <a><h:commandButton value="Comprar" styleClass="btn"
-                                                            action="#{paquetesBean.obtenerPaquete()}">
-                                                <f:param name="id" value="#{item.id}"/>
-                                            </h:commandButton></a>
+                                       <a><p:commandButton value="Comprar" id="nonAjax" styleClass="btn"
+                                                         action="#{musicBean.obtenerMusica3()}" ajax="false">
+                                               <f:param name="codigo" value="#{item.idPaquete}"/>
+                                            <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
+                                        </p:commandButton></a>
                                     </h:form>
                                 </div>
                             </div>

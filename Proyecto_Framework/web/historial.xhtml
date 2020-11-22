@@ -26,10 +26,12 @@
                         <br/>
                     </b:form>
                     <h:form style="width: 70%;" class="table table-hover">
+                         <b:label text="Historial de canciones" severity="Success" styleClass="bg-success"/>
                         <b:dataTable value="#{ventasBean.historia}"
                                      var="car"
                                      excel="true"
                                      csv="true"
+                                     page-length="3"
                                      pdf="true"
                                      lang="es"
                                      columnVisibility="true"
@@ -37,11 +39,34 @@
                                      print="true"
                                      responsive="true"
                                      searching="true"
+                                      page-length-menu="3,10,20"
                                      >
                             <b:dataTableColumn value="#{car.idUser.nombreEmpleado}" label="Correo" />
                             <b:dataTableColumn value="#{car.idUser.correo}" label="Usuario" />
                             <b:dataTableColumn value="#{car.idMusic.nombreCancion}" label="Música Comprada" />
                             <b:dataTableColumn value="$#{car.idMusic.precio}" label="Precio" />
+                            <b:dataTableColumn value="#{car.fechaVenta}" label="Fecha de compra" />
+
+                        </b:dataTable>
+                         <b:label text="Historial de Paquetes" severity="Success" styleClass="bg-success text-dark"/>
+                          <b:dataTable value="#{ventasBean.historia}"
+                                     var="car"
+                                     excel="true"
+                                     csv="true"
+                                     page-length="3"
+                                     pdf="true"
+                                     lang="es"
+                                     columnVisibility="true"
+                                     copy="true"
+                                     print="true"
+                                     responsive="true"
+                                     searching="true"
+                                      page-length-menu="3,10,20"
+                                     >
+                            <b:dataTableColumn value="#{car.idUser.nombreEmpleado}" label="Correo" />
+                            <b:dataTableColumn value="#{car.idUser.correo}" label="Usuario" />
+                            <b:dataTableColumn value="$#{car.idPaquete.nombrePaquete}" label="Paquete Comprado" />
+                            <b:dataTableColumn value="$#{car.idPaquete.precio}" label="Precio" />
                             <b:dataTableColumn value="#{car.fechaVenta}" label="Fecha de compra" />
 
                         </b:dataTable>

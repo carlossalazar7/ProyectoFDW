@@ -62,8 +62,12 @@
                                                              action="#{ventasBean.guardarVenta2}"
                                                              style="margin-right:10px">
                                                 <f:param name="idMusic" value="#{musicBean.music.idMusic}"/>
+                                                <f:param name="precio" value="#{musicBean.music.precio}"/>
+                                                <f:param name="img" value="#{musicBean.music.precio}"/>
                                                 <f:param name="codigo" value="#{musicBean.empleados.codigoEmpleado}"/>
                                                 <f:param name="correo" value="#{musicBean.empleados.correo}"/>
+                                                <f:param name="nombre" value="#{musicBean.music.nombreCancion}"/>
+                                                 <f:param name="user" value="#{musicBean.empleados.nombreEmpleado}"/>
                                             </h:commandButton>   
                                         </div>
                                     </div>

@@ -5,13 +5,26 @@
  */
 package sv.edu.udb.www.managed_beans;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import sv.edu.udb.www.entities.*;
 import sv.edu.udb.www.model.*;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -100,6 +113,10 @@ public class VentasBean {
         String id = JsfUtil.getRequest().getParameter("idMusic");
         String Usuario = JsfUtil.getRequest().getParameter("codigo");
         String Mail = JsfUtil.getRequest().getParameter("correo");
+        String precio = JsfUtil.getRequest().getParameter("precio");
+        String img = JsfUtil.getRequest().getParameter("img");
+        String cancion = JsfUtil.getRequest().getParameter("nombre");
+        String user = JsfUtil.getRequest().getParameter("user");
         // date
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -116,6 +133,49 @@ public class VentasBean {
 
             return null;//Regreso a la misma página
         } else {
+            // El correo gmail de envío
+            String correoEnvia = "desafiodwf2020@gmail.com";
+            String claveCorreo = "DESAFIO2020";
+
+            // La configuración para enviar correo
+            Properties properties = new Properties();
+
+            properties.put("mail.smtp.host", "smtp.gmail.com");
+            properties.put("mail.smtp.port", "587");
+
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.user", correoEnvia);
+            properties.put("mail.password", claveCorreo);
+
+            Session session = Session.getInstance(properties, null);
+            int aviso = 0;
+            try {
+                MimeMessage mimeMessage = new MimeMessage(session);
+                mimeMessage.setFrom(new InternetAddress(correoEnvia, "Empresa Universal Music"));
+                InternetAddress[] internetAddresses = {new InternetAddress(Mail)};
+                mimeMessage.setRecipients(Message.RecipientType.TO, internetAddresses);
+                mimeMessage.setSubject("Contraseña");
+                MimeBodyPart mimeBodyPart = new MimeBodyPart();
+                mimeBodyPart.setText("Estimad@ Usuario:" + user + " , Gracias por su compra\n"
+                        + "Los detalles de su compra son: \n" + "Árticulo comprado: " + cancion + "\n" + "Precio: " 
+                        + precio);
+                MimeBodyPart mimeBodyPartAdjunto = new MimeBodyPart();
+                mimeBodyPartAdjunto.attachFile(img);
+                Multipart multipart = new MimeMultipart();
+                multipart.addBodyPart(mimeBodyPart);
+                mimeMessage.setContent(multipart);
+                javax.mail.Transport transport = session.getTransport("smtp");
+                transport.connect(correoEnvia, claveCorreo);
+                transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+
+                transport.close();
+
+            } catch (UnsupportedEncodingException | MessagingException ex) {
+                aviso = 1;
+            } catch (IOException ex) {
+                Logger.getLogger(VentasBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Success", "Gracias por su compra"));
             return null;

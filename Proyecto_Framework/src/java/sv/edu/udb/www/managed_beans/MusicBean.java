@@ -44,13 +44,12 @@ public class MusicBean {
     private GenerosEntity genero;
     private EmpleadosEntity empleados;
     private List<GenerosEntity> generos;
-    private List<EmpleadosEntity>  empleado;
+    private List<EmpleadosEntity> empleado;
     private List<MusicEntity> music;
     private int operacion;
     private UploadedFile file;
     private UploadedFile canciones;
     private List<MusicEntity> porGenero;
-    
 
     public MusicEntity getMusic() {
         return song;
@@ -63,7 +62,7 @@ public class MusicBean {
     public MusicBean() {
         song = new MusicEntity();
         genero = new GenerosEntity();
-        empleados = new  EmpleadosEntity();
+        empleados = new EmpleadosEntity();
     }
 
     /**
@@ -108,28 +107,27 @@ public class MusicBean {
  para obtener la lista de objetos a partir de la bd */
         return modelo.listarCanciones();
     }
-    
-    public String filtrar(){
-        int numeroGenero =Integer.parseInt( JsfUtil.getRequest().getParameter("id"));
-        
-    System.out.println("Si llegó al Bean y el numero es: "+numeroGenero);
-    porGenero = modelo.ListadoMusicaGenero(numeroGenero);
-    System.out.println("Devolucion: "+modelo.ListadoMusicaGenero(numeroGenero));
-    
-    return "/faces/MusicGeneros";
+
+    public String filtrar() {
+        int numeroGenero = Integer.parseInt(JsfUtil.getRequest().getParameter("id"));
+
+        System.out.println("Si llegó al Bean y el numero es: " + numeroGenero);
+        porGenero = modelo.ListadoMusicaGenero(numeroGenero);
+        System.out.println("Devolucion: " + modelo.ListadoMusicaGenero(numeroGenero));
+
+        return "/faces/MusicGeneros";
     }
-    
 
     public String obtenerLike(int id) {
         try {
             operacion = modelo.obtenerLike(id);
             modelo.darLike(id, operacion);
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Success", "Gracias por votar por tú canción favorita"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Success", "Gracias por votar por tú canción favorita"));
             return null;
         } catch (Exception e) {
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Error", "Algo ha sucedo mal por favor intenta de nuevo"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error", "Algo ha sucedo mal por favor intenta de nuevo"));
             System.out.println(e);
             return null;
         }
@@ -187,12 +185,12 @@ public class MusicBean {
 
         if (modelo.eliminarCanciones(Integer.parseInt(id)) > 0) {
             JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Success", "Canción elimina correctamente"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Success", "Canción elimina correctamente"));
         } else {
             JsfUtil.setErrorMessage(null, "No se pudo borrar a este alumno");
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Error", "La canción no se pudo eliminar por favor intenta de nuevo"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Error", "La canción no se pudo eliminar por favor intenta de nuevo"));
         }
         return null;
     }
@@ -202,18 +200,15 @@ public class MusicBean {
         song = modelo.obtenerCancion(Integer.parseInt(id));
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
-     public String obtenerMusica2() {
+
+    public String obtenerMusica2() {
         String id = JsfUtil.getRequest().getParameter("codigo");
         song = modelo.obtenerMusica(Integer.parseInt(id));
         String code = JsfUtil.getRequest().getParameter("code");
         empleados = modelo2.obtenerUser(code);
-        String NombreUsuario=modelo2.obtenerUser(code).getNombreEmpleado();
-        System.out.println(NombreUsuario);
-        System.out.println(code);
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
         return "/faces/ComprarMusica";
     }
-     
 
     /**
      * @return the operacion
@@ -285,48 +280,43 @@ public class MusicBean {
     public void setGeneros(List<GenerosEntity> generos) {
         this.generos = generos;
     }
-    
+
     //Creacion de PDF de musica
-    
-    public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException{
-		//Map<String,Object> parametros= new HashMap<String,Object>();
-		//parametros.put("txtUsuario", "MitoCode");
-		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/PDFmusica.jasper"));
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaMusica()));
-		
-		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-		response.addHeader("Content-disposition","attachment; filename=ListaMusica.pdf");
-		ServletOutputStream stream = response.getOutputStream();
-		
-		JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-		
-		stream.flush();
-		stream.close();
-		FacesContext.getCurrentInstance().responseComplete();
-	}
-    
+    public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException {
+        //Map<String,Object> parametros= new HashMap<String,Object>();
+        //parametros.put("txtUsuario", "MitoCode");
+
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/PDFmusica.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), null, new JRBeanCollectionDataSource(this.getListaMusica()));
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=ListaMusica.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
     //Creación de Excel de Musica
-    
-    public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException{
-		
-		
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Excelmusica.jasper"));
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getListaMusica()));
-		
-		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-		response.addHeader("Content-disposition","attachment; filename=ListaMusica.xls");
-		ServletOutputStream stream = response.getOutputStream();
-		
-		JRXlsExporter exporter = new JRXlsExporter();
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
-		exporter.exportReport();
-		
-		stream.flush();
-		stream.close();
-		FacesContext.getCurrentInstance().responseComplete();
-	}
+    public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException {
+
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Excelmusica.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), null, new JRBeanCollectionDataSource(this.getListaMusica()));
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=ListaMusica.xls");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JRXlsExporter exporter = new JRXlsExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
+            exporter.exportReport();
+            
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
 
     /**
      * @return the modelo2
@@ -380,8 +370,6 @@ public class MusicBean {
     /**
      * @return the numeroGenero
      */
-    
-
     /**
      * @return the porGenero
      */
@@ -395,5 +383,5 @@ public class MusicBean {
     public void setPorGenero(List<MusicEntity> porGenero) {
         this.porGenero = porGenero;
     }
-    
+
 }

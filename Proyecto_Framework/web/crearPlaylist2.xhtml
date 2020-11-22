@@ -7,8 +7,37 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:f="http://java.sun.com/jsf/core"
     template="./WEB-INF/userPlantilla.xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
     <ui:define name="contenido">
+        <b:row>
+            <b:column span="3">
+                <a id="atrigger" class="btn btn-primary btn-lg" href="#amodal" data-toggle="modal">Crear nombre PlayList</a>
+            </b:column>
+        </b:row>
+        <b:modal id="amodal" title="Modal Example" styleClass="modalPseudoClass">
+            <h:form id="miFormulario3">
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate />
+                </p:messages>
+                <h:panelGrid columns="4" styleClass="table">
+                    <h:outputLabel for="nombre" value="Nombre Completo"/>
+                    <b:inputText id="carnet" styleClass="form-control"
+                                 value="#{nombreplaylistBean.playlista.nombrePlayList}"
+                                 required="true"
+                                 requiredMessage="Debes ingresar el nombre"/>    
+                    <h:inputHidden id="id" 
+                                   value="#{nombreplaylistBean.playlista.idNombrePlayList}"/>   
+                </h:panelGrid>
+                <h:commandButton value="Guardar" styleClass="btn btn-primary btn-block"
+                                 action="#{nombreplaylistBean.guardarListaPlaylist(nombreplaylistBean.playlista.idNombrePlayList)}"
+                                 style="margin-right:10px"/>
+                <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-success btn-block"/>
+            </h:form>
+            <f:facet name="footer">
+                <b:button value="Close" dismiss="modal" />
+            </f:facet>
+        </b:modal>
         <b:form id="miFormulario" inline="true">
             <h:panelGroup layout="block" styleClass="alert alert-danger"
                           rendered="#{not empty facesContext.messageList}">
@@ -34,7 +63,7 @@
                              action="#{playlistBean.guardarPlayLista(playlistBean.playLista.idPlayList)}"
                              style="margin-right:10px">
             </h:commandButton>
-            </b:form>
+        </b:form>
         <h:outputScript>
             <c:if test = "#{not empty flash.exito}" >
                 alertify.success('#{flash.exito}');

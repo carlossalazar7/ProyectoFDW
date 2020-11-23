@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.edu.udb.www.entities.GenerosEntity;
-import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.utils.JpaUtil;
 
 /**

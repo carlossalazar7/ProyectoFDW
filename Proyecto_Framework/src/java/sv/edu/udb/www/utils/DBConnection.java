@@ -9,43 +9,43 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-	protected PreparedStatement st;
-	protected CallableStatement cs;
-	protected ResultSet rs;
+    protected PreparedStatement st;
+    protected CallableStatement cs;
+    protected ResultSet rs;
 
-	public DBConnection() {
+    public DBConnection() {
 
-		this.st = null;
-		this.rs = null;
-	}
+        this.st = null;
+        this.rs = null;
+    }
 
-	public static Connection createConnection() {
-		Connection con = null;
-		String url = "jdbc:mysql://localhost:3306/music";
-		String username = "root";
-		String password = "";
+    public static Connection createConnection() {
+        Connection con = null;
+        String url = "jdbc:mysql://localhost:3306/music";
+        String username = "root";
+        String password = "";
 
-		try {
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			con = DriverManager.getConnection(url, username, password);
-			System.out.println("Post establishing a DB connection - " + con);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return con;
-	}
+        try {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                System.out.println(e);
+            }
+            con = DriverManager.getConnection(url, username, password);
+            System.out.println("Post establishing a DB connection - " + con);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return con;
+    }
 
-	public void desconectar() throws SQLException {
-		if (rs != null) {
-			rs.close();
-		}
-		if (st != null) {
-			st.close();
-		}
+    public void desconectar() throws SQLException {
+        if (rs != null) {
+            rs.close();
+        }
+        if (st != null) {
+            st.close();
+        }
 
-	}
+    }
 }

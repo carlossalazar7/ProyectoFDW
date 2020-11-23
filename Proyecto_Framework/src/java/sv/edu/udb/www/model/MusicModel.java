@@ -5,14 +5,21 @@
  */
 package sv.edu.udb.www.model;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.edu.udb.www.entities.EmpleadosEntity;
+import sv.edu.udb.www.entities.GenerosEntity;
 import sv.edu.udb.www.entities.PlaylistEntity;
 import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.entities.VentasEntity;
+import sv.edu.udb.www.utils.DBConnection;
 import sv.edu.udb.www.utils.JpaUtil;
 
 /**
@@ -20,6 +27,17 @@ import sv.edu.udb.www.utils.JpaUtil;
  * @author Lenovo
  */
 public class MusicModel {
+
+    private MusicEntity music;
+    private GenerosEntity genero;
+    protected PreparedStatement st;
+    protected CallableStatement cs;
+    protected ResultSet rs;
+
+    public MusicModel() {
+        music = new MusicEntity();
+        genero = new GenerosEntity();
+    }
 
     public List<MusicEntity> listarCanciones() {
         //Obtengo una instancia de EntityManager
@@ -67,7 +85,7 @@ public class MusicModel {
             return null;
         }
     }
-    
+
     public MusicEntity obtenerMusica(int id) {
         EntityManager em = JpaUtil.getEntityManager();
         try {
@@ -200,7 +218,7 @@ public class MusicModel {
             return null;
         }
     }
-    
+
     public MusicEntity modificarContrasenas(MusicEntity us, EmpleadosEntity empl) {
         MusicEntity usuario = null;
         EmpleadosEntity usuario2 = null;
@@ -220,6 +238,7 @@ public class MusicModel {
         }
         return usuario;
     }
+
     public List<VentasEntity> listar(String code) {
         VentasEntity usuario = null;
         MusicEntity music = null;
@@ -243,25 +262,20 @@ public class MusicModel {
             return null;
         }
     }
-    
-     public List<MusicEntity> ListadoMusicaGenero(int id) {
+
+    public List<MusicEntity> ListadoMusicaGenero(int id) {
         String consulta;
         EntityManager em = JpaUtil.getEntityManager();
-        System.out.println(id);
-        try {
-            consulta = "SELECT m  FROM MusicEntity m INNER JOIN GenerosEntity g  WHERE g.id = :id";
-            Query query = em.createQuery(consulta);
-            query.setParameter("id", id);
-            List<MusicEntity> lista = query.getResultList();
-            System.out.println("llego al try  correctamente y el id es: "+id);
-            return lista;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
+        genero.setId(id);
+        consulta = "SELECT m  FROM MusicEntity m WHERE m.id = :id";
+        Query query = em.createQuery(consulta);
+        query.setParameter("id", genero);
+        List<MusicEntity> lista = query.getResultList();
+        System.out.println("llego al try  correctamente y el id es: " + id);
+        return lista;
     }
-     
-     public List<PlaylistEntity> listar2(String code) {
+
+    public List<PlaylistEntity> listar2(String code) {
         PlaylistEntity usuario = null;
         MusicEntity music = null;
         List<PlaylistEntity> lista;
@@ -283,5 +297,26 @@ public class MusicModel {
             System.out.println(e);
             return null;
         }
+    }
+
+    /**
+     * @return the music
+     */
+    public MusicEntity getMusic() {
+        return music;
+    }
+
+    /**
+     * @return the genero
+     */
+    public GenerosEntity getGenero() {
+        return genero;
+    }
+
+    /**
+     * @param genero the genero to set
+     */
+    public void setGenero(GenerosEntity genero) {
+        this.genero = genero;
     }
 }

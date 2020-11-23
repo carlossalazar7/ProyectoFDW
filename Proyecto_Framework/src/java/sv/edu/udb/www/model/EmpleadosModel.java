@@ -211,7 +211,30 @@ public class EmpleadosModel {
         }
         return usuario;
     }
-
+public EmpleadosEntity modificarImagen(EmpleadosEntity us) {
+        EmpleadosEntity usuario = null;
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        EntityTransaction et = em.getTransaction();
+        try {
+            String nombre = us.getUsuarioEmpleado();
+            String pass = us.getContrasena();
+            String email = us.getCorreo();
+            String imagen = us.getImagen();
+            EmpleadosEntity emp = new EmpleadosEntity();
+            et.begin();
+            consulta = "UPDATE EmpleadosEntity SET imagen = :imagen WHERE usuarioEmpleado = :user ";
+            Query query = em.createQuery(consulta);
+            query.setParameter("imagen", imagen);
+            query.setParameter("user", nombre);
+            emp.setContrasena(pass);
+            query.executeUpdate();
+            et.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return usuario;
+    }
     public int eliminarEmpleado(int codigo) {
         EntityManager em = JpaUtil.getEntityManager();
         int filasBorradas = 0;

@@ -31,6 +31,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
+import org.primefaces.model.file.UploadedFile;
 import sv.edu.udb.www.entities.*;
 import sv.edu.udb.www.model.*;
 import sv.edu.udb.www.utils.JsfUtil;
@@ -47,14 +48,15 @@ public class EmpleadosBean {
     private MusicModel modelo2 = new MusicModel();
     private EmpleadosEntity empleado;
     private VentasEntity venta;
-        private PlaylistEntity play;
+    private PlaylistEntity play;
     private TipoempleadosEntity tipoempleado;
     private List<TipoempleadosEntity> tipoempleados;
     private List<EmpleadosEntity> empleados;
-        private List<PlaylistEntity> plays;
+    private List<PlaylistEntity> plays;
     private List<VentasEntity> ventas;
     private EntityManager manager;
     private EntityManager em;
+    private UploadedFile file;
 
     public EmpleadosBean() {
         empleado = new EmpleadosEntity();
@@ -181,6 +183,22 @@ public class EmpleadosBean {
 
     }
 
+    public void modificarImagen() {
+        String archivo;
+        archivo = file.getFileName();
+        empleado.setImagen("img/" + archivo);
+        if (file != null) {
+            JsfUtil.setFlashMessage("Éxito", "Imagen modificada exitosamente");
+            System.out.println("Se cambio");
+            modelo.modificarImagen(empleado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Success", "Contraseña Modificada correctamente "));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Error", "No se pudo guardar"));
+        }
+    }
+
     public String recuperarContrasena() {
         try {
             if (modelo.recuperarContrasenas(empleado) != null) {
@@ -211,30 +229,32 @@ public class EmpleadosBean {
 
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
-    
+
     public void obtenerEmpleados2() {
         //Cambiar carnet a ID
         String usuario = JsfUtil.getRequest().getParameter("code");
-        String NombreUsuario=modelo.obtenerUser(usuario).getNombreEmpleado();
+        String NombreUsuario = modelo.obtenerUser(usuario).getNombreEmpleado();
         ventas = modelo2.listar(usuario);
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
+
     public String obtenerEmpleados3() {
         //Cambiar carnet a ID
         String usuario = JsfUtil.getRequest().getParameter("code");
-        int NombreUsuario=modelo.obtenerUser(usuario).getCodigoEmpleado();
+        int NombreUsuario = modelo.obtenerUser(usuario).getCodigoEmpleado();
         String id = Integer.toString(NombreUsuario);
         System.out.println("Este es el usuario ");
         System.out.println(usuario);
         System.out.println("Este es el id usuario ");
         System.out.println(id);
-                return "/faces/crearPlaylist2.xhtml";
+        return "/faces/crearPlaylist2.xhtml";
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
+
     public void obtenerEmpleados4() {
         //Cambiar carnet a ID
         String usuario = JsfUtil.getRequest().getParameter("code");
-        int NombreUsuario=modelo.obtenerUser(usuario).getCodigoEmpleado();
+        int NombreUsuario = modelo.obtenerUser(usuario).getCodigoEmpleado();
         String id = Integer.toString(NombreUsuario);
         System.out.println("Este es el usuario ");
         System.out.println(usuario);
@@ -252,6 +272,8 @@ public class EmpleadosBean {
             } else {
                 String nombre = modelo.iniciarSesion(empleado).getUsuarioEmpleado();
                 String fullName = modelo.iniciarSesion(empleado).getNombreEmpleado();
+                String imagen = modelo.iniciarSesion(empleado).getImagen();
+                String correo = modelo.iniciarSesion(empleado).getCorreo();
                 int codigo = modelo.iniciarSesion(empleado).getCodigoTipoEmpleado().getCodigoTipoEmpleado();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Success", "Datos correctos"));
@@ -262,6 +284,9 @@ public class EmpleadosBean {
                         try {
                             HttpSession session = request.getSession();
                             session.setAttribute("Admin", nombre);
+                            session.setAttribute("fullName", fullName);
+                            session.setAttribute("imagen", imagen);
+                            session.setAttribute("correo", correo);
                             request.setAttribute("usuarioEmpleado", nombre);
                             request.setAttribute("codigoEmpleado", codigo);
                             request.setAttribute("fullName", fullName);
@@ -278,10 +303,13 @@ public class EmpleadosBean {
                         try {
                             HttpSession session = request.getSession();
                             session.setAttribute("Editor", nombre);
+                            session.setAttribute("fullName", fullName);
+                            session.setAttribute("imagen", imagen);
+                            session.setAttribute("correo", correo);
                             request.setAttribute("usuarioEmpleado", nombre);
                             request.setAttribute("codigoEmpleado", codigo);
                             request.setAttribute("fullName", fullName);
-                            
+
                             //request.getRequestDispatcher("faces/paginaadmin2.xhtml").forward(request, response);
                             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Editor", nombre);
                             //   FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("fullName", fullName);
@@ -296,12 +324,15 @@ public class EmpleadosBean {
                             HttpSession session = request.getSession();
                             session.setMaxInactiveInterval(10 * 60);
                             session.setAttribute("User", nombre);
+                            session.setAttribute("fullName", fullName);
+                            session.setAttribute("imagen", imagen);
+                            session.setAttribute("correo", correo);
                             request.setAttribute("usuarioEmpleado", nombre);
                             request.setAttribute("codigoEmpleado", codigo);
                             request.setAttribute("fullName", fullName);
                             //request.getRequestDispatcher("faces/paginausuario.xhtml").forward(request, response);
                             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("User", nombre);
-                           // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("fullName", fullName);
+                            // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("fullName", fullName);
                             FacesContext.getCurrentInstance().getExternalContext().redirect("faces/paginausuario.xhtml");
                         } catch (IOException e) {
                             System.out.println(e);
@@ -536,5 +567,19 @@ public class EmpleadosBean {
      */
     public void setPlays(List<PlaylistEntity> plays) {
         this.plays = plays;
+    }
+
+    /**
+     * @return the file
+     */
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(UploadedFile file) {
+        this.file = file;
     }
 }

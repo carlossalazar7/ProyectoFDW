@@ -22,8 +22,10 @@
                         <b:navLink value="Gráficas" outcome="grafica"></b:navLink>
                         <b:navLink value="Ventas" outcome="ventas"></b:navLink>
                         <b:navLink value="Listado Empleados" outcome="listado"></b:navLink>
+                         <img src="${request.getSession(false).getAttribute('imagen')}" width="35" height="35" style="margin-top: 5px; border-radius:45px; "/>  
                         <b:dropMenu value="${request.getSession(false).getAttribute('Admin')} ">
                             <b:navLink value="Salir" href="faces/login.xhtml"></b:navLink>
+                            <b:navLink value="Cambiar imagen" outcome="/imagenAdmin"></b:navLink>
                             <b:navLink value="Cambiar Contraseña" outcome="cambiarContrasena"></b:navLink>
                         </b:dropMenu>
                     </b:navbarLinks>

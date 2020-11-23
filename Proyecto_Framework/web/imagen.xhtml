@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <title>Facelet Title</title>
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/userPlantilla.xhtml">
+            <ui:define name="contenido">
+<h:form styleClass="mx-auto w-25"  enctype="multipart/form-data" style="width:50%; margin: auto;">
+                    <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate />
+            </p:messages>
+                    <h3 class="text-center">Cambiar Imagen</h3>
+                    <center>  <img src="${request.getSession(false).getAttribute('imagen')}" width="150" height="150" style="margin-top: 5px; border-radius:90px; "/>  
+                      </center> <br/>
+                    <h:outputLabel for="usuario" value="Ingrese su Usuario"/>
+                    <h:inputText id="usuario" styleClass="form-control"
+                                 value="#{empleadosBean.empleado.usuarioEmpleado}"
+                                 required="true"
+                                 requiredMessage="Debes ingresar el nombre"/>
+                     <h:outputText value="Imagen:" />
+                     <p:fileUpload value="#{empleadosBean.file}" required="true" skinSimple="true" styleClass="btn btn-primary form-control" mode="simple"  />
+
+                    <h:commandButton value="Cambiar" styleClass="btn btn-success"
+                                     action="#{empleadosBean.modificarImagen()}" style="margin-right:10px"/>                                      
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

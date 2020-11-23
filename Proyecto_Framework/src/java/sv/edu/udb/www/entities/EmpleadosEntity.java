@@ -49,6 +49,7 @@ public class EmpleadosEntity implements Serializable {
     @Basic(optional = false)
     private String contrasena;
     private String correo;
+    private String imagen;
     @OneToMany(mappedBy = "idUser")
     private List<PlaylistEntity> playlistEntityList;
     @OneToMany(mappedBy = "idUser")
@@ -162,6 +163,20 @@ public class EmpleadosEntity implements Serializable {
 
     public void setCodigoEmpleado(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the imagen
+     */
+    public String getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     
 }

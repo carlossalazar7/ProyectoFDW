@@ -25,11 +25,11 @@
                         <b:navLink value="Artistas" outcome="faces/listadoArtistas.xhtml"></b:navLink>
                         <b:navLink value="Play List" outcome="faces/listadoNombrePlaylist.xhtml"></b:navLink>
                         <b:navLink value="Agregar Play List" outcome="faces/agregarNombrePlaylist.xhtml"></b:navLink>
+                         <img src="${request.getSession(false).getAttribute('imagen')}" width="35" height="35" style="margin-top: 5px; border-radius:45px; "/>  
                         <b:dropMenu value="${request.getSession(false).getAttribute('Editor')} ">
                             <b:navLink value="Salir" href="faces/login.xhtml"></b:navLink>
-                            <b:dropMenu value="Cambiar Contraseña">
-                                <!--    <b:navLink value="... you want!" href="#"></b:navLink> -->
-                            </b:dropMenu>
+                            <b:navLink value="Cambiar imagen" outcome="/imagenAdmin2"></b:navLink>
+                            <b:navLink value="Cambiar Contraseña" outcome="/cambiarContrasena"></b:navLink>
                         </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>

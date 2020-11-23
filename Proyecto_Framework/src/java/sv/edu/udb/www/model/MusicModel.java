@@ -30,6 +30,7 @@ public class MusicModel {
     private GenerosEntity genero;
     private PlaylistEntity play;
     private NombreplaylistEntity nombre;
+    private EmpleadosEntity empleado;
     protected PreparedStatement st;
     protected CallableStatement cs;
     protected ResultSet rs;
@@ -39,6 +40,7 @@ public class MusicModel {
         genero = new GenerosEntity();
         play = new PlaylistEntity();
         nombre = new NombreplaylistEntity();
+        empleado = new EmpleadosEntity();
     }
 
     public List<MusicEntity> listarCanciones() {
@@ -240,6 +242,18 @@ public class MusicModel {
         }
         return usuario;
     }
+    
+    public List<VentasEntity> listarCancionPorUsuario(int code) {
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        empleado.setCodigoEmpleado(code);
+        consulta = "SELECT p FROM VentasEntity p WHERE p.idUser = :id";
+        Query query = em.createQuery(consulta);
+        query.setParameter("id", empleado);
+        List<VentasEntity> lista = query.getResultList();
+        System.out.println("llego al try  correctamente y el id es: " + code);
+        return lista;
+    }
 
     public List<VentasEntity> listar(String code) {
         VentasEntity usuario = null;
@@ -286,6 +300,18 @@ public class MusicModel {
         query.setParameter("id", nombre);
         List<PlaylistEntity> lista = query.getResultList();
         System.out.println("llego al try  correctamente y el id es: " + id);
+        return lista;
+    }
+    
+    public List<PlaylistEntity> listarPlayListPorUsuario(int code) {
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        empleado.setCodigoEmpleado(code);
+        consulta = "SELECT p FROM PlaylistEntity p WHERE p.idUser = :id";
+        Query query = em.createQuery(consulta);
+        query.setParameter("id", empleado);
+        List<PlaylistEntity> lista = query.getResultList();
+        System.out.println("llego al try  correctamente y el id es: " + code);
         return lista;
     }
 

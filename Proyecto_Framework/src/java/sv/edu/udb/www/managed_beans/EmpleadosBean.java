@@ -233,8 +233,9 @@ public class EmpleadosBean {
     public void obtenerEmpleados2() {
         //Cambiar carnet a ID
         String usuario = JsfUtil.getRequest().getParameter("code");
-        String NombreUsuario = modelo.obtenerUser(usuario).getNombreEmpleado();
-        ventas = modelo2.listar(usuario);
+        int NombreUsuario = modelo.obtenerUser(usuario).getCodigoEmpleado();
+        String id = Integer.toString(NombreUsuario);
+        ventas = modelo2.listarCancionPorUsuario(NombreUsuario);
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
     
@@ -271,7 +272,7 @@ public class EmpleadosBean {
         System.out.println(usuario);
         System.out.println("Este es el id usuario ");
         System.out.println(id);
-        plays = modelo2.listar2(usuario);
+        plays = modelo2.listarPlayListPorUsuario(NombreUsuario);
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
 

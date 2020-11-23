@@ -17,11 +17,11 @@
             <ui:define name="contenido">
                 <b:form>
                     <center>
-                    <p:commandButton value="Crear mi Playlist" id="nonAjax" styleClass="btn btn-info"
-                                     action="#{empleadosBean.obtenerEmpleados3()}" ajax="false">
-                        <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
-                    </p:commandButton>
-                        </center>
+                        <p:commandButton value="Crear mi Playlist" id="nonAjax" styleClass="btn btn-info"
+                                         action="#{empleadosBean.obtenerEmpleados3()}" ajax="false">
+                            <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
+                        </p:commandButton>
+                    </center>
                 </b:form>
                 <div class="wrapper">
                     <h2 class="text-center" style="color:#ffffff">Play List Públicas</h2>
@@ -31,11 +31,17 @@
                             <div class="card">
                                 <div class="overlayer">
                                     <i class="fa fa-play-circle"></i>
+                                    <p style="color:#ffffff">${item.nombrePlayList}</p>
                                 </div>
                                 <img src="https://i.pinimg.com/736x/02/b8/94/02b894f7ea6ad9f724648ee511ad018f--edm-music-house-music.jpg" alt=""/>
                                 <div class="title">
+                                    <h:form>
+                                        <p:commandButton value="mostrar" id="nonAjax" styleClass="ui-priority-primary "
+                                                         action="#{musicBean.filtrar()}" ajax="false" >
+                                            <f:param name="id" value="#{item.idNombrePlayList}"/>
+                                        </p:commandButton>
+                                    </h:form>
 
-                                    <a href="faces/mymusica.xhtml">${item.nombrePlayList}</a>
                                 </div>
                             </div>
                         </c:forEach>    
@@ -45,15 +51,15 @@
 
                 </div>
 
-
-                    <h2 class="text-center" style="color:#ffffff" >My Play List</h2>
-                    <b:form>
-                        <center>
-                    <p:commandButton value="Observar mis Playlist" id="nonAjax" styleClass="btn btn-info"
-                                     action="#{empleadosBean.obtenerEmpleados4()}" ajax="false">
-                        <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
-                    </p:commandButton>
-                            </center>
+                <br/>
+                <h2 class="text-center" style="color:#ffffff" >My Play List</h2>
+                <b:form>
+                    <center>
+                        <p:commandButton value="Observar mis Playlist" id="nonAjax" styleClass="btn btn-info"
+                                         action="#{empleadosBean.obtenerEmpleados4()}" ajax="false">
+                            <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
+                        </p:commandButton>
+                    </center>
                 </b:form>
                 <div class="wrapper">
                     <div class="cards">
@@ -62,16 +68,22 @@
                             <div class="card">
                                 <div class="overlayer">
                                     <i class="fa fa-play-circle"></i>
+                                    <p style="color:#ffffff">PlayList: ${item.idNombrePlayList.nombrePlayList}</p>
                                 </div>
-                                <img src="https://i.pinimg.com/736x/02/b8/94/02b894f7ea6ad9f724648ee511ad018f--edm-music-house-music.jpg" alt=""/>
+                               <img src="https://i.pinimg.com/736x/02/b8/94/02b894f7ea6ad9f724648ee511ad018f--edm-music-house-music.jpg" alt=""/>
                                 <div class="title">
-                                    <a href="faces/mymusica.xhtml">PlayList: ${item.idNombrePlayList.nombrePlayList}</a><br></br>
+                                    <h:form>
+                                        <p:commandButton value="mostrar" id="nonAjax" styleClass="ui-priority-primary "
+                                                         action="#{musicBean.filtrar()}" ajax="false" >
+                                            <f:param name="id" value="#{item.idNombrePlayList}"/>
+                                        </p:commandButton>
+                                    </h:form>
                                 </div>
                                 <br></br>
                                 <br></br><br></br><br></br>
                             </div>
                         </c:forEach>    
-  
+
 
                     </div>
 
@@ -80,7 +92,7 @@
                 <br/><br/><br/><br/>
                 <!-- Modal -->
                 <!-- Modal -->
-                
+
             </ui:define>
         </ui:composition>
     </h:body>

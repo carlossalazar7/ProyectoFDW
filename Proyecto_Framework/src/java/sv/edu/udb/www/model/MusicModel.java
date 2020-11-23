@@ -6,10 +6,8 @@
 package sv.edu.udb.www.model;
 
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -19,7 +17,6 @@ import sv.edu.udb.www.entities.GenerosEntity;
 import sv.edu.udb.www.entities.PlaylistEntity;
 import sv.edu.udb.www.entities.MusicEntity;
 import sv.edu.udb.www.entities.VentasEntity;
-import sv.edu.udb.www.utils.DBConnection;
 import sv.edu.udb.www.utils.JpaUtil;
 
 /**

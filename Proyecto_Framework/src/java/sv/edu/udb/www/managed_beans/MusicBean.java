@@ -130,6 +130,15 @@ public class MusicBean {
 
         return "/faces/MusicGeneros";
     }
+    public String filtrar3() {
+        int numeroGenero = Integer.parseInt(JsfUtil.getRequest().getParameter("id"));
+
+        System.out.println("Si llegó al Bean y el numero es: " + numeroGenero);
+        porGenero = modelo.ListadoMusicaGenero(numeroGenero);
+        System.out.println("Devolucion: " + modelo.ListadoMusicaGenero(numeroGenero));
+
+        return "/faces/musicPlaylist";
+    }
     public String filtrar2() {
         int numeroGenero = Integer.parseInt(JsfUtil.getRequest().getParameter("id"));
         System.out.println(numeroGenero);

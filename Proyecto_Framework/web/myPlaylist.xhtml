@@ -23,34 +23,6 @@
                         </p:commandButton>
                     </center>
                 </b:form>
-                <div class="wrapper">
-                    <h2 class="text-center" style="color:#ffffff">Play List Públicas</h2>
-                    <div class="cards">
-                        <c:forEach items="${nombreplaylistBean.listaPlaylist}" var="item">
-
-                            <div class="card">
-                                <div class="overlayer">
-                                    <i class="fa fa-play-circle"></i>
-                                    <p style="color:#ffffff">${item.nombrePlayList}</p>
-                                </div>
-                                <img src="https://i.pinimg.com/736x/02/b8/94/02b894f7ea6ad9f724648ee511ad018f--edm-music-house-music.jpg" alt=""/>
-                                <div class="title">
-                                    <h:form>
-                                        <p:commandButton value="mostrar" id="nonAjax" styleClass="ui-priority-primary "
-                                                         action="#{musicBean.filtrar2()}" ajax="false" >
-                                            <f:param name="id" value="#{item.idNombrePlayList}"/>
-                                        </p:commandButton>
-                                    </h:form>
-
-                                </div>
-                            </div>
-                        </c:forEach>    
-
-                    </div>
-
-
-                </div>
-
                 <br/>
                 <h2 class="text-center" style="color:#ffffff" >My Play List</h2>
                 <b:form>
@@ -73,7 +45,7 @@
                                 <div class="title">
                                      <h:form>
                                         <p:commandButton value="mostrar" id="nonAjax" styleClass="ui-priority-primary "
-                                                         action="#{musicBean.filtrar()}" ajax="false" >
+                                                         action="#{empleadosBean.filtrar2()}" ajax="false" >
                                             <f:param name="id" value="#{item.idPlayList}"/>
                                         </p:commandButton>
                                     </h:form>

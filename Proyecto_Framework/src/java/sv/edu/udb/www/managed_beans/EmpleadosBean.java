@@ -237,6 +237,17 @@ public class EmpleadosBean {
         ventas = modelo2.listar(usuario);
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
+    
+    public String filtrar2() {
+        int numeroGenero = Integer.parseInt(JsfUtil.getRequest().getParameter("id"));
+        System.out.println("Si llega el id");
+        System.out.println(numeroGenero);
+        System.out.println("Si llegó al Bean y el numero es: " + numeroGenero);
+        plays = modelo2.ListadoPorPlaylist(numeroGenero);
+        System.out.println("Devolucion: " + modelo2.ListadoPorPlaylist(numeroGenero));
+
+        return "/faces/musicPlaylist";
+    }
 
     public String obtenerEmpleados3() {
         //Cambiar carnet a ID

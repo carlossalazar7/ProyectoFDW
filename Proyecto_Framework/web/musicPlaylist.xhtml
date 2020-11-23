@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="css/playlist.css"/>
+        <link rel="stylesheet" href="css/paquetes.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/userPlantilla.xhtml">
+            <ui:define name="contenido">
+                <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700" rel="stylesheet"/>
+                <link href="https://fonts.googleapis.com/css2?family=Anton" rel="stylesheet" />
+                <style>
+                    audio::-webkit-media-controls-panel{
+                        background-color: #000;
+                    }
+                    audio{
+                        font-size: 1px;
+                    }
+                    audio::-webkit-media-controls-timeline{
+                        color: #5bc0de;
+                    }
+                    audio::-webkit-media-controls-current-time-display{
+                        color: #24ff72;
+                    }
+                    audio::-webkit-media-controls-time-remaining-display{
+                        color: #24ff72;
+                    }
+                    audio::-webkit-media-controls-volume-slider{
+                        background-color: #5bc0de;
+                        transform: rotate(-90deg);
+                        z-index: 9999;
+                    }
+                    audio::-webkit-media-controls-play-button{
+                        background-color:yellowgreen;
+                        font-size: 1px;
+                        border-radius: 45px;
+                    }
+                    audio::-webkit-media-controls-mute-button{
+                        background-color: #5bc0de;
+                        border-radius: 45px;
+                    }
+                    audio::-webkit-media-controls-mute-button:hover{
+                        background-color: #5bc0de;
+                        transition-duration: 3s;
+                    }
+                    audio { width: 190px; }
+                    .card{
+                        display: inline-block;
+                        margin-top:65px;
+                    }
+                    audio::-webkit-media-controls-timeline{
+                        -webkit-filter: hue-rotate(143deg) saturate(5);   
+                    }
+                    audio::-webkit-media-controls-volume-slider {
+                        -webkit-filter: hue-rotate(143deg) saturate(5);    
+                    }
+                    audio::-webkit-media-controls-timeline {
+                        -webkit-filter: hue-rotate(143deg) saturate(5);    
+                    }
+                </style>
+                <h:form id="formulario">
+                    
+                    <div class="wrapper">
+                        <h2 class="text-center" style="color:#ffffff; font-family: 'Anton', sans-serif;">Music</h2>
+                        <div class="cards">
+                          
+                            <c:forEach items="${musicBean.plays}" var="item">
+                                <div class="card" style=" width: 150px;">
+                                    <div class="overlayer title">
+                                        <i class="fa fa-play-circle"></i>
+                                        <br/>
+                                        <a href="#" style="font-family: 'Open Sans Condensed', sans-serif;">Nombre: ${item.idMusic.nombreCancion}</a><br/>
+                                        <a href="#" style="font-family: 'Open Sans Condensed', sans-serif;" >Genero: ${item.idMusic.id.nombreGenero}</a>
+                                    </div>
+                                    <img src="${item.idMusic.imagen}" alt="" />
+                                    <div class="title">
+                                        <audio src="${item.idMusic.lyrics}" controls=""  />                                    
+                                        <br/>
+                                        <p:commandButton  action="#{musicBean.obtenerLike(item.idMusic)}" value="votar" id="iconOnly" icon="pi pi-thumbs-up" title="Votar" onclick="return confirmarEliminacion();">
+                                            <f:ajax execute="@form" render="@form" />
+                                        </p:commandButton>
+                                    </div>
+                                </div> 
+                            </c:forEach>     
+
+                        </div>
+
+                    </div>
+
+                </h:form>
+                <h:outputScript>
+                    <c:if test = "#{not empty flash.exito}" >
+                        alertify.success('#{flash.exito}');
+                    </c:if>
+                    function confirmarEliminacion(){
+                    return alert("Su voto se ha realizado con exito");
+                    }
+                </h:outputScript>
+                <br/><br/><br/><br/>
+                <br/><br/><br/><br/>
+
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>

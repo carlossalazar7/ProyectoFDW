@@ -16,6 +16,7 @@ import sv.edu.udb.www.entities.EmpleadosEntity;
 import sv.edu.udb.www.entities.GenerosEntity;
 import sv.edu.udb.www.entities.PlaylistEntity;
 import sv.edu.udb.www.entities.MusicEntity;
+import sv.edu.udb.www.entities.NombreplaylistEntity;
 import sv.edu.udb.www.entities.VentasEntity;
 import sv.edu.udb.www.utils.JpaUtil;
 
@@ -27,6 +28,8 @@ public class MusicModel {
 
     private MusicEntity music;
     private GenerosEntity genero;
+    private PlaylistEntity play;
+    private NombreplaylistEntity nombre;
     protected PreparedStatement st;
     protected CallableStatement cs;
     protected ResultSet rs;
@@ -34,6 +37,8 @@ public class MusicModel {
     public MusicModel() {
         music = new MusicEntity();
         genero = new GenerosEntity();
+        play = new PlaylistEntity();
+        nombre = new NombreplaylistEntity();
     }
 
     public List<MusicEntity> listarCanciones() {
@@ -268,6 +273,18 @@ public class MusicModel {
         Query query = em.createQuery(consulta);
         query.setParameter("id", genero);
         List<MusicEntity> lista = query.getResultList();
+        System.out.println("llego al try  correctamente y el id es: " + id);
+        return lista;
+    }
+    
+    public List<PlaylistEntity> ListadoPorPlaylist(int id) {
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        nombre.setIdNombrePlayList(id);
+        consulta = "SELECT p FROM PlaylistEntity p WHERE p.idNombrePlayList = :id";
+        Query query = em.createQuery(consulta);
+        query.setParameter("id", nombre);
+        List<PlaylistEntity> lista = query.getResultList();
         System.out.println("llego al try  correctamente y el id es: " + id);
         return lista;
     }

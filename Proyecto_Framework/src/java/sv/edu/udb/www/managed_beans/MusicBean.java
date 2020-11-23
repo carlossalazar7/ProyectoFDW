@@ -28,7 +28,9 @@ import sv.edu.udb.www.model.MusicModel;
 import sv.edu.udb.www.utils.JsfUtil;
 import org.primefaces.model.file.UploadedFile;
 import sv.edu.udb.www.entities.EmpleadosEntity;
+import sv.edu.udb.www.entities.NombreplaylistEntity;
 import sv.edu.udb.www.entities.PaquetesEntity;
+import sv.edu.udb.www.entities.PlaylistEntity;
 import sv.edu.udb.www.model.EmpleadosModel;
 import sv.edu.udb.www.model.PaquetesModel;
 
@@ -47,10 +49,14 @@ public class MusicBean {
     private PaquetesEntity paquete;
     private GenerosEntity genero;
     private EmpleadosEntity empleados;
+    private NombreplaylistEntity nombre;
+    private PlaylistEntity play;
     private List<GenerosEntity> generos;
     private List<EmpleadosEntity> empleado;
     private List<MusicEntity> music;
     private List<PaquetesEntity> paquetes;
+    private List<NombreplaylistEntity> nombres;
+    private List<PlaylistEntity> plays;
     private int operacion;
     private UploadedFile file;
     private UploadedFile canciones;
@@ -68,6 +74,8 @@ public class MusicBean {
         song = new MusicEntity();
         genero = new GenerosEntity();
         empleados = new EmpleadosEntity();
+        nombre = new NombreplaylistEntity();
+        play = new PlaylistEntity();
     }
 
     /**
@@ -121,6 +129,15 @@ public class MusicBean {
         System.out.println("Devolucion: " + modelo.ListadoMusicaGenero(numeroGenero));
 
         return "/faces/MusicGeneros";
+    }
+    public String filtrar2() {
+        int numeroGenero = Integer.parseInt(JsfUtil.getRequest().getParameter("id"));
+        System.out.println(numeroGenero);
+        System.out.println("Si llegó al Bean y el numero es: " + numeroGenero);
+        plays = modelo.ListadoPorPlaylist(numeroGenero);
+        System.out.println("Devolucion: " + modelo.ListadoPorPlaylist(numeroGenero));
+
+        return "/faces/musicPlaylist";
     }
 
     public String obtenerLike(int id) {
@@ -428,6 +445,62 @@ public class MusicBean {
      */
     public void setPaquete(PaquetesEntity paquete) {
         this.paquete = paquete;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public NombreplaylistEntity getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(NombreplaylistEntity nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the play
+     */
+    public PlaylistEntity getPlay() {
+        return play;
+    }
+
+    /**
+     * @param play the play to set
+     */
+    public void setPlay(PlaylistEntity play) {
+        this.play = play;
+    }
+
+    /**
+     * @return the nombres
+     */
+    public List<NombreplaylistEntity> getNombres() {
+        return nombres;
+    }
+
+    /**
+     * @param nombres the nombres to set
+     */
+    public void setNombres(List<NombreplaylistEntity> nombres) {
+        this.nombres = nombres;
+    }
+
+    /**
+     * @return the plays
+     */
+    public List<PlaylistEntity> getPlays() {
+        return plays;
+    }
+
+    /**
+     * @param plays the plays to set
+     */
+    public void setPlays(List<PlaylistEntity> plays) {
+        this.plays = plays;
     }
 
 }

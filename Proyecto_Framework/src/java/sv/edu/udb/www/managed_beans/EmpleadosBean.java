@@ -618,7 +618,15 @@ public class EmpleadosBean {
     public void timeOut(HttpServletRequest request, HttpServletResponse response) throws IOException{
         HttpSession session = request.getSession();
         String user = (String) session.getAttribute("User");
+        String user2 = (String) session.getAttribute("Admin");
+        String user3 = (String) session.getAttribute("Editor");
         if(user == null  ){
+             FacesContext.getCurrentInstance().getExternalContext().redirect("faces/login.xhtml");
+        }
+        if(user2 == null  ){
+             FacesContext.getCurrentInstance().getExternalContext().redirect("faces/login.xhtml");
+        }
+        if(user3 == null  ){
              FacesContext.getCurrentInstance().getExternalContext().redirect("faces/login.xhtml");
         }
     }

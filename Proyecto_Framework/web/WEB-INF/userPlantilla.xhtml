@@ -21,6 +21,9 @@
     </h:head>
     <h:body>
         <div class="viewport">
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{ empleadosBean.timeOut(request, response)}"/>
+            </f:metadata>
             <ui:insert name="menu">
                 <b:navBar brand="Universal Music" brandHref="#" inverse="true" style="opacity: 0.8;  color: #FFF; z-index: 999;">
                     <b:navbarLinks style="opacity: 0.5; ">

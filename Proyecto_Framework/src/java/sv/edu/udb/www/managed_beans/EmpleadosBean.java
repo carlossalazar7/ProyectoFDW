@@ -615,4 +615,11 @@ public class EmpleadosBean {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
+    public void timeOut(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        HttpSession session = request.getSession();
+        String user = (String) session.getAttribute("User");
+        if(user == null  ){
+             FacesContext.getCurrentInstance().getExternalContext().redirect("faces/login.xhtml");
+        }
+    }
 }

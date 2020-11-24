@@ -109,14 +109,15 @@ public class VentasModel {
         }
     }
     
-     public List<VentasEntity> historial(String code) {
+     public List<VentasEntity> historial(String code, int id) {
         List<VentasEntity> lista;
         String consulta;
         EntityManager em = JpaUtil.getEntityManager();
         try {
-            consulta = "SELECT v FROM VentasEntity v INNER JOIN EmpleadosEntity e  WHERE e.usuarioEmpleado = :codigo";
+            consulta = "SELECT v FROM VentasEntity v INNER JOIN EmpleadosEntity e  WHERE e.usuarioEmpleado = :codigo AND e.codigoEmpleado = :id";
             Query query = em.createQuery(consulta);
             query.setParameter("codigo", code);
+            query.setParameter("id", id);
             lista = query.getResultList();
             return lista;
         } catch (Exception e) {

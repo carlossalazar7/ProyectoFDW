@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -22,9 +23,9 @@
                         <b:navLink value="Gráficas" outcome="grafica"></b:navLink>
                         <b:navLink value="Ventas" outcome="ventas"></b:navLink>
                         <b:navLink value="Listado Empleados" outcome="listado"></b:navLink>
-                         <img src="${request.getSession(false).getAttribute('imagen')}" width="35" height="35" style="margin-top: 5px; border-radius:45px; "/>  
+                        <img src="${request.getSession(false).getAttribute('imagen')}" width="35" height="35" style="margin-top: 5px; border-radius:45px; "/>  
                         <b:dropMenu value="${request.getSession(false).getAttribute('Admin')} ">
-                            <b:navLink value="Salir" href="faces/login.xhtml"></b:navLink>
+                            <h:form><p:commandButton value="Salir" action="${empleadosBean.salir(request, response)}" /> </h:form>
                             <b:navLink value="Cambiar imagen" outcome="/imagenAdmin"></b:navLink>
                             <b:navLink value="Cambiar Contraseña" outcome="cambiarContrasena"></b:navLink>
                         </b:dropMenu>
@@ -36,19 +37,19 @@
                     <div class="col-md-3 col-sm-3 hidden-xs">
                         <ui:insert name="sidebar">
                             <b:column styleClass="display:absolute;">
-                                 <!--Made with Love by Larry Geams-->
+                                <!--Made with Love by Larry Geams-->
 
-                                 <article>
+                                <article>
                                     <ul>
                                         <li><a href="faces/homeAdmin1.xhtml">Home</a></li>
                                         <li><a href="faces/listado.xhtml">Empleados</a></li>
                                         <li><a href="faces/grafica.xhtml">Gráfica</a></li>
                                         <li><a href="faces/ventas.xhtml">Ventas</a></li>
-                                     <!--   <li><a href="faces/paquetes.xhtml">Paquetes</a></li> -->
+                                        <!--   <li><a href="faces/paquetes.xhtml">Paquetes</a></li> -->
                                         <li><a href="faces/login.xhtml">Salir</a></li>
                                     </ul>
                                 </article>
-                                
+
                             </b:column>
 
                         </ui:insert>

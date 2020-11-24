@@ -286,7 +286,8 @@ public class VentasBean {
     public void historial() {
         //Cambiar carnet a ID
         String usuario = JsfUtil.getRequest().getParameter("code");
-        historia = modelo.historial(usuario);
+        int id = Integer.parseInt(JsfUtil.getRequest().getParameter("id"));
+        historia = modelo.historial(usuario, id);
     }
 
     /**

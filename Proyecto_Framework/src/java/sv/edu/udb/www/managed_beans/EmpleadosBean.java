@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -147,13 +149,13 @@ public class EmpleadosBean {
         } else {
 
             if (modelo.insertarEmpleados(empleado) != 1) {
-                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Error", "No se pudo crear su usuario, por favor intenta con otro correo"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Error", "No se pudo crear su usuario, por favor intenta con otro correo"));
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
                 return null;//Regreso a la misma página
             } else {
-                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Success", "Su cuenta fue creado correctamente, hemos enviado a su correo los detalles de su cuenta"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Success", "Su cuenta fue creado correctamente, hemos enviado a su correo los detalles de su cuenta"));
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
                 Correo();
@@ -242,7 +244,18 @@ public class EmpleadosBean {
         ventas = modelo2.listarCancionPorUsuario(NombreUsuario);
         // JsfUtil.setFlashMessage("exito", "Estudiante eliminado exitosamente");
     }
-    
+
+    public void salir(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+            session.invalidate();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/login.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(EmpleadosBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public String filtrar2() {
         int numeroGenero = Integer.parseInt(JsfUtil.getRequest().getParameter("id"));
         System.out.println("Si llega el id");
@@ -288,6 +301,7 @@ public class EmpleadosBean {
             } else {
                 String nombre = modelo.iniciarSesion(empleado).getUsuarioEmpleado();
                 String fullName = modelo.iniciarSesion(empleado).getNombreEmpleado();
+                int id = modelo.iniciarSesion(empleado).getCodigoEmpleado();
                 String imagen = modelo.iniciarSesion(empleado).getImagen();
                 String correo = modelo.iniciarSesion(empleado).getCorreo();
                 int codigo = modelo.iniciarSesion(empleado).getCodigoTipoEmpleado().getCodigoTipoEmpleado();
@@ -301,6 +315,7 @@ public class EmpleadosBean {
                             HttpSession session = request.getSession();
                             session.setAttribute("Admin", nombre);
                             session.setAttribute("fullName", fullName);
+                            session.setAttribute("codigo", id);
                             session.setAttribute("imagen", imagen);
                             session.setAttribute("correo", correo);
                             request.setAttribute("usuarioEmpleado", nombre);
@@ -322,6 +337,7 @@ public class EmpleadosBean {
                             session.setAttribute("fullName", fullName);
                             session.setAttribute("imagen", imagen);
                             session.setAttribute("correo", correo);
+                            session.setAttribute("codigo", id);
                             request.setAttribute("usuarioEmpleado", nombre);
                             request.setAttribute("codigoEmpleado", codigo);
                             request.setAttribute("fullName", fullName);
@@ -343,6 +359,7 @@ public class EmpleadosBean {
                             session.setAttribute("fullName", fullName);
                             session.setAttribute("imagen", imagen);
                             session.setAttribute("correo", correo);
+                            session.setAttribute("codigo", id);
                             request.setAttribute("usuarioEmpleado", nombre);
                             request.setAttribute("codigoEmpleado", codigo);
                             request.setAttribute("fullName", fullName);

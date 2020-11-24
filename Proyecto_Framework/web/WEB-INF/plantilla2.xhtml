@@ -4,15 +4,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Universal Music</title>
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="css/main.css"/>
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/emotes.css"/>
         <link rel="stylesheet" href="css/menu.css"/>
-     </h:head>
+    </h:head>
 
     <h:body>
         <div class="viewport">
@@ -25,9 +26,9 @@
                         <b:navLink value="Artistas" outcome="faces/listadoArtistas.xhtml"></b:navLink>
                         <b:navLink value="Play List" outcome="faces/listadoNombrePlaylist.xhtml"></b:navLink>
                         <b:navLink value="Agregar Play List" outcome="faces/agregarNombrePlaylist.xhtml"></b:navLink>
-                         <img src="${request.getSession(false).getAttribute('imagen')}" width="35" height="35" style="margin-top: 5px; border-radius:45px; "/>  
+                        <img src="${request.getSession(false).getAttribute('imagen')}" width="35" height="35" style="margin-top: 5px; border-radius:45px; "/>  
                         <b:dropMenu value="${request.getSession(false).getAttribute('Editor')} ">
-                            <b:navLink value="Salir" href="faces/login.xhtml"></b:navLink>
+                            <h:form><p:commandButton value="Salir" action="${empleadosBean.salir(request, response)}" /> </h:form>
                             <b:navLink value="Cambiar imagen" outcome="/imagenAdmin2"></b:navLink>
                             <b:navLink value="Cambiar Contraseña" outcome="/cambiarContrasena"></b:navLink>
                         </b:dropMenu>

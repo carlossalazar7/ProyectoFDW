@@ -147,9 +147,13 @@ public class EmpleadosBean {
         } else {
 
             if (modelo.insertarEmpleados(empleado) != 1) {
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error", "No se pudo crear su usuario, por favor intenta con otro correo"));
                 // JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
                 return null;//Regreso a la misma página
             } else {
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Success", "Su cuenta fue creado correctamente, hemos enviado a su correo los detalles de su cuenta"));
                 JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
                 //Forzando la redirección en el cliente
                 Correo();

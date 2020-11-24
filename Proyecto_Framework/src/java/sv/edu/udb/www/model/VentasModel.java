@@ -9,6 +9,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import sv.edu.udb.www.entities.EmpleadosEntity;
+import sv.edu.udb.www.entities.GenerosEntity;
+import sv.edu.udb.www.entities.MusicEntity;
+import sv.edu.udb.www.entities.NombreplaylistEntity;
+import sv.edu.udb.www.entities.PlaylistEntity;
 import sv.edu.udb.www.entities.VentasEntity;
 import sv.edu.udb.www.utils.JpaUtil;
 
@@ -17,6 +22,11 @@ import sv.edu.udb.www.utils.JpaUtil;
  * @author Lenovo
  */
 public class VentasModel {
+        private EmpleadosEntity empleado;
+public VentasModel() {
+        
+        empleado = new EmpleadosEntity();
+    }
     public List<VentasEntity> listarVentas() {
         //Obtengo una instancia de EntityManager
         EntityManager em = JpaUtil.getEntityManager();
@@ -108,15 +118,25 @@ public class VentasModel {
             return 0;
         }
     }
+    public List<VentasEntity> historial2(int code) {
+        String consulta;
+        EntityManager em = JpaUtil.getEntityManager();
+        empleado.setCodigoEmpleado(code);
+        consulta = "SELECT p FROM VentasEntity p WHERE p.idUser = :id";
+        Query query = em.createQuery(consulta);
+        query.setParameter("id", empleado);
+        List<VentasEntity> lista = query.getResultList();
+        System.out.println("llego al try  correctamente y el id es: " + code);
+        return lista;
+    }
     
-     public List<VentasEntity> historial(String code, int id) {
+     public List<VentasEntity> historial(int id) {
         List<VentasEntity> lista;
         String consulta;
         EntityManager em = JpaUtil.getEntityManager();
         try {
-            consulta = "SELECT v FROM VentasEntity v INNER JOIN EmpleadosEntity e  WHERE e.usuarioEmpleado = :codigo AND e.codigoEmpleado = :id";
+            consulta = "SELECT p FROM VentasEntity p WHERE p.idUser = :id";
             Query query = em.createQuery(consulta);
-            query.setParameter("codigo", code);
             query.setParameter("id", id);
             lista = query.getResultList();
             return lista;

@@ -39,6 +39,7 @@ public class VentasBean {
 
     private VentasModel modelo = new VentasModel();
     private MusicModel modelo2 = new MusicModel();
+    private EmpleadosModel modelo3 = new EmpleadosModel(); 
     private VentasEntity venta;
     private MusicEntity music;
     private PaquetesEntity paquete;
@@ -285,9 +286,10 @@ public class VentasBean {
 
     public void historial() {
         //Cambiar carnet a ID
-        String usuario = JsfUtil.getRequest().getParameter("code");
-        int id = Integer.parseInt(JsfUtil.getRequest().getParameter("id"));
-        historia = modelo.historial(usuario, id);
+        String usuario = JsfUtil.getRequest().getParameter("id");
+        int NombreUsuario = modelo3.obtenerUser(usuario).getCodigoEmpleado();
+        String id = Integer.toString(NombreUsuario);
+        historia = modelo.historial2(NombreUsuario);
     }
 
     /**

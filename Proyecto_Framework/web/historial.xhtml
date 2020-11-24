@@ -21,8 +21,7 @@
                     <b:form style="width: 100%;">
                         <p:commandButton value="Actualizar" id="nonAjax" styleClass="btn btn-info"
                                          action="#{ventasBean.historial()}" ajax="false">
-                            <f:param name="code" value="${request.getSession(false).getAttribute('User')}"/>
-                            <f:param name="id" value="${request.getSession(false).getAttribute('codigo')}"/>
+                            <f:param name="id" value="${request.getSession(false).getAttribute('User')}"/>
                         </p:commandButton>
                         <br/>
                     </b:form>
